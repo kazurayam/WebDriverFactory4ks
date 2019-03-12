@@ -34,7 +34,7 @@ class ChromeProfile implements Comparable<ChromeProfile> {
 	String getName() {
 		return this.name_
 	}
-	
+
 	String getDirectoryName() {
 		return this.directoryName_
 	}
