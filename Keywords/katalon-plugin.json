@@ -1,0 +1,13 @@
+{
+    "keywords": [
+        'com.kazurayam.webdriverfactory4ks.ApplicationInfo',
+        'com.kazurayam.webdriverfactory4ks.Assert',
+        'com.kazurayam.webdriverfactory4ks.ChromeDriverFactory',
+        'com.kazurayam.webdriverfactory4ks.ChromeOptionsResolver',
+        'com.kazurayam.webdriverfactory4ks.ChromePreferencesResolver',
+        'com.kazurayam.webdriverfactory4ks.ChromeProfile',
+        'com.kazurayam.webdriverfactory4ks.DesiredCapabilitiesResolver',
+        'com.kazurayam.webdriverfactory4ks.OSIdentifier'
+
+    ]
+}
