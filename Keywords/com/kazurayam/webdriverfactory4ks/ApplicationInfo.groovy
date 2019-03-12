@@ -3,6 +3,7 @@ package com.kazurayam.webdriverfactory4ks
 import java.util.regex.Pattern
 import java.util.regex.Matcher
 
+
 public class ApplicationInfo {
 
 	/**
@@ -32,8 +33,8 @@ public class ApplicationInfo {
 	 # <projectname>.GlobalVarialbe.<gvname>=<value you want runtime>
 	 OverridingGlobalVariablesWithPropertiesFile.GlobalVariable.hostname=demoaut.katalon.com
 	 * </PRE>
-	 * This means that on mac Katalon Studio is installed into the fixed location, therefore no need to recording the 
-	 * location into the application.properties file. But where the proxy information is recorded? I miss it. 
+	 * This means that on mac Katalon Studio is installed into the fixed location, therefore no need to recording the
+	 * location into the application.properties file. But where the proxy information is recorded? I miss it.
 	 */
 	private Properties appProp
 

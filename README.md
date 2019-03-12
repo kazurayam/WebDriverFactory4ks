@@ -27,7 +27,7 @@ Let me assume, I opened Chrome with a Profile 'Katalon' and logged-in Salesforce
 
 **Thanh To**, a Katalon Developer, replied to **aguggella** in another post [Open Browser with Custom Profile](https://forum.katalon.com/t/open-browser-with-custom-profile/19268). He described the following points:
 1. In Chrome UI, you can create a new Profile with name `new_chrome_profile`
-2. In Chrome UI, you can identify the Profile path, a folder, where all of cached data is stored. The Profile `new_chrome_profile` is found associated with the  `C:\users\osusername\AppData\Local\Google\Chrome\User Data\Profile 2` folder.
+2. In Chrome UI, you can identify the Profile path, a folder, where all of cached data is stored. For example, the Profile `new_chrome_profile` is found associated with the  `C:\users\osusername\AppData\Local\Google\Chrome\User Data\Profile 2` folder. The association of `new_chrome_profile` and `Profile 2` was determined by Chrome when `new_chrome_profile` was added.
 3. In Katalon Studio, in test case script, you can write Groovy code to open Chrome browser as this:
 ```
 ChromeOptions chromeProfile = new ChromeOptions();
@@ -35,9 +35,9 @@ chromeProfile.addArguments("user-data-dir=" + "C:\\Users\\thanhto\\AppData\\Loca
 chromeProfile.addArguments("profile-directory=Profile 2");
 ```
 
-It's great to know that I can write test code that can open Chrome with predefined Profile. But I find a small problem still remains.
+It's great to know that I can write test code that can open Chrome with predefined Profile. But I find a itchy problem still remains.
 
-I created a new Profile with name `new_chrome_profile`. It was associated with a new folder named `Profile 2`. This association is determined by Chrome. It's OK for me to write the profile name as a constant string in test cases. But I do not like to write the folder name `Profile 2` as a constant string in my test case code, simply because I do not know it. I know I can find it by checking the `chrome://version` page as Thanh To described. But I want to achieve a full automation.
+I created a new Profile with name `new_chrome_profile`. It was associated with a new folder named `Profile 2`. This association is determined by Chrome. It's OK for me to write the profile name as a constant string in test cases. But I do not like to write the folder name `Profile 2` as a constant string in my test case code, simply because I do not know it. I know I can find it by checking the `chrome://version` page as Thanh To described. But this manual preparation looks less stylish with respect to full automation.
 
 ### What my ChromeDriverFactory class does?
 
@@ -71,6 +71,6 @@ WebUI.closeBrowser()
 
 The following examples will show you how to utilize this.
 
-1. [Test Cases/main/example_openChromeDriverWithProfile](Scripts/main/example_openChromeDriverWithProfile/Script1552363369432.groovy)
-2. [Test Cases/main/example_openChromeDriverWithProfileDirectory](Scripts/main/example_openChromeDriverWithProfileDirectory/Script1552363390928.groovy)
-3. [Test Cases/main/example_startGmailWithoutLoginOperation](Scripts/main/example_startGmailWithoutLoginOperation/Script1552363984695.groovy)
+1. [Test Cases/main/example_openChromeDriverWithProfile](Scripts/main/example_openChromeDriverWithProfile/Script1552363369432.groovy) --- opening Chrome specifying a predefined Profile name
+2. [Test Cases/main/example_openChromeDriverWithProfileDirectory](Scripts/main/example_openChromeDriverWithProfileDirectory/Script1552363390928.groovy) --- opening Chrome specifying a name of Profile directory, for example `Default` directory.
+3. [Test Cases/main/example_startGmailWithoutLoginOperation](Scripts/main/example_startGmailWithoutLoginOperation/Script1552363984695.groovy) --- this demonstrates that I can navigate into Gmail without login operation if I open Chrome with the `Default` directory.
