@@ -9,7 +9,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * If you do not have 'Katalon' profile in your Chrome, an Exception will be thrown.
  */
 ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
+WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')  // THIS IS THE MAGIC
 assert driver != null
 DriverFactory.changeWebDriver(driver)
 WebUI.navigateToUrl('http://demoaut.katalon.com/')

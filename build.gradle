@@ -23,3 +23,5 @@ katalon {
     dependencyPrefix = "com.katalon"
     minimize = false
 }
+
+// execute `gradle katalonPluginPackage`
