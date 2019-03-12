@@ -19,12 +19,12 @@ public class ChromeProfileTest {
 	@Test
 	void test_ChromeProfile() {
 		// when:
-		Path defaultProfileDirectory = ChromeDriverFactory.getChromeUserDataDirectory().resolve('Default')
-		ChromeProfile defaultProfile = new ChromeProfile(defaultProfileDirectory)
+		Path profileDirectory = ChromeDriverFactory.getChromeUserDataDirectory().resolve('Default')
+		ChromeProfile defaultProfile = new ChromeProfile(profileDirectory)
 		// then:
 		assertThat(defaultProfile, is(notNullValue()))
 		assertThat(defaultProfile.getName(), is(notNullValue()))
-		assertThat(defaultProfile.getPreferences(), is(notNullValue()))
-		assertThat(defaultProfile.getProfilePath(), is(defaultProfileDirectory))
+		assertThat(defaultProfile.getDirectoryName(), is('Default'))
+		assertThat(defaultProfile.getProfilePath(), is(profileDirectory))
 	}
 }

@@ -54,9 +54,20 @@ public class ChromeDriverFactoryTest {
 	}
 
 	@Test
-	void test_openChromeDriver() {
+	void test_openChromeDriverWithProfile() {
 		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
 		WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
+		assertThat(driver, is(notNullValue()))
+		DriverFactory.changeWebDriver(driver)
+		WebUI.navigateToUrl('http://demoaut.katalon.com/')
+		WebUI.delay(3)
+		WebUI.closeBrowser()
+	}
+
+	@Test
+	void test_openChromeDriverWithProfileDirectory() {
+		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+		WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')

@@ -29,6 +29,19 @@ final class ChromeProfileFinder {
 		return chromeProfiles
 	}
 
+	static ChromeProfile getChromeProfileByDirectoryName(Path profileDirectory) {
+		return getChromeProfileByDirectoryName(profileDirectory.getFileName().toString())	
+	}
+	
+	static ChromeProfile getChromeProfileByDirectoryName(String profileDirectoryName) {
+		List<ChromeProfile> chromeProfiles = getChromeProfiles()
+		for (ChromeProfile chromeProfile: chromeProfiles) {
+			if (chromeProfile.getDirectoryName().equals(profileDirectoryName)) {
+				return chromeProfile
+			}
+		}
+	}
+
 	static String listChromeProfiles() {
 		List<ChromeProfile> chromeProfiles = getChromeProfiles()
 		Collections.sort(chromeProfiles)
@@ -49,7 +62,7 @@ final class ChromeProfileFinder {
 
 	/**
 	 *
-	 * @param name
+	 * @param name name of a Chrome Profile. e.g, "Russ Thomas"
 	 * @return
 	 */
 	static ChromeProfile getChromeProfile(String name) {

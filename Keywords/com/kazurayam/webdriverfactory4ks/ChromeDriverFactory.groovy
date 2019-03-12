@@ -132,6 +132,47 @@ public class ChromeDriverFactory implements ChromePreferencesResolver, ChromeOpt
 	}
 
 	/**
+	 * Usage:
+	 * <PRE>
+	 * import com.kazurayam.webdriverfactory4ks.ChromeDriverFactory
+	 * import import org.openqa.selenium.WebDriver
+	 * import com.kms.katalon.core.webui.driver.DriverFactory
+	 * 
+	 * ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+	 *
+	 * // open Chrome browser with the profile stored in the directory 'User Data\Default'
+	 * WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
+	 * DriverFactory.changeWebDriver(driver)
+	 * WebUI.navigateToUrl('http://demoaut.katalon.com/')
+	 * WebUI.delay(3)
+	 * WebUI.closeBrowser()
+	 * </PRE>
+	 */
+	@Keyword
+	WebDriver openChromeDriverWithProfileDirectory(String directoryName) {
+		return openChromeDriverWithProfileDirectory(directoryName, RunConfiguration.getDefaultFailureHandling())
+	}
+
+	@Keyword
+	WebDriver openChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl) {
+		Objects.requireNonNull(directoryName, "directoryName must not be null")
+		Path userDataDir = ChromeDriverFactory.getChromeUserDataDirectory()
+		if (userDataDir != null) {
+			if (Files.exists(userDataDir)) {
+				Path profileDirectory = userDataDir.resolve(directoryName)
+				if (Files.exists(profileDirectory)) {
+					ChromeProfile chromeProfile = ChromeProfileFinder.getChromeProfileByDirectoryName(profileDirectory)
+					return openChromeDriverWithProfile(chromeProfile.getName(), flowControl)
+				}
+			} else {
+				throw new FileNotFoundException("${userDataDir} is not found")
+			}
+		} else {
+			throw new IllegalStateException("unable to identify the User Data Directory of Chrome browser")
+		}
+	}
+
+	/**
 	 *
 	 * @return
 	 */
@@ -165,7 +206,7 @@ public class ChromeDriverFactory implements ChromePreferencesResolver, ChromeOpt
 		options.setExperimentalOption('prefs', chromePreferences)
 		// The following lines are copy&pasted from
 		// https://github.com/SeleniumHQ/selenium/issues/4961
-		options.addArguments("--headless")     // necessary for working around the "(unknown error: DevToolsActivePort file doesn't exist)"
+		//options.addArguments("--headless")     // thought that this is necessary for working around the "(unknown error: DevToolsActivePort file doesn't exist)"
 		options.addArguments("window-size=1024,768")
 		options.addArguments("--no-sandbox")
 
