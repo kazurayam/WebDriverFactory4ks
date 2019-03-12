@@ -30,9 +30,9 @@ final class ChromeProfileFinder {
 	}
 
 	static ChromeProfile getChromeProfileByDirectoryName(Path profileDirectory) {
-		return getChromeProfileByDirectoryName(profileDirectory.getFileName().toString())	
+		return getChromeProfileByDirectoryName(profileDirectory.getFileName().toString())
 	}
-	
+
 	static ChromeProfile getChromeProfileByDirectoryName(String profileDirectoryName) {
 		List<ChromeProfile> chromeProfiles = getChromeProfiles()
 		for (ChromeProfile chromeProfile: chromeProfiles) {
@@ -40,6 +40,10 @@ final class ChromeProfileFinder {
 				return chromeProfile
 			}
 		}
+	}
+
+	static String getChromeProfileNameByDirectoryName(String profileDirectoryName) {
+		return getChromeProfileByDirectoryName(profileDirectoryName).getName()
 	}
 
 	static String listChromeProfiles() {

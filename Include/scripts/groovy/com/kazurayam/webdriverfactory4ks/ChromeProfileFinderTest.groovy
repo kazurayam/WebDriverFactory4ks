@@ -27,13 +27,13 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 public class ChromeProfileFinderTest {
 
 	@Test
-	void test_ChromeProfileFinder_getChromeProfiles() {
+	void test_getChromeProfiles() {
 		List<ChromeProfile> chromeProfiles = ChromeProfileFinder.getChromeProfiles()
 		assertTrue(chromeProfiles.size() > 0)
 	}
 
 	@Test
-	void test_ChromeProfileFinder_listChromeProfiles() {
+	void test_listChromeProfiles() {
 		String text = ChromeProfileFinder.listChromeProfiles()
 		assertTrue( text.length() > 0)
 	}
@@ -42,9 +42,16 @@ public class ChromeProfileFinderTest {
 	 * This test requires you to have a custom profile 'Katalon' defined in your Google Chrome browser
 	 */
 	@Test
-	void test_ChromeProfileFinder_getChromeProfile() {
+	void test_getChromeProfile() {
 		ChromeProfile cp = ChromeProfileFinder.getChromeProfile('Katalon')
 		assertThat(cp, is(notNullValue()))
 		assertThat(cp.getName(), is('Katalon'))
+	}
+
+	@Test
+	void test_getChromeProfileNameByDirectoryName() {
+		String profileName = ChromeProfileFinder.getChromeProfileNameByDirectoryName('Default')
+		assertThat(profileName, is(notNullValue()))
+		WebUI.comment("DirectoryName \'Default\' is associated with the Profile \'${profileName}\'")
 	}
 }
