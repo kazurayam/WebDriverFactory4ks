@@ -6,7 +6,11 @@ plugins {
 }
 
 ext {
-    groovyVersion   = '2.4.9'
+    groovyVersion   = '2.4.7'
+}
+
+configurations {
+    generateDocs
 }
 
 repositories {
@@ -15,7 +19,7 @@ repositories {
 }
 
 dependencies {
-    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    generateDocs "org.codehaus.groovy:groovy-all:${groovyVersion}"
 }
 
 sourceSets {
@@ -38,6 +42,7 @@ katalon {
 task groovydoc(type: Groovydoc, overwrite:true) {
     source = sourceSets.main.groovy
     classpath = configurations.compile
+    groovyClasspath = project.configurations.generateDocs
     include 'com/kazurayam/webdriverfactory4ks/*'
     exclude '**/*Test.groovy'
 }
