@@ -6,7 +6,7 @@ by kazurayam,
 
 ## API doc
 
-The Groovydoc of webdriverfactory4ks is [here](https://kazurayam.github.io/webdriverfactory4ks/index.html)
+The Groovydoc of webdriverfactory4ks is [here](https://kazurayam.github.io/webdriverfactory4ks/api/index.html)
 
 ## Problem to solve
 
