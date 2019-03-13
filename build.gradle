@@ -5,9 +5,17 @@ plugins {
     id "com.katalon.gradle-plugin" version "0.0.6"
 }
 
+ext {
+    groovyVersion   = '2.4.9'
+}
+
 repositories {
     jcenter()
     mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
 }
 
 sourceSets {
@@ -27,23 +35,14 @@ katalon {
 // execute `gradle katalonPluginPackage`
 
 
-ext {
-    groovyVersion  = '2.4.9'
-    logbackVersion = '1.2.3'
-    slf4jVersion   = '1.7.2'
-}
-
-dependencies {
-    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
-}
-
-task groovydoc(type: Groovydoc, overwrite: true) {
-    group = 'com.kazurayam'
-    description = 'Generates Public API documents.'
+task groovydoc(type: Groovydoc, overwrite:true) {
     source = sourceSets.main.groovy
-    classpath = sourceSets.main.runtimeClasspath
-    //options.memberLevel = JavadocMemberLevel.PUBLIC
-    include 'com/kazurayam/webdriverfactory4ks/*.groovy'
+    classpath = configurations.compile
+    include 'com/kazurayam/webdriverfactory4ks/*'
     exclude '**/*Test.groovy'
-    exclude '**/*.json'
 }
+task publishGroovydoc(type: Copy) {
+    from 'build/docs/groovydoc'
+    into 'docs/api'
+}
+groovydoc.finalizedBy publishGroovydoc

@@ -4,6 +4,10 @@ WebDriver Factory for Groovy Scripting in Katalon Studio
 by kazurayam,
 1st edition published March,2019
 
+## API doc
+
+The Groovydoc of webdriverfactory4ks is [here](https://kazurayam.github.io/webdriverfactory4ks/api/index.html)
+
 ## Problem to solve
 
 ### Original question
