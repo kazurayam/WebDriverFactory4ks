@@ -48,7 +48,7 @@ public class ApplicationInfoTest {
 		if (OSIdentifier.isWindows()) {
 			assertThat(appInfo.getKatalonHome(), containsString('Katalon_Studio_Windows_64'))
 		} else if (OSIdentifier.isMac()) {
-			assertThat(appInfo.getKatalonHome(), is('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'))
+			assertThat(appInfo.getKatalonHome(), is('/Applications/Katalon Studio.app'))
 		} else if (OSIdentifier.isUnix()) {
 			assertThat(appInfo.getKatalonHome(), is('/usr/bin/google-chrome'))
 		} else {
