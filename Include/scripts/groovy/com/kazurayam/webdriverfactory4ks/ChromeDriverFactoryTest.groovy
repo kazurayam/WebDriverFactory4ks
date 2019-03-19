@@ -14,6 +14,7 @@ import org.junit.runners.JUnit4
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 
+import com.kazurayam.junit4ks.IgnoreRest
 import com.kazurayam.webdriverfactory4ks.ChromeProfile
 import com.kazurayam.webdriverfactory4ks.ChromeProfileFinder
 import com.kms.katalon.core.webui.driver.DriverFactory
@@ -46,8 +47,8 @@ public class ChromeDriverFactoryTest {
 	@Test
 	void test_myChromeOptions() {
 		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-		Map<String, Object> chromePreferences = cdFactory.resolveChromePreferences()
-		ChromeOptions cp = cdFactory.resolveChromeOptions(chromePreferences)
+		Map<String, Object> chromePreferences = cdFactory.getChromePreferencesResolver().resolveChromePreferences()
+		ChromeOptions cp = cdFactory.getChromeOptionsResolver().resolveChromeOptions(chromePreferences)
 		String cpJson = cp.toJsonText()
 		//println "#test_defaultChromeOpitons cp=${cpJson}"
 		assertTrue(cpJson.length() > 0)
@@ -68,6 +69,18 @@ public class ChromeDriverFactoryTest {
 	void test_openChromeDriverWithProfileDirectory() {
 		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
 		WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
+		assertThat(driver, is(notNullValue()))
+		DriverFactory.changeWebDriver(driver)
+		WebUI.navigateToUrl('http://demoaut.katalon.com/')
+		WebUI.delay(3)
+		WebUI.closeBrowser()
+	}
+	
+	@Test
+	//@IgnoreRest
+	void test_openChromeDriver() {
+		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+		WebDriver driver = cdFactory.openChromeDriver()
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')

@@ -32,7 +32,7 @@ sourceSets {
 }
 
 katalon {
-    dependencyPrefix = "com.katalon"
+    dependencyPrefix = "com.kazurayam"
     minimize = false
 }
 
