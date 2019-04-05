@@ -30,12 +30,14 @@ public class ChromeDriverFactoryTest {
 	@Before
 	void setup() {}
 
+	
 	@Test
 	void test_getUserDataDirectory() {
 		Path userDataDirectory = ChromeDriverFactory.getChromeUserDataDirectory()
 		assertThat(Files.exists(userDataDirectory), is(true))
 	}
 
+	
 	@Test
 	void test_getChromeDriverPath() {
 		Path chromeDriverPath = ChromeDriverFactory.getChromeDriverPath()
@@ -44,6 +46,7 @@ public class ChromeDriverFactoryTest {
 		assertTrue(Files.exists(chromeDriverPath))
 	}
 
+	
 	@Test
 	void test_myChromeOptions() {
 		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
@@ -54,6 +57,19 @@ public class ChromeDriverFactoryTest {
 		assertTrue(cpJson.length() > 0)
 	}
 
+	
+	@Test
+	void test_openChromeDriver() {
+		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+		WebDriver driver = cdFactory.openChromeDriver()
+		assertThat(driver, is(notNullValue()))
+		DriverFactory.changeWebDriver(driver)
+		WebUI.navigateToUrl('http://demoaut.katalon.com/')
+		WebUI.delay(3)
+		WebUI.closeBrowser()
+	}
+	
+	
 	@Test
 	void test_openChromeDriverWithProfile() {
 		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
@@ -65,6 +81,7 @@ public class ChromeDriverFactoryTest {
 		WebUI.closeBrowser()
 	}
 
+	
 	@Test
 	void test_openChromeDriverWithProfileDirectory() {
 		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
@@ -75,16 +92,6 @@ public class ChromeDriverFactoryTest {
 		WebUI.delay(3)
 		WebUI.closeBrowser()
 	}
-	
-	@Test
-	//@IgnoreRest
-	void test_openChromeDriver() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-		WebDriver driver = cdFactory.openChromeDriver()
-		assertThat(driver, is(notNullValue()))
-		DriverFactory.changeWebDriver(driver)
-		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(3)
-		WebUI.closeBrowser()
-	}
+
+
 }

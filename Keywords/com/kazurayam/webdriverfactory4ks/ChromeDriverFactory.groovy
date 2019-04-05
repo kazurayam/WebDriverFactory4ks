@@ -141,17 +141,16 @@ public class ChromeDriverFactory {
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 		//
 		Path profileDirectory = ChromeDriverFactory.getChromeProfileDirectory(userName)
+		Path userDataDirectory = ChromeDriverFactory.getChromeUserDataDirectory()
 		//
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
 				Map<String, Object> chromePreferences = chromePreferencesResolver_.resolveChromePreferences()
 				ChromeOptions chromeOptions = chromeOptionsResolver_.resolveChromeOptions(chromePreferences)
-
 				// use the Profile as specified
-				Path userDataDirectory = ChromeDriverFactory.getChromeUserDataDirectory()
 				chromeOptions.addArguments("user-data-dir=" + userDataDirectory.toString())
 				chromeOptions.addArguments("profile-directory=${profileDirectory.getFileName().toString()}")
-				KeywordUtil.logInfo("#openChromeDriver chromeOptions=" + chromeOptions.toJsonText())
+				KeywordUtil.logInfo("#openChromeDriver chromeOptions=" + chromeOptions.toString())
 
 				DesiredCapabilities cap = desiredCapabilitiesResolver_.resolveDesiredCapabilities(chromeOptions)
 				WebDriver driver = new ChromeDriver(cap)
