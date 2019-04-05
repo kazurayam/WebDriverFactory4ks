@@ -50,15 +50,15 @@ public class ChromeDriverFactory {
 	ChromePreferencesResolver getChromePreferencesResolver() {
 		return this.chromePreferencesResolver_
 	}
-	
+
 	ChromeOptionsResolver getChromeOptionsResolver() {
 		return this.chromeOptionsResolver_
 	}
-	
+
 	DesiredCapabilitiesResolver getDesiredCapabilitiesResolver() {
-		return this.desiredCapabilitiesResolver_	
+		return this.desiredCapabilitiesResolver_
 	}
-	
+
 	/**
 	 * You can inject your favorite Chrome preferences by setting a ChromePreferenceResolver instance
 	 *
@@ -86,19 +86,20 @@ public class ChromeDriverFactory {
 		this.desiredCapabilitiesResolver_ = resolver
 	}
 
-	
+
 	@Keyword
 	WebDriver openChromeDriver() {
 		return openChromeDriver(RunConfiguration.getDefaultFailureHandling())
 	}
-	
+
 	/**
 	 * Open a Chrome browser without specifying Profle
 	 * 
 	 * @param flowControl
 	 * @return
 	 */
-	@Keyword openChromeDriver(FailureHandling flowControl) {
+	@Keyword
+	WebDriver openChromeDriver(FailureHandling flowControl) {
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		//
 		enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
@@ -171,7 +172,7 @@ public class ChromeDriverFactory {
 		System.setProperty('webdriver.chrome.logfile', chromeDriverLog.toString())
 		System.setProperty("webdriver.chrome.verboseLogging", "true")
 	}
-	
+
 	/**
 	 * Usage:
 	 * <PRE>
@@ -299,14 +300,11 @@ public class ChromeDriverFactory {
 			chromePreferences.put('download.default_directory', downloads.toString())
 			// disable flash and pdf viewer
 			chromePreferences.put('plugins.plugins_disabled',
-					[
-						'Adobe Flash Player',
-						'Chrome PDF Viewer'
-					])
+					['Adobe Flash Player', 'Chrome PDF Viewer'])
 			return chromePreferences
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @author kazurayam
@@ -328,7 +326,7 @@ public class ChromeDriverFactory {
 			//options.addArguments("--headless")     // thought that this is necessary for working around the "(unknown error: DevToolsActivePort file doesn't exist)"
 			options.addArguments("window-size=1024,768")
 			options.addArguments("--no-sandbox")
-	
+
 			//options.addArguments("--single-process")
 			options.addArguments("disable-infobars")        // disabling infobars
 			//chromeOptions.addArguments("disable-extensions")    // disabling extensions
@@ -337,6 +335,6 @@ public class ChromeDriverFactory {
 			//
 			return options
 		}
-	}	
-	
+	}
+
 }
