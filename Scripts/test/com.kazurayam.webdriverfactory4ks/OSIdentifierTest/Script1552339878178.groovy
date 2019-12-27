@@ -1,4 +1,3 @@
-import com.kazurayam.webdriverfactory4ks.OSIdentifierTest
+import com.kazurayam.junit4ks.JUnitCustomKeywords
 
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(OSIdentifierTest.class)
-
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.OSIdentifierTest)

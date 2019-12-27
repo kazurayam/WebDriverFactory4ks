@@ -1,3 +1,3 @@
-import com.kazurayam.webdriverfactory4ks.ChromeProfileFinderTest
+import com.kazurayam.junit4ks.JUnitCustomKeywords
 
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ChromeProfileFinderTest.class)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.ChromeProfileFinderTest)

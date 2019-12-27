@@ -3,7 +3,6 @@ package com.kazurayam.webdriverfactory4ks
 import static com.kms.katalon.core.model.FailureHandling.CONTINUE_ON_FAILURE
 
 import com.kms.katalon.core.annotation.Keyword
-import com.kms.katalon.core.logging.KeywordLogger
 import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.util.KeywordUtil
 

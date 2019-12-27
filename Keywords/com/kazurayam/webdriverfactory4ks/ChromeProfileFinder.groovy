@@ -5,10 +5,13 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.stream.Collectors
 
-import com.kazurayam.webdriverfactory4ks.OSIdentifier
-import com.kazurayam.webdriverfactory4ks.ChromeProfile
-
-
+/**
+ * ChromeProfileFinder class provides a set of utility methods to look into the Profiles
+ * defined in the Chrome Browser on the current platform.
+ * 
+ * @author kazurayam
+ *
+ */
 final class ChromeProfileFinder {
 
 	private ChromeProfileFinder() {}
@@ -27,6 +30,31 @@ final class ChromeProfileFinder {
 			}
 		}
 		return chromeProfiles
+	}
+
+	/**
+	 *
+	 * @param name name of a Chrome Profile. e.g, "Russ Thomas"
+	 * @return
+	 */
+	static ChromeProfile getChromeProfile(String name) {
+		List<ChromeProfile> chromeProfiles = this.getChromeProfiles()
+		for (ChromeProfile cProfile: chromeProfiles) {
+			if (cProfile.getName().equals(name)) {
+				return cProfile
+			}
+		}
+		return null
+	}
+
+	/**
+	 * if a Profile of the name is defined, return true, otherwise false
+	 *
+	 * @param name
+	 * @return
+	 */
+	static boolean hasChromeProfile(String name) {
+		return getChromeProfile(name) != null
 	}
 
 	static ChromeProfile getChromeProfileByDirectoryName(Path profileDirectory) {
@@ -64,20 +92,6 @@ final class ChromeProfileFinder {
 		return sb.toString()
 	}
 
-	/**
-	 *
-	 * @param name name of a Chrome Profile. e.g, "Russ Thomas"
-	 * @return
-	 */
-	static ChromeProfile getChromeProfile(String name) {
-		List<ChromeProfile> chromeProfiles = this.getChromeProfiles()
-		for (ChromeProfile cProfile: chromeProfiles) {
-			if (cProfile.getName().equals(name)) {
-				return cProfile
-			}
-		}
-		return null
-	}
 
 	/**
 	 *

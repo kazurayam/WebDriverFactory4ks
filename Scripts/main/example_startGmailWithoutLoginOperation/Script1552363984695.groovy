@@ -17,6 +17,12 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * However this time you would not be requested to login.
  * It is because the Chrome Profile associated with the Default directory would be your
  * day-to-day use, and you have already logged into the Gmail alread. 
+ * 
+ * You may encounter an error like:
+ * >org.openqa.selenium.InvalidArgumentException: invalid argument: user data directory is already in use, please specify a unique value for --user-data-dir argument, or don't use --user-data-dir
+ * This is because you have a Google Chrome process already up and running with 'Default' profile.
+ * You need to stop it.
+ * You may want to use Windows' Task Manager to terminate all processes of Google Chrome.
  */
 ChromeDriverFactory cdFactory = new ChromeDriverFactory()
 WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')

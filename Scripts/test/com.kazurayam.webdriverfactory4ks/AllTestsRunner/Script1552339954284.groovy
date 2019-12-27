@@ -1,14 +1,9 @@
-import com.kazurayam.webdriverfactory4ks.ApplicationInfoTest
-import com.kazurayam.webdriverfactory4ks.AssertTest
-import com.kazurayam.webdriverfactory4ks.ChromeDriverFactoryTest
-import com.kazurayam.webdriverfactory4ks.ChromeProfileFinderTest
-import com.kazurayam.webdriverfactory4ks.ChromeProfileTest
-import com.kazurayam.webdriverfactory4ks.OSIdentifierTest
+import com.kazurayam.junit4ks.JUnitCustomKeywords
 
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ApplicationInfoTest.class)
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(AssertTest.class)
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ChromeDriverFactoryTest.class)
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ChromeProfileFinderTest.class)
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ChromeProfileTest.class)
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(OSIdentifierTest.class)
-
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.ApplicationInfoTest)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.AssertTest)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.ChromeDriverFactoryTest)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.ChromeProfileBackupAndRestoreTest)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.ChromeProfileFinderTest)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.ChromeProfileTest)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.OSIdentifierTest)

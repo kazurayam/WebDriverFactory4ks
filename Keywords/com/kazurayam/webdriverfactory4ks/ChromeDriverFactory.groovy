@@ -1,18 +1,12 @@
 package com.kazurayam.webdriverfactory4ks
 
-import com.kazurayam.webdriverfactory4ks.ApplicationInfo
-import com.kazurayam.webdriverfactory4ks.Assert
-import com.kazurayam.webdriverfactory4ks.OSIdentifier
-
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.stream.Collectors
 
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -20,11 +14,9 @@ import org.slf4j.LoggerFactory
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling
-import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.util.KeywordUtil
 
 import groovy.json.JsonOutput
-import groovy.json.JsonSlurper
 
 public class ChromeDriverFactory {
 
@@ -116,23 +108,26 @@ public class ChromeDriverFactory {
 	}
 
 	@Keyword
-	WebDriver openChromeDriverWithProfile(String userName) {
-		return openChromeDriverWithProfile(userName, RunConfiguration.getDefaultFailureHandling())
+	WebDriver openChromeDriverWithProfile(String profileName) {
+		return openChromeDriverWithProfile(profileName, RunConfiguration.getDefaultFailureHandling())
 	}
 
 	/**
+	 * open a Google Chrome browser while specifying a predefined Profile by the userName.
+	 * The userName can be for example 'Default' or 'Katalon'.
+	 * 
 	 * Based on the post https://forum.katalon.com/t/open-browser-with-custom-profile/19268 by Thanh To
 	 *
 	 * Chrome's User Data directory is OS dependent. The User Data Diretory is described in the document
 	 * https://chromium.googlesource.com/chromium/src/+/HEAD/docs/user_data_dir.md#Current-Location
 	 *
-	 * @param userProfile
+	 * @param profileName
 	 * @param flowControl
 	 * @return
 	 */
 	@Keyword
-	WebDriver openChromeDriverWithProfile(String userName, FailureHandling flowControl) {
-		Objects.requireNonNull(userName, "userName must not be null")
+	WebDriver openChromeDriverWithProfile(String profileName, FailureHandling flowControl) {
+		Objects.requireNonNull(profileName, "profileName must not be null")
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		//
 		enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
@@ -140,7 +135,7 @@ public class ChromeDriverFactory {
 		Path chromeDriverPath = ChromeDriverFactory.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 		//
-		Path profileDirectory = ChromeDriverFactory.getChromeProfileDirectory(userName)
+		Path profileDirectory = ChromeDriverFactory.getChromeProfileDirectory(profileName)
 		Path userDataDirectory = ChromeDriverFactory.getChromeUserDataDirectory()
 		//
 		if (profileDirectory != null) {
@@ -159,13 +154,13 @@ public class ChromeDriverFactory {
 				Assert.stepFailed("Profile directory \"${profileDirectory.toString()}\" is not present", flowControl)
 			}
 		} else {
-			Assert.stepFailed("Profile directory for userName \"${userName}\" is not found " +
+			Assert.stepFailed("Profile directory for userName \"${profileName}\" is not found " +
 					"under ${userDataDirectory.toString()}.\n" + ChromeProfileFinder.listChromeProfiles()
 					)
 		}
 	}
 
-	void enableChromeDriverLog(Path logsDir) {
+	public void enableChromeDriverLog(Path logsDir) {
 		Files.createDirectories(logsDir)
 		Path chromeDriverLog = logsDir.resolve('chromedriver.log')
 		System.setProperty('webdriver.chrome.logfile', chromeDriverLog.toString())
@@ -190,17 +185,17 @@ public class ChromeDriverFactory {
 	 * </PRE>
 	 */
 	@Keyword
-	WebDriver openChromeDriverWithProfileDirectory(String directoryName) {
-		return openChromeDriverWithProfileDirectory(directoryName, RunConfiguration.getDefaultFailureHandling())
+	WebDriver openChromeDriverWithProfileDirectory(String profileDirectoryName) {
+		return openChromeDriverWithProfileDirectory(profileDirectoryName, RunConfiguration.getDefaultFailureHandling())
 	}
 
 	@Keyword
-	WebDriver openChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl) {
-		Objects.requireNonNull(directoryName, "directoryName must not be null")
+	WebDriver openChromeDriverWithProfileDirectory(String profileDirectoryName, FailureHandling flowControl) {
+		Objects.requireNonNull(profileDirectoryName, "profileDirectoryName must not be null")
 		Path userDataDir = ChromeDriverFactory.getChromeUserDataDirectory()
 		if (userDataDir != null) {
 			if (Files.exists(userDataDir)) {
-				Path profileDirectory = userDataDir.resolve(directoryName)
+				Path profileDirectory = userDataDir.resolve(profileDirectoryName)
 				if (Files.exists(profileDirectory)) {
 					ChromeProfile chromeProfile = ChromeProfileFinder.getChromeProfileByDirectoryName(profileDirectory)
 					return openChromeDriverWithProfile(chromeProfile.getName(), flowControl)
@@ -284,10 +279,6 @@ public class ChromeDriverFactory {
 	 * @author kazurayam
 	 */
 	static class DefaultChromePreferencesResolver implements ChromePreferencesResolver {
-		/**
-		 *
-		 * @return
-		 */
 		@Override
 		Map<String, Object> resolveChromePreferences() {
 			Map<String, Object> chromePreferences = new HashMap<>()
@@ -310,9 +301,6 @@ public class ChromeDriverFactory {
 	 *
 	 */
 	static class DefaultChromeOptionsResolver implements ChromeOptionsResolver {
-		/**
-		 *
-		 */
 		@Override
 		ChromeOptions resolveChromeOptions(Map<String, Object> chromePreferences) {
 			ChromeOptions options = new ChromeOptions()

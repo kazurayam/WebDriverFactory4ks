@@ -8,11 +8,11 @@ public class DefaultDesiredCapabilitiesResolver implements DesiredCapabilitiesRe
 	/**
 	 *
 	 */
-	 @Override
-	 DesiredCapabilities resolveDesiredCapabilities(ChromeOptions chromeOptions) {
-		 DesiredCapabilities cap = DesiredCapabilities.chrome()
-		 cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true)
-		 cap.setCapability(ChromeOptions.CAPABILITY, chromeOptions)
-		 return cap
-	 }
+	@Override
+	DesiredCapabilities resolveDesiredCapabilities(ChromeOptions chromeOptions) {
+		DesiredCapabilities cap = DesiredCapabilities.chrome()
+		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true)
+		cap.setCapability(ChromeOptions.CAPABILITY, chromeOptions)
+		return cap
+	}
 }

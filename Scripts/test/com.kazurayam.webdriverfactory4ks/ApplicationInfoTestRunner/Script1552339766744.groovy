@@ -1,3 +1,3 @@
-import com.kazurayam.webdriverfactory4ks.ApplicationInfoTest
+import com.kazurayam.junit4ks.JUnitCustomKeywords
 
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ApplicationInfoTest.class)
+JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.webdriverfactory4ks.ApplicationInfoTest)

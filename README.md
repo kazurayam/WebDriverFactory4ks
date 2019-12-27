@@ -1,16 +1,15 @@
-WebDriver Factory for Groovy Scripting in Katalon Studio
+Opening Chrome Browser with a predefined custom Chrome Profile which stores session info such as credentials and cookies
 ========================================================
 
-by kazurayam,
-1st edition published March,2019
+- by kazurayam,
+- 1st edition published March,2019
+- 2nd edition published Jan, 2020
 
 ## API doc
 
 The Groovydoc of webdriverfactory4ks is [here](https://kazurayam.github.io/webdriverfactory4ks/api/index.html)
 
 ## Problem to solve
-
-### Original question
 
 A post in the Katalon Forum [Run Automation in the Active browser](https://forum.katalon.com/t/run-automation-in-the-active-browser/19237/4) raised an interesting question. The originator **aguggella** gave us a good explanation what his/here problem is. I would quote the paragraphs with a bit of rewording:
 
@@ -24,7 +23,13 @@ A post in the Katalon Forum [Run Automation in the Active browser](https://forum
 
 ---
 
-Let me assume, I opened Chrome with a Profile 'Katalon' and logged-in Salesforce applition. If I could somehow let Katalon Studio to start Chrome with the same Profile 'Katalon', then the test will run without requiring manual intervention. But how can I achieve it?
+Let me assume, I opened Chrome with a Profile 'Katalon' and logged-in Salesforce applition. 
+If I could somehow let Katalon Studio to start Chrome with the same Profile 'Katalon',
+then the test will run without requiring manual intervention.
+But how can I achieve it?
+
+
+## Problem analysis
 
 ### How to open Chrome with predefined profile
 
@@ -39,11 +44,49 @@ chromeProfile.addArguments("user-data-dir=" + "C:\\Users\\thanhto\\AppData\\Loca
 chromeProfile.addArguments("profile-directory=Profile 2");
 ```
 
+### Terminologies
+
+Let me make the meaning of 2 important terminologies clear.
+
+1. What does `Profile` means in Chrome?
+2. What does `profile-directory` or `Profile path` means in Chrome?
+
+You can add `a User` or `a Profile` into Chrome. See https://support.google.com/chrome/answer/2364824?hl=en&co=GENIE.Platform=Desktop how to.
+I have a Profile named `Katalon` in my Chrome as follows:
+
+![Profile_Katalon](docs/images/ChromeProfile_Katalon.png)
+
+Once I open Chrome with `Katalon` profile, and navigate to `chrome://version` page, then I can see the following:
+
+![Version_Katalon](docs/images/ChromeVersion_Katalon.png)
+
+Here I could find a line:
+
+```
+Profile Path: C:\Users\kazurayam\AppData\Local\Google\Chrome\User Data\Profile 2
+```
+
+This is the `Profile Path`. And the name of the folder `Profile 2` is the `profile-directory`. 
+
+### Core issue
+
 It's great to know that I can write test code that can open Chrome with predefined Profile. But I find a itchy problem still remains.
 
-I created a new Profile with name `new_chrome_profile`. It was associated with a new folder named `Profile 2`. This association is determined by Chrome. It's OK for me to write the profile name as a constant string in test cases. But I do not like to write the folder name `Profile 2` as a constant string in my test case code, simply because I do not know it. I know I can find it by checking the `chrome://version` page as Thanh To described. But this manual preparation looks less stylish with respect to full automation.
+- I created a new Profile with name `Katalon`.
+- Chrome creates a new folder named `Profile 2`.
+- Chrome associates the Profile `Katalon` to the profile-directory `Profile 2`.
 
-### What my ChromeDriverFactory class does?
+It's OK for me to write the profile name `Katalon` as a constant string in test cases.
+
+But I do not like to write the folder name `Profile 2` as a constant string in my test case code.
+
+I know I can view and find the folder name by checking the `chrome://version` page. But this manual preparation looks less stylish. I want automate stuff as much as possible.
+
+
+
+## Solution proposed
+
+### (1) ChromeDriverFactory
 
 I have developed a custom groovy class `com.kazurayam.webdriverfactory4ks.ChromeDriverFactory`. Let me show you a sample use case of it. The following script assumes you have Chrome browser installed in your PC, and in it you have pre-defined a Profile with name `Katalaon`. Before executing the script, you want open Chrome with `Katalon` profile and visit whatever URL. Then you want to execute this script. You will find the Chrome browser launched by the test script is using the `Katalon` profile.
 
@@ -64,17 +107,24 @@ WebUI.delay(3)
 WebUI.closeBrowser()
 ```
 
-
-## How to use webdriverfactory4ks in your Katalon project
-
-1. Download the `webdriverfactory4ks-all.jar` from the GitHub project's [Releases](https://github.com/kazurayam/webdriverfactory4ks/releases/tag/0.0) page.
-2. Place the jar into the `Drivers` directory of you Katalon Studio project; just as documented in the doc [External libraries](https://docs.katalon.com/katalon-studio/docs/external-libraries.html)
-3. Write your test case script which calls the  `com.kazurayam.webdriverfactory4ks.ChromeDriverFactory` class.
-
-## Examples
-
 The following examples will show you how to utilize this.
 
 1. [Test Cases/main/example_openChromeDriverWithProfile](Scripts/main/example_openChromeDriverWithProfile/Script1552363369432.groovy) --- opening Chrome specifying a predefined Profile name
 2. [Test Cases/main/example_openChromeDriverWithProfileDirectory](Scripts/main/example_openChromeDriverWithProfileDirectory/Script1552363390928.groovy) --- opening Chrome specifying a name of Profile directory, for example `Default` directory.
 3. [Test Cases/main/example_startGmailWithoutLoginOperation](Scripts/main/example_startGmailWithoutLoginOperation/Script1552363984695.groovy) --- this demonstrates that I can navigate into Gmail without login operation if I open Chrome with the `Default` directory.
+
+
+### (2) ChromeProfileUtils
+
+- take backup of the specified Profile setting to store into a specified location (directory)
+- restore a Profile setting from the specified location
+
+in both cases, the Profile is identified by its Profile Name like 'Katalon', not by the profile-directory like 'Profile 2'.
+
+## How to use webdriverfactory4ks.jar in your Katalon project
+
+1. Download the `webdriverfactory4ks-all.jar` from the GitHub project's [Releases](https://github.com/kazurayam/webdriverfactory4ks/releases/tag/0.0) page.
+2. Place the jar into the `Drivers` directory of you Katalon Studio project; just as documented in the doc [External libraries](https://docs.katalon.com/katalon-studio/docs/external-libraries.html)
+3. Write your test case script which calls the  `com.kazurayam.webdriverfactory4ks.ChromeDriverFactory` class.
+
+

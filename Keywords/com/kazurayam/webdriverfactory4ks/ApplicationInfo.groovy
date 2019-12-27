@@ -1,7 +1,7 @@
 package com.kazurayam.webdriverfactory4ks
 
-import java.util.regex.Pattern
 import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 
 public class ApplicationInfo {

@@ -6,9 +6,9 @@ import java.nio.file.Path
 import groovy.json.JsonSlurper
 
 /**
- *
+ * A representation of a Chrome Profile instance.
+ * 
  * @author kazurayam
- *
  */
 class ChromeProfile implements Comparable<ChromeProfile> {
 
