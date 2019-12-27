@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
    <description></description>
-   <name>webdriverfactory4ks</name>
+   <name>ThoughtfulChromeDriverFactory</name>
    <tag></tag>
    <UUID>154565e4-04bd-43b1-a8f2-10f33335f023</UUID>
    <migratedVersion>5.9.0</migratedVersion>
    <pageLoadTimeout>0</pageLoadTimeout>
+   <projectFileLocation>C:\Users\qcq0264\katalon-workspace\webdriverfactory4ks\webdriverfactory4ks.prj</projectFileLocation>
    <sourceContent>
       <sourceFolderList>
          <sourceFolderConfiguration>
