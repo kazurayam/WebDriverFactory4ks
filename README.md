@@ -1,9 +1,20 @@
-Opening Chrome Browser with a predefined custom Chrome Profile which stores session info such as credentials and cookies
+Thoughtful ChromeDriverFactory, backup and restoring Chrome Profile
 ========================================================
 
 - by kazurayam,
 - 1st edition published March,2019
 - 2nd edition published Jan, 2020
+
+## Summary
+
+Some web apps employ client-side storage in web browsers: Cookie, LocalStorage and SessionStorage. Usually we test them with clean Browser. I mean, we will lauch Browser with empty Cookies and LocalStorage emtpy in order to make tests run stable. However, in some situation, we want to launch Browser with client-side storage filled and prepared to meet testing criteria (login with username/password already done, personal preferences recognized). Setting up Cookies and LocalStorage can be a lengthy, cumbersome task. Therefore we want to reuse the prepared content of Cookies and LocalStorage.
+
+I have developed a set of custom Groovy classes.
+
+1. `com.kazurayam.thoughtful.ChromeDriverFactory` class
+2. `com.kazurayam.thoughtful.ChromeProfileBackupAndResutlre` class
+
+Using them, you can prepare (prior to running a test) a Chrome Profile filled with Cookie and LocalStorage and back it up. You can restore a Profile with the backup and run tests while launching Chrome browser specifying the Profile you prepared.
 
 ## API doc
 
@@ -23,7 +34,7 @@ A post in the Katalon Forum [Run Automation in the Active browser](https://forum
 
 ---
 
-Let me assume, I opened Chrome with a Profile 'Katalon' and logged-in Salesforce applition. 
+Let me assume, I opened Chrome with a Profile 'Katalon' and logged-in Salesforce applition.
 If I could somehow let Katalon Studio to start Chrome with the same Profile 'Katalon',
 then the test will run without requiring manual intervention.
 But how can I achieve it?
@@ -66,7 +77,7 @@ Here I could find a line:
 Profile Path: C:\Users\kazurayam\AppData\Local\Google\Chrome\User Data\Profile 2
 ```
 
-This is the `Profile Path`. And the name of the folder `Profile 2` is the `profile-directory`. 
+This is the `Profile Path`. And the name of the folder `Profile 2` is the `profile-directory`.
 
 ### Core issue
 
@@ -126,5 +137,3 @@ in both cases, the Profile is identified by its Profile Name like 'Katalon', not
 1. Download the `webdriverfactory4ks-all.jar` from the GitHub project's [Releases](https://github.com/kazurayam/webdriverfactory4ks/releases/tag/0.0) page.
 2. Place the jar into the `Drivers` directory of you Katalon Studio project; just as documented in the doc [External libraries](https://docs.katalon.com/katalon-studio/docs/external-libraries.html)
 3. Write your test case script which calls the  `com.kazurayam.webdriverfactory4ks.ChromeDriverFactory` class.
-
-
