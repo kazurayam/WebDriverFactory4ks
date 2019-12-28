@@ -1,0 +1,620 @@
+{
+    "account_id_migration_state": 2,
+    "account_info": [
+        
+    ],
+    "account_tracker_service_last_update": "13221960657033747",
+    "apps": {
+        "shortcuts_version": 6
+    },
+    "autocomplete": {
+        "retention_policy_last_version": 79
+    },
+    "autofill": {
+        "orphan_rows_removed": true
+    },
+    "bookmark_bar": {
+        "show_on_all_tabs": true
+    },
+    "browser": {
+        "has_seen_welcome_page": true,
+        "window_placement": {
+            "bottom": 813,
+            "left": 22,
+            "maximized": false,
+            "right": 1046,
+            "top": 45,
+            "work_area_bottom": 835,
+            "work_area_left": 0,
+            "work_area_right": 1440,
+            "work_area_top": 23
+        }
+    },
+    "countryid_at_install": 19024,
+    "data_reduction": {
+        "daily_original_length": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "18935997"
+        ],
+        "daily_received_length": [
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "0",
+            "18935997"
+        ],
+        "last_update_date": "13221932400000000",
+        "network_properties": {
+            
+        },
+        "this_week_number": 2608,
+        "this_week_services_downstream_foreground_kb": {
+            "108903331": 60,
+            "1112842": 1,
+            "112189210": 18,
+            "115188287": 0,
+            "116426676": 6,
+            "124847649": 6042,
+            "133982351": 0,
+            "16927377": 8,
+            "18300705": 0,
+            "21145003": 5221,
+            "27915688": 6,
+            "35370363": 1,
+            "35473769": 0,
+            "35565745": 10,
+            "39877119": 6,
+            "47815025": 6,
+            "51164680": 60,
+            "5151071": 7,
+            "54845618": 9,
+            "57144960": 1,
+            "61656965": 1,
+            "65957842": 3,
+            "67052219": 0,
+            "72354423": 0,
+            "78917933": 376,
+            "82509217": 2,
+            "83476155": 0,
+            "8561691": 0,
+            "88863520": 0,
+            "92125886": 6609,
+            "95682324": 8,
+            "99279418": 1
+        }
+    },
+    "default_apps_install_state": 3,
+    "extensions": {
+        "alerts": {
+            "initialized": true
+        },
+        "chrome_url_overrides": {
+            
+        },
+        "last_chrome_version": "79.0.3945.88"
+    },
+    "gaia_cookie": {
+        "changed_time": 1577487740.390879,
+        "hash": "2jmj7l5rSw0yVb/vlWAYkK/YBwk=",
+        "last_list_accounts_data": "[\"gaia.l.a.r\",[]\n]\n"
+    },
+    "gcm": {
+        "check_time": "13221960716820817",
+        "product_category_for_subtypes": "com.chrome.macosx"
+    },
+    "google": {
+        "services": {
+            "hosted_domain": "NO_HOSTED_DOMAIN",
+            "signin": {
+                "REFRESH_TOKEN_RECEIVED": {
+                    "time": "2019-12-27T22:51:53.090Z",
+                    "value": "Successful (116298576906500294506)"
+                }
+            },
+            "signin_scoped_device_id": "9a9a5988-c058-47f3-b6cd-c0ba9d37ce1b"
+        }
+    },
+    "http_original_content_length": "18935997",
+    "http_received_content_length": "18935997",
+    "invalidation": {
+        "per_sender_client_id_cache": {
+            "8181035976": "dD4B_s9NAeM"
+        },
+        "per_sender_registered_for_invalidation": {
+            "8181035976": {
+                
+            }
+        },
+        "per_sender_topics_to_handler": {
+            "8181035976": {
+                
+            }
+        }
+    },
+    "invalidator": {
+        "client_id": "idmipwOtGt77YDrczD2vYQ=="
+    },
+    "language_model_counters": {
+        "ja": 5
+    },
+    "media": {
+        "device_id_salt": "8265C386AFA948B955D36E0799B6A6F7",
+        "engagement": {
+            "schema_version": 4
+        }
+    },
+    "media_router": {
+        "receiver_id_hash_token": "2gDoMquENRGnrjJakCcwaR7/LqoO9fbb1wFcSfsymu7p3riIBPRlCzwhlHo0p8i/WQf/0p3zfFt8kgidIItZbw=="
+    },
+    "ntp": {
+        "custom_background_dict": {
+            "attribution_action_url": "https://500px.com/photo/41149196/le-piscine-sunset-by-giulio-rosso-chioso",
+            "attribution_line_1": "\u64ae\u5f71\u8005: Giulio Rosso Chioso",
+            "attribution_line_2": "",
+            "background_main_color": -7568014,
+            "background_url": "https://lh3.googleusercontent.com/proxy/nMIspgHzTUU0GzmiadmPphBelzF2xy9-tIiejZg3VvJTITxUb-1vILxf-IsCfyl94VSn6YvHa8_PiIyR9d3rwD8ZhNdQ1C1rnblP6zy3OaI=w3840-h2160-p-k-no-nd-mv",
+            "collection_id": "",
+            "refresh_timestamp": 0,
+            "resume_token": ""
+        },
+        "custom_background_local_to_device": false,
+        "num_personal_suggestions": 1
+    },
+    "plugins": {
+        "plugins_list": [
+            
+        ]
+    },
+    "previews": {
+        "litepage": {
+            "user-needs-notification": false
+        },
+        "offline_helper": {
+            "available_pages": {
+                
+            }
+        }
+    },
+    "profile": {
+        "avatar_bubble_tutorial_shown": 2,
+        "avatar_index": 27,
+        "blacklisted_credentials_normalized": true,
+        "content_settings": {
+            "exceptions": {
+                "accessibility_events": {
+                    
+                },
+                "app_banner": {
+                    
+                },
+                "auto_select_certificate": {
+                    
+                },
+                "automatic_downloads": {
+                    
+                },
+                "autoplay": {
+                    
+                },
+                "background_sync": {
+                    
+                },
+                "bluetooth_guard": {
+                    
+                },
+                "bluetooth_scanning": {
+                    
+                },
+                "client_hints": {
+                    
+                },
+                "clipboard": {
+                    
+                },
+                "cookies": {
+                    
+                },
+                "durable_storage": {
+                    
+                },
+                "flash_data": {
+                    
+                },
+                "geolocation": {
+                    
+                },
+                "hid_chooser_data": {
+                    
+                },
+                "hid_guard": {
+                    
+                },
+                "images": {
+                    
+                },
+                "important_site_info": {
+                    
+                },
+                "intent_picker_auto_display": {
+                    
+                },
+                "javascript": {
+                    
+                },
+                "legacy_cookie_access": {
+                    
+                },
+                "media_engagement": {
+                    "https://accounts.google.com:443,*": {
+                        "last_modified": "13221960714328055",
+                        "setting": {
+                            "audiblePlaybacks": 0,
+                            "audioContextPlaybacks": 0,
+                            "hasHighScore": false,
+                            "highScoreChanges": 0,
+                            "lastMediaPlaybackTime": 0.0,
+                            "mediaElementPlaybacks": 0,
+                            "mediaPlaybacks": 0,
+                            "significantPlaybacks": 0,
+                            "visits": 1
+                        }
+                    },
+                    "https://joyfit.jp:443,*": {
+                        "last_modified": "13221961656499971",
+                        "setting": {
+                            "audiblePlaybacks": 0,
+                            "audioContextPlaybacks": 0,
+                            "hasHighScore": false,
+                            "highScoreChanges": 0,
+                            "lastMediaPlaybackTime": 0.0,
+                            "mediaElementPlaybacks": 0,
+                            "mediaPlaybacks": 0,
+                            "significantPlaybacks": 0,
+                            "visits": 1
+                        }
+                    },
+                    "https://www.google.com:443,*": {
+                        "last_modified": "13221962304310193",
+                        "setting": {
+                            "audiblePlaybacks": 0,
+                            "audioContextPlaybacks": 0,
+                            "hasHighScore": false,
+                            "highScoreChanges": 0,
+                            "lastMediaPlaybackTime": 0.0,
+                            "mediaElementPlaybacks": 0,
+                            "mediaPlaybacks": 0,
+                            "significantPlaybacks": 0,
+                            "visits": 2
+                        }
+                    },
+                    "https://yarai-nohgakudo.com:443,*": {
+                        "last_modified": "13221965547859748",
+                        "setting": {
+                            "audiblePlaybacks": 0,
+                            "audioContextPlaybacks": 0,
+                            "hasHighScore": false,
+                            "highScoreChanges": 0,
+                            "lastMediaPlaybackTime": 0.0,
+                            "mediaElementPlaybacks": 0,
+                            "mediaPlaybacks": 0,
+                            "significantPlaybacks": 0,
+                            "visits": 1
+                        }
+                    }
+                },
+                "media_stream_camera": {
+                    
+                },
+                "media_stream_mic": {
+                    
+                },
+                "midi_sysex": {
+                    
+                },
+                "mixed_script": {
+                    
+                },
+                "native_file_system_write_guard": {
+                    
+                },
+                "notifications": {
+                    
+                },
+                "password_protection": {
+                    
+                },
+                "payment_handler": {
+                    
+                },
+                "permission_autoblocking_data": {
+                    
+                },
+                "plugins": {
+                    
+                },
+                "popups": {
+                    
+                },
+                "ppapi_broker": {
+                    
+                },
+                "protocol_handler": {
+                    
+                },
+                "sensors": {
+                    
+                },
+                "serial_chooser_data": {
+                    
+                },
+                "serial_guard": {
+                    
+                },
+                "site_engagement": {
+                    "https://accounts.google.com:443,*": {
+                        "last_modified": "13221960707246614",
+                        "setting": {
+                            "lastEngagementTime": 1.322196070724658E+16,
+                            "lastShortcutLaunchTime": 0.0,
+                            "pointsAddedToday": 4.2,
+                            "rawScore": 4.2
+                        }
+                    },
+                    "https://joyfit.jp:443,*": {
+                        "last_modified": "13221961649479078",
+                        "setting": {
+                            "lastEngagementTime": 13221961649479028,
+                            "lastShortcutLaunchTime": 0.0,
+                            "pointsAddedToday": 3.3000000000000003,
+                            "rawScore": 3.3000000000000003
+                        }
+                    },
+                    "https://www.google.com:443,*": {
+                        "last_modified": "13221962301145762",
+                        "setting": {
+                            "lastEngagementTime": 13221962301145724,
+                            "lastShortcutLaunchTime": 0.0,
+                            "pointsAddedToday": 7.499999999999999,
+                            "rawScore": 7.499999999999999
+                        }
+                    },
+                    "https://yarai-nohgakudo.com:443,*": {
+                        "last_modified": "13221962472971951",
+                        "setting": {
+                            "lastEngagementTime": 13221962472971924,
+                            "lastShortcutLaunchTime": 0.0,
+                            "pointsAddedToday": 4.5,
+                            "rawScore": 4.5
+                        }
+                    }
+                },
+                "sound": {
+                    
+                },
+                "ssl_cert_decisions": {
+                    
+                },
+                "subresource_filter": {
+                    
+                },
+                "subresource_filter_data": {
+                    
+                },
+                "usb_chooser_data": {
+                    
+                },
+                "usb_guard": {
+                    
+                }
+            },
+            "pref_version": 1
+        },
+        "created_by_version": "79.0.3945.88",
+        "exit_type": "Normal",
+        "exited_cleanly": true,
+        "gaia_info_update_time": "13221960713670179",
+        "last_engagement_time": "13221962472971923",
+        "last_time_obsolete_http_credentials_removed": 1577487116.696118,
+        "managed_user_id": "",
+        "name": "Katalon",
+        "password_hash_data_list": [
+            
+        ],
+        "password_manager_onboarding_state": 1
+    },
+    "safebrowsing": {
+        "advanced_protection_last_refresh": "13221960713849365"
+    },
+    "signin": {
+        "AccountReconcilor": {
+            "kDiceMigrationOnStartup2": true
+        },
+        "DiceMigrationComplete": true,
+        "allowed": true
+    },
+    "spellcheck": {
+        "dictionaries": [
+            "en-GB"
+        ]
+    },
+    "token_service": {
+        "dice_compatible": true
+    },
+    "unified_consent": {
+        "migration_state": 10
+    },
+    "updateclientdata": {
+        "apps": {
+            "aapocclcgogkmnckokdopfmhonfmgoek": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "e57eca63-3014-4735-ba29-cad64d8c2bc9"
+            },
+            "aohghmighlieiainnegkcijnfilokake": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "923a2908-213b-492b-9700-ebf755d4d4d3"
+            },
+            "apdfllckaahabafndbhieahigkjlhalf": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "21e44cb2-9d01-46a8-bc11-4e88319cba52"
+            },
+            "blpcfgokakmgnkcojhhkbfbldkacnbeo": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "02f3dc05-314e-434f-aa2f-99c44e59d8bd"
+            },
+            "felcaaldnbdncclmgdcncolpebgiejap": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "32ee92c9-6bed-414c-a386-7b7e0dcec74b"
+            },
+            "ghbmnnjooekpmoecnnnilnnbdlolhkhi": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "f78f918c-a816-432d-b6a1-6b4bbea2a84f"
+            },
+            "nmmhkkegccagdldgiimedpiccmgmieda": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "5165035d-41e0-44d4-b831-bf8b63fe2273"
+            },
+            "pjkljhegncpnkpknbcohdijeoejaedia": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "b1c2409a-d69a-4fac-9de3-f05d676e34d1"
+            },
+            "pkedcjkdefgpdelpbcmbmeomcjbeemfm": {
+                "cohort": "",
+                "cohortname": "",
+                "dlrc": 4743,
+                "pf": "9b6c149e-4a10-42b2-abb0-568be19e71e8"
+            }
+        }
+    },
+    "web_apps": {
+        "system_web_app_last_update": "79.0.3945.88"
+    }
+}

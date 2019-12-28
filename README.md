@@ -1,5 +1,5 @@
-Thoughtful ChromeDriverFactory, backup and restoring Chrome Profile
-========================================================
+Opening Chrome with client-side storage taken over from previous session
+========================================================================
 
 - by kazurayam,
 - 1st edition published March,2019

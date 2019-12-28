@@ -1,9 +1,0 @@
-import com.kazurayam.junit4ks.JUnitCustomKeywords
-
-JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.thoughtful.ApplicationInfoTest)
-JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.thoughtful.AssertTest)
-JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.thoughtful.ChromeDriverFactoryTest)
-JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.thoughtful.ChromeProfileBackupAndRestoreTest)
-JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.thoughtful.ChromeProfileFinderTest)
-JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.thoughtful.ChromeProfileTest)
-JUnitCustomKeywords.runWithJUnitRunner(com.kazurayam.thoughtful.OSIdentifierTest)
