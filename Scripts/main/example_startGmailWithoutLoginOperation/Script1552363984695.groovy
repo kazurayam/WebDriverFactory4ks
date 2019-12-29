@@ -1,7 +1,7 @@
 import org.openqa.selenium.WebDriver
 
-import com.kazurayam.webdriverfactory4ks.ChromeDriverFactory
-import com.kazurayam.webdriverfactory4ks.ChromeProfileFinder
+import com.kazurayam.ks.clientsidestorage.ChromeDriverFactory
+import com.kazurayam.ks.clientsidestorage.ChromeProfileFinder
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
