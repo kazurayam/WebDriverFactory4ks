@@ -1,6 +1,6 @@
 import org.openqa.selenium.WebDriver
 
-import com.kazurayam.ks.clientsidestorage.ChromeDriverFactory
+import com.kazurayam.ks.thoughtful.ChromeDriverFactory
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 

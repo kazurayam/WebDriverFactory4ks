@@ -24,7 +24,7 @@
             "maximized": false,
             "right": 1046,
             "top": 45,
-            "work_area_bottom": 835,
+            "work_area_bottom": 829,
             "work_area_left": 0,
             "work_area_right": 1440,
             "work_area_top": 23
@@ -92,7 +92,7 @@
             "0",
             "0",
             "0",
-            "18935997"
+            "19273136"
         ],
         "daily_received_length": [
             "0",
@@ -154,7 +154,7 @@
             "0",
             "0",
             "0",
-            "18935997"
+            "19273136"
         ],
         "last_update_date": "13221932400000000",
         "network_properties": {
@@ -164,29 +164,30 @@
         "this_week_services_downstream_foreground_kb": {
             "108903331": 60,
             "1112842": 1,
-            "112189210": 18,
+            "112189210": 22,
             "115188287": 0,
             "116426676": 6,
             "124847649": 6042,
+            "130931413": 33,
             "133982351": 0,
             "16927377": 8,
             "18300705": 0,
             "21145003": 5221,
             "27915688": 6,
-            "35370363": 1,
+            "35370363": 2,
             "35473769": 0,
-            "35565745": 10,
+            "35565745": 12,
             "39877119": 6,
-            "47815025": 6,
+            "47815025": 16,
             "51164680": 60,
             "5151071": 7,
-            "54845618": 9,
-            "57144960": 1,
+            "54845618": 11,
+            "57144960": 4,
             "61656965": 1,
             "65957842": 3,
             "67052219": 0,
             "72354423": 0,
-            "78917933": 376,
+            "78917933": 624,
             "82509217": 2,
             "83476155": 0,
             "8561691": 0,
@@ -224,11 +225,11 @@
                     "value": "Successful (116298576906500294506)"
                 }
             },
-            "signin_scoped_device_id": "9a9a5988-c058-47f3-b6cd-c0ba9d37ce1b"
+            "signin_scoped_device_id": "ead650ba-8eee-4e32-80d3-e9cfbad453c3"
         }
     },
-    "http_original_content_length": "18935997",
-    "http_received_content_length": "18935997",
+    "http_original_content_length": "19273136",
+    "http_received_content_length": "19273136",
     "invalidation": {
         "per_sender_client_id_cache": {
             "8181035976": "dD4B_s9NAeM"
@@ -465,36 +466,36 @@
                 },
                 "site_engagement": {
                     "https://accounts.google.com:443,*": {
-                        "last_modified": "13221960707246614",
+                        "last_modified": "13222011050941215",
                         "setting": {
-                            "lastEngagementTime": 1.322196070724658E+16,
+                            "lastEngagementTime": 13221980485215804,
                             "lastShortcutLaunchTime": 0.0,
                             "pointsAddedToday": 4.2,
                             "rawScore": 4.2
                         }
                     },
                     "https://joyfit.jp:443,*": {
-                        "last_modified": "13221961649479078",
+                        "last_modified": "13222011050941396",
                         "setting": {
-                            "lastEngagementTime": 13221961649479028,
+                            "lastEngagementTime": 13221981427448252,
                             "lastShortcutLaunchTime": 0.0,
                             "pointsAddedToday": 3.3000000000000003,
                             "rawScore": 3.3000000000000003
                         }
                     },
                     "https://www.google.com:443,*": {
-                        "last_modified": "13221962301145762",
+                        "last_modified": "13222011050941282",
                         "setting": {
-                            "lastEngagementTime": 13221962301145724,
+                            "lastEngagementTime": 13221982079114948,
                             "lastShortcutLaunchTime": 0.0,
                             "pointsAddedToday": 7.499999999999999,
                             "rawScore": 7.499999999999999
                         }
                     },
                     "https://yarai-nohgakudo.com:443,*": {
-                        "last_modified": "13221962472971951",
+                        "last_modified": "13222011050941342",
                         "setting": {
-                            "lastEngagementTime": 13221962472971924,
+                            "lastEngagementTime": 13221982250941148,
                             "lastShortcutLaunchTime": 0.0,
                             "pointsAddedToday": 4.5,
                             "rawScore": 4.5
@@ -526,7 +527,7 @@
         "exit_type": "Normal",
         "exited_cleanly": true,
         "gaia_info_update_time": "13221960713670179",
-        "last_engagement_time": "13221962472971923",
+        "last_engagement_time": "13221982250941148",
         "last_time_obsolete_http_credentials_removed": 1577487116.696118,
         "managed_user_id": "",
         "name": "Katalon",
@@ -561,56 +562,56 @@
             "aapocclcgogkmnckokdopfmhonfmgoek": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "e57eca63-3014-4735-ba29-cad64d8c2bc9"
+                "dlrc": 4744,
+                "pf": "112156ad-b417-4e05-a663-2ca5ff2c6c52"
             },
             "aohghmighlieiainnegkcijnfilokake": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "923a2908-213b-492b-9700-ebf755d4d4d3"
+                "dlrc": 4744,
+                "pf": "614b9575-3bdb-4cf1-81b3-0ce68ed128c5"
             },
             "apdfllckaahabafndbhieahigkjlhalf": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "21e44cb2-9d01-46a8-bc11-4e88319cba52"
+                "dlrc": 4744,
+                "pf": "42d3278a-729c-46ed-a028-ce222d8c1201"
             },
             "blpcfgokakmgnkcojhhkbfbldkacnbeo": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "02f3dc05-314e-434f-aa2f-99c44e59d8bd"
+                "dlrc": 4744,
+                "pf": "df68fb7f-74a0-4966-9ede-a77b676e1dde"
             },
             "felcaaldnbdncclmgdcncolpebgiejap": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "32ee92c9-6bed-414c-a386-7b7e0dcec74b"
+                "dlrc": 4744,
+                "pf": "74ae2a84-426c-47d4-ad46-1e539eff4f1e"
             },
             "ghbmnnjooekpmoecnnnilnnbdlolhkhi": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "f78f918c-a816-432d-b6a1-6b4bbea2a84f"
+                "dlrc": 4744,
+                "pf": "173167dd-a198-4846-97d5-1e5c97fed871"
             },
             "nmmhkkegccagdldgiimedpiccmgmieda": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "5165035d-41e0-44d4-b831-bf8b63fe2273"
+                "dlrc": 4744,
+                "pf": "c9c8523d-f91f-4aee-a095-99577ca37d37"
             },
             "pjkljhegncpnkpknbcohdijeoejaedia": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "b1c2409a-d69a-4fac-9de3-f05d676e34d1"
+                "dlrc": 4744,
+                "pf": "391b6edd-3686-4652-9e41-33b3d3ab2b68"
             },
             "pkedcjkdefgpdelpbcmbmeomcjbeemfm": {
                 "cohort": "",
                 "cohortname": "",
-                "dlrc": 4743,
-                "pf": "9b6c149e-4a10-42b2-abb0-568be19e71e8"
+                "dlrc": 4744,
+                "pf": "7275f240-9cdb-4c69-b0d1-b82cac19a10f"
             }
         }
     },
