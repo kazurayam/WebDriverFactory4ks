@@ -1,3 +1,0 @@
-import com.kazurayam.webdriverfactory4ks.ChromeDriverFactoryTest
-
-CustomKeywords.'com.kazurayam.junit4ks.JUnitCustomKeywords.runWithJUnitRunner'(ChromeDriverFactoryTest.class)
