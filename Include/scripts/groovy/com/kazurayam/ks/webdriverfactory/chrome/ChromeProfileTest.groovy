@@ -9,6 +9,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+import com.kazurayam.ks.webdriverfactory.chrome.impl.ChromeDriverFactoryImpl
+
 /**
  * @author kazurayam
  *
@@ -19,7 +21,7 @@ public class ChromeProfileTest {
 	@Test
 	void test_ChromeProfile() {
 		// when:
-		Path profileDirectory = ChromeDriverFactory.getChromeUserDataDirectory().resolve('Default')
+		Path profileDirectory = ChromeDriverFactoryImpl.getChromeUserDataDirectory().resolve('Default')
 		ChromeProfile defaultProfile = new ChromeProfile(profileDirectory)
 		// then:
 		assertThat(defaultProfile, is(notNullValue()))

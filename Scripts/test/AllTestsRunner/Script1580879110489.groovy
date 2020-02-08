@@ -4,7 +4,7 @@ import com.kazurayam.ks.webdriverfactory.ApplicationInfoTest
 import com.kazurayam.ks.webdriverfactory.AssertTest
 import com.kazurayam.ks.webdriverfactory.OSIdentifierTest
 
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactoryTest
+import com.kazurayam.ks.webdriverfactory.chrome.impl.ChromeDriverFactoryTest
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinderTest
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileTest
 

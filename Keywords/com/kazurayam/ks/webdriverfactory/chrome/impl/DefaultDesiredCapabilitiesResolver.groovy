@@ -1,8 +1,10 @@
-package com.kazurayam.ks.webdriverfactory.chrome
+package com.kazurayam.ks.webdriverfactory.chrome.impl
 
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
+
+import com.kazurayam.ks.webdriverfactory.chrome.DesiredCapabilitiesResolver
 
 public class DefaultDesiredCapabilitiesResolver implements DesiredCapabilitiesResolver {
 	/**

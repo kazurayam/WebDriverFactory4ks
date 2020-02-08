@@ -17,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 import com.kazurayam.junit4ks.IgnoreRest
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
+import com.kazurayam.ks.webdriverfactory.chrome.impl.ChromeDriverFactoryImpl
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -32,13 +33,13 @@ public class ChromeDriverFactoryTest {
 
 	@Test
 	void test_getUserDataDirectory() {
-		Path userDataDirectory = ChromeDriverFactory.getChromeUserDataDirectory()
+		Path userDataDirectory = ChromeDriverFactoryImpl.getChromeUserDataDirectory()
 		assertThat(Files.exists(userDataDirectory), is(true))
 	}
 
 	@Test
 	void test_getChromeDriverPath() {
-		Path chromeDriverPath = ChromeDriverFactory.getChromeDriverPath()
+		Path chromeDriverPath = ChromeDriverFactoryImpl.getChromeDriverPath()
 		assertThat(chromeDriverPath, is(notNullValue()))
 		println "chromeDriverPath=\"${chromeDriverPath.toString()}\""
 		assertTrue(Files.exists(chromeDriverPath))
@@ -46,18 +47,19 @@ public class ChromeDriverFactoryTest {
 
 	@Test
 	void test_myChromeOptions() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
 		ChromePreferencesResolver cPreferencesResolver = cdFactory.getChromePreferencesResolver()
 		Map<String, Object> chromePreferences = cPreferencesResolver.resolveChromePreferences()
-		ChromeOptions cp = cdFactory.getChromeOptionsResolver().resolveChromeOptions(chromePreferences)
-		String cpJson = cp.toJsonText()
+		ChromeOptionsResolver cOptionsResolver = cdFactory.getChromeOptionsResolver()
+		ChromeOptions cOptions = cOptionsResolver.resolveChromeOptions(chromePreferences)
+		String cpJson = cOptions.toString()
 		//println "#test_defaultChromeOpitons cp=${cpJson}"
 		assertTrue(cpJson.length() > 0)
 	}
 
 	@Test
 	void test_openChromeDriverWithProfile() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
 		WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)
@@ -68,7 +70,7 @@ public class ChromeDriverFactoryTest {
 
 	@Test
 	void test_openChromeDriverWithProfileDirectory() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
 		WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)
@@ -80,7 +82,7 @@ public class ChromeDriverFactoryTest {
 	@Test
 	//@IgnoreRest
 	void test_openChromeDriver() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
 		WebDriver driver = cdFactory.openChromeDriver()
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)
