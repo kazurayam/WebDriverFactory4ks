@@ -47,7 +47,8 @@ public class ChromeDriverFactoryTest {
 	@Test
 	void test_myChromeOptions() {
 		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-		Map<String, Object> chromePreferences = cdFactory.getChromePreferencesResolver().resolveChromePreferences()
+		ChromePreferencesResolver cPreferencesResolver = cdFactory.getChromePreferencesResolver()
+		Map<String, Object> chromePreferences = cPreferencesResolver.resolveChromePreferences()
 		ChromeOptions cp = cdFactory.getChromeOptionsResolver().resolveChromeOptions(chromePreferences)
 		String cpJson = cp.toJsonText()
 		//println "#test_defaultChromeOpitons cp=${cpJson}"
