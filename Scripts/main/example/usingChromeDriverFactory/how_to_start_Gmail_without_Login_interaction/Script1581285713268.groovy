@@ -1,7 +1,7 @@
 import org.openqa.selenium.WebDriver
 
-import com.kazurayam.webdriverfactory4ks.ChromeDriverFactory
-import com.kazurayam.webdriverfactory4ks.ChromeProfileFinder
+import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactory
+import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -18,7 +18,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * It is because the Chrome Profile associated with the Default directory would be your
  * day-to-day use, and you have already logged into the Gmail alread. 
  */
-ChromeDriverFactory cdFactory = new ChromeDriverFactory()
+ChromeDriverFactory cdFactory = ChromeDriverFactory.newInstance()
 WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
 assert driver != null
 DriverFactory.changeWebDriver(driver)

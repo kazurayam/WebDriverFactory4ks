@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>example_openChromeDriverWithProfileDirectory</name>
+   <name>how_to_start_Gmail_without_Login_interaction</name>
    <tag></tag>
    <comment></comment>
-   <testCaseGuid>d67d8ebe-db54-4bb4-b289-59cc6167e6ee</testCaseGuid>
+   <testCaseGuid>4fdfff21-d16c-47c4-ab45-57b8663c511a</testCaseGuid>
 </TestCaseEntity>
