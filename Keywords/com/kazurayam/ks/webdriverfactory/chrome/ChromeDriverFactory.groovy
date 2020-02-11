@@ -5,11 +5,12 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.remote.DesiredCapabilities
 
 import com.kazurayam.ks.webdriverfactory.ApplicationInfo
 import com.kazurayam.ks.webdriverfactory.OSIdentifier
 import com.kazurayam.ks.webdriverfactory.chrome.impl.ChromeDriverFactoryImpl
-import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.model.FailureHandling
 
 public abstract class ChromeDriverFactory {
@@ -94,6 +95,14 @@ public abstract class ChromeDriverFactory {
 			return null
 		}
 	}
+
+	abstract ChromeOptions getChromeOptions()
+	
+	abstract void setChromeOptions(ChromeOptions chromeOptions)
+
+	abstract DesiredCapabilities getDesiredCapabilities()
+	
+	abstract void setDesiredCapabilities(DesiredCapabilities desiredCapabilities)
 
 	abstract WebDriver openChromeDriver()
 

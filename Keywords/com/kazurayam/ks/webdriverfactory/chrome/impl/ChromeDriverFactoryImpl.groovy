@@ -11,16 +11,10 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import com.kazurayam.ks.webdriverfactory.ApplicationInfo
 import com.kazurayam.ks.webdriverfactory.Assert
-import com.kazurayam.ks.webdriverfactory.OSIdentifier
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactory
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsResolver
-import com.kazurayam.ks.webdriverfactory.chrome.ChromePreferencesResolver
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
-import com.kazurayam.ks.webdriverfactory.chrome.DesiredCapabilitiesResolver
-import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.util.KeywordUtil
@@ -38,56 +32,36 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 	}
 
-	private ChromePreferencesResolver chromePreferencesResolver_
-	private ChromeOptionsResolver chromeOptionsResolver_
-	private DesiredCapabilitiesResolver desiredCapabilitiesResolver_
+	private Map<String, Object> chromePreferences_
+	private ChromeOptions chromeOptions_
+	private DesiredCapabilities desiredCapabilities_
 
 	ChromeDriverFactoryImpl() {
-		chromePreferencesResolver_   = new DefaultChromePreferencesResolver()
-		chromeOptionsResolver_       = new DefaultChromeOptionsResolver()
-		desiredCapabilitiesResolver_ = new DefaultDesiredCapabilitiesResolver()
+		chromePreferences_   = new DefaultChromePreferencesResolver().resolveChromePreferences()
+		chromeOptions_       = null
+		desiredCapabilities_ = null
 	}
 
-	ChromePreferencesResolver getChromePreferencesResolver() {
-		return this.chromePreferencesResolver_
+
+	@Override
+	ChromeOptions getChromeOptions() {
+		return this.chromeOptions_
 	}
 
-	ChromeOptionsResolver getChromeOptionsResolver() {
-		return this.chromeOptionsResolver_
+	@Override
+	void setChromeOptions(ChromeOptions co) {
+		this.chromeOptions_ = co
 	}
-
-	DesiredCapabilitiesResolver getDesiredCapabilitiesResolver() {
-		return this.desiredCapabilitiesResolver_
-	}
-
-	/**
-	 * You can inject your favorite Chrome preferences by setting a ChromePreferenceResolver instance
-	 *
-	 * @param resolver
-	 */
-	void setChromePreferencesResolver(ChromePreferencesResolver resolver) {
-		Objects.requireNonNull(resolver, "ChromePreferencesResolver must not be null")
-		this.chromePreferencesResolver_ = resolver
-	}
-
-	/**
-	 * You can inject your favorites Chrome options by setting a ChromeOptionsResolver instance
-	 * @param resolver
-	 */
-	void setChromeOptionsResolver(ChromeOptionsResolver resolver) {
-		Objects.requireNonNull(resolver, "ChromeOptionsResolver must not be null")
-		this.chromeOptionsResolver_ = resolver
-	}
-
-	/**
-	 * You can inject your favorites Desired capabilities by setting a ChromeDesiredCapambilitiesResolver instance
-	 */
-	void setChromeDesiredCapabilitiesResolver(DesiredCapabilitiesResolver resolver) {
-		Objects.requireNonNull(resolver, "DesiredCapabilitiesResolver must not be null")
-		this.desiredCapabilitiesResolver_ = resolver
-	}
-
 	
+	@Override
+	DesiredCapabilities getDesiredCapabilities() {
+		return this.desiredCapabilities
+	}
+	
+	@Override
+	void setDesiredCapabilities(DesiredCapabilities dc) {
+		this.desiredCapabilities_ = dc
+	}
 
 	@Override
 	WebDriver openChromeDriver() {
@@ -110,10 +84,10 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Path chromeDriverPath = ChromeDriverFactoryImpl.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 		//
-		Map<String, Object> chromePreferences = chromePreferencesResolver_.resolveChromePreferences()
-		ChromeOptions chromeOptions = chromeOptionsResolver_.resolveChromeOptions(chromePreferences)
+		Map<String, Object> chromePreferences = new DefaultChromePreferencesResolver().resolveChromePreferences()
+		ChromeOptions chromeOptions = new DefaultChromeOptionsResolver().resolveChromeOptions(chromePreferences)
 		//
-		DesiredCapabilities cap = desiredCapabilitiesResolver_.resolveDesiredCapabilities(chromeOptions)
+		DesiredCapabilities cap = new DefaultDesiredCapabilitiesResolver().resolveDesiredCapabilities(chromeOptions)
 		WebDriver driver = new ChromeDriver(cap)
 		return driver
 	}
@@ -147,8 +121,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		//
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
-				Map<String, Object> chromePreferences = chromePreferencesResolver_.resolveChromePreferences()
-				ChromeOptions chromeOptions = chromeOptionsResolver_.resolveChromeOptions(chromePreferences)
+				Map<String, Object> chromePreferences = new DefaultChromePreferencesResolver().resolveChromePreferences()
+				ChromeOptions chromeOptions = new DefaultChromeOptionsResolver().resolveChromeOptions(chromePreferences)
 
 				// use the Profile as specified
 				Path userDataDirectory = ChromeDriverFactoryImpl.getChromeUserDataDirectory()
@@ -156,7 +130,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				chromeOptions.addArguments("profile-directory=${profileDirectory.getFileName().toString()}")
 				KeywordUtil.logInfo("#openChromeDriver chromeOptions=" + chromeOptions.toString())
 
-				DesiredCapabilities cap = desiredCapabilitiesResolver_.resolveDesiredCapabilities(chromeOptions)
+				DesiredCapabilities cap = new DefaultDesiredCapabilitiesResolver().resolveDesiredCapabilities(chromeOptions)
 				WebDriver driver = new ChromeDriver(cap)
 				return driver
 			} else {
@@ -164,12 +138,12 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 			}
 		} else {
 			Assert.stepFailed("Profile directory for userName \"${userName}\" is not found." +
-					"\n" + ChromeProfileFinder.listChromeProfiles()
-					)
+					"\n" + ChromeProfileFinder.listChromeProfiles(),
+					flowControl)
 		}
 	}
 
-	
+
 	/**
 	 * Usage:
 	 * <PRE>
@@ -204,10 +178,10 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 					return openChromeDriverWithProfile(chromeProfile.getName(), flowControl)
 				}
 			} else {
-				throw new FileNotFoundException("${userDataDir} is not found")
+				Assert.stepFailed("${userDataDir} is not found", flowControl)
 			}
 		} else {
-			throw new IllegalStateException("unable to identify the User Data Directory of Chrome browser")
+			Assert.stepFailed("unable to identify the User Data Directory of Chrome browser", flowControl)
 		}
 	}
 }

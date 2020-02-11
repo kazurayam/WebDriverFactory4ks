@@ -22,7 +22,7 @@ class DefaultChromeOptionsResolver implements ChromeOptionsResolver {
 		options.setExperimentalOption('prefs', chromePreferences)
 		// The following lines are copy&pasted from
 		// https://github.com/SeleniumHQ/selenium/issues/4961
-		//options.addArguments("--headless")     // thought that this is necessary for working around the "(unknown error: DevToolsActivePort file doesn't exist)"
+
 		options.addArguments("window-size=1024,768")
 		options.addArguments("--no-sandbox")
 
