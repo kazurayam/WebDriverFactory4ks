@@ -32,9 +32,9 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 	}
 
-	private Map<String, Object> chromePreferences_
-	private ChromeOptions chromeOptions_
-	private DesiredCapabilities desiredCapabilities_
+	private List<Map<String, Object>> chromePreferencesList_
+	private List<ChromeOptions> chromeOptionsList_
+	private List<DesiredCapabilities> desiredCapabilitiesList_
 
 	ChromeDriverFactoryImpl() {
 		chromePreferences_   = new DefaultChromePreferencesResolver().resolveChromePreferences()
@@ -52,12 +52,12 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	void setChromeOptions(ChromeOptions co) {
 		this.chromeOptions_ = co
 	}
-	
+
 	@Override
 	DesiredCapabilities getDesiredCapabilities() {
 		return this.desiredCapabilities
 	}
-	
+
 	@Override
 	void setDesiredCapabilities(DesiredCapabilities dc) {
 		this.desiredCapabilities_ = dc
