@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions
  * @author kazurayam
  *
  */
-class ChromeOptionsDefaultBuilder implements ChromeOptionsBuilder {
+class ChromeOptionsBuilderImpl implements ChromeOptionsBuilder {
 
 	/**
 	 *

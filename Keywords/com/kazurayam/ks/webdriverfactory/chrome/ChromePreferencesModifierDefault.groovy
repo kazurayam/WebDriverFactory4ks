@@ -3,7 +3,7 @@ package com.kazurayam.ks.webdriverfactory.chrome
 import java.nio.file.Path
 import java.nio.file.Paths
 
-public class ChromePreferencesDefaultModifier implements ChromePreferencesModifier {
+public class ChromePreferencesModifierDefault implements ChromePreferencesModifier {
 
 	@Override
 	Map<String, Object> modify(Map<String, Object> chromePreferences) {

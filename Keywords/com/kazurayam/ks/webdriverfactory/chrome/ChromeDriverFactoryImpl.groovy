@@ -11,12 +11,11 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesDefaultBuilder
+import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesBuilderImpl
 import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesModifier
 import com.kazurayam.ks.webdriverfactory.utils.Assert
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling
-import com.kms.katalon.core.util.KeywordUtil
 
 import groovy.json.JsonOutput
 
@@ -45,52 +44,63 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	void addChromePreferencesModifier(ChromePreferencesModifier chromePreferencesModifier) {
 		chromePreferencesModifiers_.add(chromePreferencesModifier)
 	}
-	
+
 	@Override
 	void addChromeOptionsModifier(ChromeOptionsModifier chromeOptionsModifier) {
 		chromeOptionsModifiers_.add(chromeOptionsModifier)
 	}
-	
+
 	@Override
 	void addDesiredCapabilitiesModifier(DesiredCapabilitiesModifier desiredCapabilitiesModifier) {
 		desiredCapabilitiesModifiers_.add(desiredCapabilitiesModifier)
 	}
-	
+
+
+
+
 	/**
 	 * The core function of this class.
+	 * 
+	 * Create an instance of Chrome Driver with setup info through the chain of 
+	 * the chain of 
+	 * ChromePreferrences => ChromeOptions => DesiredCapabilities
+	 * while modifying each containers with specified Modifiers
 	 * 
 	 * @return
 	 */
 	private WebDriver execute() {
-		
-		// create Chrome Preferences as a starter
-		Map<String, Object> chromePreferences = new ChromePreferencesDefaultBuilder().build()
+
+		// create Chrome Preferences as the seed
+		Map<String, Object> chromePreferences = new ChromePreferencesBuilderImpl().build()
 		// modify the instance of Chrome Preferences
 		for (ChromePreferencesModifier cpm in chromePreferencesModifiers_) {
 			chromePreferences = cpm.modify(chromePreferences)
 		}
-		
-		// create Chrome Options taking over Chrome Preferences
-		ChromeOptions chromeOptions = new ChromeOptionsDefaultBuilder().build(chromePreferences)
+
+		// create Chrome Options taking over setting in the Chrome Preferences
+		ChromeOptions chromeOptions = new ChromeOptionsBuilderImpl().build(chromePreferences)
 		// modify the Chrome Options
 		for (ChromeOptionsModifier com in chromeOptionsModifiers_) {
 			chromeOptions = com.modify(chromeOptions)
 		}
-		
-		// create Desired Capabilities taking over Chrome Optionas
-		DesiredCapabilities desiredCapabilities = new DesiredCapabilitiesDefaultBuilder().build(chromeOptions)
+
+		// create Desired Capabilities taking over settings in the Chrome Options
+		DesiredCapabilities desiredCapabilities = new DesiredCapabilitiesBuilderImpl().build(chromeOptions)
 		// modify the Desired Capabilities
 		for (DesiredCapabilitiesModifier dcm in desiredCapabilitiesModifiers_) {
 			desiredCapabilities = dcm.modify(desiredCapabilities)
 		}
-		
+
 		// now let's create Chrome Driver
 		WebDriver driver = new ChromeDriver(desiredCapabilities)
-		
+
 		// well done
 		return driver
 	}
-	
+
+
+
+
 	/**
 	 * 1. enable logging by Chrome Driver into the tmp directory under the Katalon Studio Project directory
 	 * 2. ensure the path of Chrome Driver executable
@@ -100,7 +110,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 	}
-	
+
 	@Override
 	WebDriver openChromeDriver() {
 		return openChromeDriver(RunConfiguration.getDefaultFailureHandling())
@@ -117,8 +127,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	WebDriver openChromeDriver(FailureHandling flowControl) {
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		this.prepare()
-		WebDriver driver = this.execute()
-		return driver
+		return this.execute()
 	}
 
 	@Override
@@ -146,18 +155,14 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Path profileDirectory = ChromeDriverUtils.getChromeProfileDirectory(userName)
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
-				Map<String, Object> chromePreferences = new ChromePreferencesDefaultBuilder().build()
-				ChromeOptions chromeOptions = new ChromeOptionsDefaultBuilder().build(chromePreferences)
 
 				// use the Profile as specified
 				Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
-				chromeOptions.addArguments("user-data-dir=" + userDataDirectory.toString())
-				chromeOptions.addArguments("profile-directory=${profileDirectory.getFileName().toString()}")
-				KeywordUtil.logInfo("#openChromeDriver chromeOptions=" + chromeOptions.toString())
-				DesiredCapabilities cap = new DesiredCapabilitiesDefaultBuilder().build(chromeOptions)
+				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(userDataDirectory, profileDirectory)
+				this.addChromeOptionsModifier(com)
+
 				//
-				WebDriver driver = new ChromeDriver(cap)
-				return driver
+				return this.execute()
 			} else {
 				Assert.stepFailed("Profile directory \"${profileDirectory.toString()}\" is not present", flowControl)
 			}

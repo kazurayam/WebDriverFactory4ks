@@ -21,10 +21,11 @@ import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import org.openqa.selenium.chrome.ChromeOptions
 import internal.GlobalVariable
 
-class ChromeOptionsHeadlessModifier implements ChromeOptionsModifier {
+class ChromeOptionsModifierHeadless implements ChromeOptionsModifier {
 
-	ChromeOptions filter(ChromeOptions chromeOptions) {
+	ChromeOptions modify(ChromeOptions chromeOptions) {
 		Objects.requireNonNull(chromeOptions, "chromeOptions must not be null")
+		
 		chromeOptions.addArguments("--headless")
 		return chromeOptions
 	}

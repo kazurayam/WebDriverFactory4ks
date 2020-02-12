@@ -7,7 +7,7 @@ import java.nio.file.Paths
  *
  * @author kazurayam
  */
-class ChromePreferencesDefaultBuilder implements ChromePreferencesBuilder {
+class ChromePreferencesBuilderImpl implements ChromePreferencesBuilder {
 
 	/**
 	 *

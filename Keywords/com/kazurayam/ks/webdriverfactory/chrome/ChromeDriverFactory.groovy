@@ -10,11 +10,11 @@ abstract class ChromeDriverFactory {
 	static ChromeDriverFactory newInstance() {
 		return new ChromeDriverFactoryImpl()
 	}
-	
+
 	abstract void addChromePreferencesModifier(ChromePreferencesModifier chromePreferencesModifier)
-	
+
 	abstract void addChromeOptionsModifier(ChromeOptionsModifier chromeOptionsModifier)
-	
+
 	abstract void addDesiredCapabilitiesModifier(DesiredCapabilitiesModifier desiredCapabilitiesModifier)
 
 	abstract WebDriver openChromeDriver()
