@@ -3,19 +3,33 @@ package com.kazurayam.ks.webdriverfactory.chrome
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
 
+import java.nio.file.Files
 import java.nio.file.Path
 
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverUtils
 
 /**
  * @author kazurayam
  *
  */
 @RunWith(JUnit4.class)
-public class ChromeProfileTest {
+public class ChromeDriverUtilsTest {
+
+	@Test
+	void test_getUserDataDirectory() {
+		Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
+		assertThat(Files.exists(userDataDirectory), is(true))
+	}
+
+	@Test
+	void test_getChromeDriverPath() {
+		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
+		assertThat(chromeDriverPath, is(notNullValue()))
+		println "chromeDriverPath=\"${chromeDriverPath.toString()}\""
+		assertTrue(Files.exists(chromeDriverPath))
+	}
 
 	@Test
 	void test_ChromeProfile() {

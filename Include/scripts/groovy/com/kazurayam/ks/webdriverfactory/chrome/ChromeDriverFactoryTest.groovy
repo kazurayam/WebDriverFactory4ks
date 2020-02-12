@@ -15,9 +15,9 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 
 import com.kazurayam.junit4ks.IgnoreRest
+import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverUtils
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
-import com.kazurayam.ks.webdriverfactory.chrome.impl.ChromeDriverFactoryImpl
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -31,20 +31,7 @@ public class ChromeDriverFactoryTest {
 	@Before
 	void setup() {}
 
-	@Test
-	void test_getUserDataDirectory() {
-		Path userDataDirectory = ChromeDriverFactoryImpl.getChromeUserDataDirectory()
-		assertThat(Files.exists(userDataDirectory), is(true))
-	}
-
-	@Test
-	void test_getChromeDriverPath() {
-		Path chromeDriverPath = ChromeDriverFactoryImpl.getChromeDriverPath()
-		assertThat(chromeDriverPath, is(notNullValue()))
-		println "chromeDriverPath=\"${chromeDriverPath.toString()}\""
-		assertTrue(Files.exists(chromeDriverPath))
-	}
-
+	
 	@Test
 	void test_myChromeOptions() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()

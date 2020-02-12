@@ -1,9 +1,7 @@
-package com.kazurayam.ks.webdriverfactory.chrome.impl
+package com.kazurayam.ks.webdriverfactory.chrome
 
 import java.nio.file.Path
 import java.nio.file.Paths
-
-import com.kazurayam.ks.webdriverfactory.chrome.ChromePreferencesModifier
 
 public class ChromePreferencesDefaultModifier implements ChromePreferencesModifier {
 

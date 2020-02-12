@@ -1,4 +1,4 @@
-package com.kazurayam.ks.webdriverfactory.chrome.impl
+package com.kazurayam.ks.webdriverfactory.chrome
 
 import java.nio.file.Files
 import java.nio.file.Path
@@ -11,13 +11,8 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactory
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
+import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesDefaultResolver
 import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesModifier
-import com.kazurayam.ks.webdriverfactory.desiredcapabilities.impl.DefaultDesiredCapabilitiesResolver
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsModifier
-import com.kazurayam.ks.webdriverfactory.chrome.ChromePreferencesModifier
 import com.kazurayam.ks.webdriverfactory.utils.Assert
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling
@@ -91,7 +86,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Map<String, Object> chromePreferences = new ChromePreferencesDefaultResolver().resolveChromePreferences()
 		ChromeOptions chromeOptions = new ChromeOptionsDefaultResolver().resolveChromeOptions(chromePreferences)
 		//
-		DesiredCapabilities cap = new DefaultDesiredCapabilitiesResolver().resolveDesiredCapabilities(chromeOptions)
+		DesiredCapabilities cap = new DesiredCapabilitiesDefaultResolver().resolveDesiredCapabilities(chromeOptions)
 		WebDriver driver = new ChromeDriver(cap)
 		return driver
 	}
@@ -134,7 +129,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				chromeOptions.addArguments("profile-directory=${profileDirectory.getFileName().toString()}")
 				KeywordUtil.logInfo("#openChromeDriver chromeOptions=" + chromeOptions.toString())
 
-				DesiredCapabilities cap = new DefaultDesiredCapabilitiesResolver().resolveDesiredCapabilities(chromeOptions)
+				DesiredCapabilities cap = new DesiredCapabilitiesDefaultResolver().resolveDesiredCapabilities(chromeOptions)
 				WebDriver driver = new ChromeDriver(cap)
 				return driver
 			} else {

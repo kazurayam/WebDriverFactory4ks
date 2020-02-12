@@ -1,9 +1,6 @@
-package com.kazurayam.ks.webdriverfactory.chrome.impl
+package com.kazurayam.ks.webdriverfactory.chrome
 
 import org.openqa.selenium.chrome.ChromeOptions
-
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsResolver
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverUtils
 
 /**
  *

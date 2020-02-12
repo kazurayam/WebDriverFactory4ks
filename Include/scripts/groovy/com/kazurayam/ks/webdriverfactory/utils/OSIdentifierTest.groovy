@@ -1,4 +1,4 @@
-package com.kazurayam.ks.webdriverfactory
+package com.kazurayam.ks.webdriverfactory.utils
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
