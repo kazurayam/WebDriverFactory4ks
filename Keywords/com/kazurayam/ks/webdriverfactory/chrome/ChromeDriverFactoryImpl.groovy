@@ -31,17 +31,76 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 	}
 
-	private List<ChromePreferencesModifier> chromePreferencesFilters_
-	private List<ChromeOptionsModifier> chromeOptionsFilters_
-	private List<DesiredCapabilitiesModifier> desiredCapabilitiesFilters_
+	private List<ChromePreferencesModifier> chromePreferencesModifiers_
+	private List<ChromeOptionsModifier> chromeOptionsModifiers_
+	private List<DesiredCapabilitiesModifier> desiredCapabilitiesModifiers_
 
 	ChromeDriverFactoryImpl() {
-		chromePreferencesFilters_   = new ArrayList<ChromePreferencesModifier>()
-		chromeOptionsFilters_       = new ArrayList<ChromeOptionsModifier>()
-		desiredCapabilitiesFilters_ = new ArrayList<DesiredCapabilitiesModifier>()
+		chromePreferencesModifiers_   = new ArrayList<ChromePreferencesModifier>()
+		chromeOptionsModifiers_       = new ArrayList<ChromeOptionsModifier>()
+		desiredCapabilitiesModifiers_ = new ArrayList<DesiredCapabilitiesModifier>()
 	}
 
-
+	@Override
+	void addChromePreferencesModifier(ChromePreferencesModifier chromePreferencesModifier) {
+		chromePreferencesModifiers_.add(chromePreferencesModifier)
+	}
+	
+	@Override
+	void addChromeOptionsModifier(ChromeOptionsModifier chromeOptionsModifier) {
+		chromeOptionsModifiers_.add(chromeOptionsModifier)
+	}
+	
+	@Override
+	void addDesiredCapabilitiesModifier(DesiredCapabilitiesModifier desiredCapabilitiesModifier) {
+		desiredCapabilitiesModifiers_.add(desiredCapabilitiesModifier)
+	}
+	
+	/**
+	 * The core function of this class.
+	 * 
+	 * @return
+	 */
+	private WebDriver execute() {
+		
+		// create Chrome Preferences as a starter
+		Map<String, Object> chromePreferences = new ChromePreferencesDefaultBuilder().build()
+		// modify the instance of Chrome Preferences
+		for (ChromePreferencesModifier cpm in chromePreferencesModifiers_) {
+			chromePreferences = cpm.modify(chromePreferences)
+		}
+		
+		// create Chrome Options taking over Chrome Preferences
+		ChromeOptions chromeOptions = new ChromeOptionsDefaultBuilder().build(chromePreferences)
+		// modify the Chrome Options
+		for (ChromeOptionsModifier com in chromeOptionsModifiers_) {
+			chromeOptions = com.modify(chromeOptions)
+		}
+		
+		// create Desired Capabilities taking over Chrome Optionas
+		DesiredCapabilities desiredCapabilities = new DesiredCapabilitiesDefaultBuilder().build(chromeOptions)
+		// modify the Desired Capabilities
+		for (DesiredCapabilitiesModifier dcm in desiredCapabilitiesModifiers_) {
+			desiredCapabilities = dcm.modify(desiredCapabilities)
+		}
+		
+		// now let's create Chrome Driver
+		WebDriver driver = new ChromeDriver(desiredCapabilities)
+		
+		// well done
+		return driver
+	}
+	
+	/**
+	 * 1. enable logging by Chrome Driver into the tmp directory under the Katalon Studio Project directory
+	 * 2. ensure the path of Chrome Driver executable
+	 */
+	private void prepare() {
+		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
+		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
+		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
+	}
+	
 	@Override
 	WebDriver openChromeDriver() {
 		return openChromeDriver(RunConfiguration.getDefaultFailureHandling())
@@ -49,7 +108,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 
 
 	/**
-	 * Open a Chrome browser without specifying Profle
+	 * Open a Chrome browser without specifying Profile
 	 * 
 	 * @param flowControl
 	 * @return
@@ -57,17 +116,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	@Override
 	WebDriver openChromeDriver(FailureHandling flowControl) {
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
-		//
-		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
-		//
-		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
-		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
-		//
-		Map<String, Object> chromePreferences = new ChromePreferencesDefaultBuilder().build()
-		ChromeOptions chromeOptions = new ChromeOptionsDefaultBuilder().build(chromePreferences)
-		//
-		DesiredCapabilities cap = new DesiredCapabilitiesDefaultBuilder().build(chromeOptions)
-		WebDriver driver = new ChromeDriver(cap)
+		this.prepare()
+		WebDriver driver = this.execute()
 		return driver
 	}
 
@@ -91,13 +141,9 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Objects.requireNonNull(userName, "userName must not be null")
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		//
-		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
-		//
-		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
-		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
+		this.prepare()
 		//
 		Path profileDirectory = ChromeDriverUtils.getChromeProfileDirectory(userName)
-		//
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
 				Map<String, Object> chromePreferences = new ChromePreferencesDefaultBuilder().build()
@@ -108,8 +154,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				chromeOptions.addArguments("user-data-dir=" + userDataDirectory.toString())
 				chromeOptions.addArguments("profile-directory=${profileDirectory.getFileName().toString()}")
 				KeywordUtil.logInfo("#openChromeDriver chromeOptions=" + chromeOptions.toString())
-
 				DesiredCapabilities cap = new DesiredCapabilitiesDefaultBuilder().build(chromeOptions)
+				//
 				WebDriver driver = new ChromeDriver(cap)
 				return driver
 			} else {

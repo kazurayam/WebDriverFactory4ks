@@ -4,7 +4,7 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 public class ChromeOptionsDefaultModifier {
 
-	ChromeOptions filter(ChromeOptions options) {
+	ChromeOptions modify(ChromeOptions options) {
 
 		options.addArguments("window-size=1024,768")
 		options.addArguments("--no-sandbox")

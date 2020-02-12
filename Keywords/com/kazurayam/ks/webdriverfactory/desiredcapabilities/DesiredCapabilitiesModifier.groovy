@@ -4,5 +4,5 @@ import org.openqa.selenium.remote.DesiredCapabilities
 
 interface DesiredCapabilitiesModifier {
 
-	DesiredCapabilities filter(DesiredCapabilities desiredCapabilities)
+	DesiredCapabilities modify(DesiredCapabilities desiredCapabilities)
 }

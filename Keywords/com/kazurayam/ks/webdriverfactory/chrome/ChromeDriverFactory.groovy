@@ -1,15 +1,8 @@
 package com.kazurayam.ks.webdriverfactory.chrome
 
-import java.nio.file.Files
-import java.nio.file.Path
-import java.nio.file.Paths
-
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeOptions
-import org.openqa.selenium.remote.DesiredCapabilities
 
-import com.kazurayam.ks.webdriverfactory.config.ApplicationInfo
-import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
+import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesModifier
 import com.kms.katalon.core.model.FailureHandling
 
 abstract class ChromeDriverFactory {
@@ -17,6 +10,12 @@ abstract class ChromeDriverFactory {
 	static ChromeDriverFactory newInstance() {
 		return new ChromeDriverFactoryImpl()
 	}
+	
+	abstract void addChromePreferencesModifier(ChromePreferencesModifier chromePreferencesModifier)
+	
+	abstract void addChromeOptionsModifier(ChromeOptionsModifier chromeOptionsModifier)
+	
+	abstract void addDesiredCapabilitiesModifier(DesiredCapabilitiesModifier desiredCapabilitiesModifier)
 
 	abstract WebDriver openChromeDriver()
 

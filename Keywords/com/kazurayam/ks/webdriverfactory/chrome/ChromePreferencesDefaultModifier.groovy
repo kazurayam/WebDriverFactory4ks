@@ -6,7 +6,7 @@ import java.nio.file.Paths
 public class ChromePreferencesDefaultModifier implements ChromePreferencesModifier {
 
 	@Override
-	Map<String, Object> filter(Map<String, Object> chromePreferences) {
+	Map<String, Object> modify(Map<String, Object> chromePreferences) {
 
 		// Below two preference settings will disable popup dialog when download file
 		chromePreferences.put('profile.default_content_settings.popups', 0)

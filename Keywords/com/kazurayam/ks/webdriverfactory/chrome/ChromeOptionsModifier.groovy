@@ -4,5 +4,5 @@ import org.openqa.selenium.chrome.ChromeOptions
 
 interface ChromeOptionsModifier {
 
-	ChromeOptions filter(ChromeOptions chromeOptions)
+	ChromeOptions modify(ChromeOptions chromeOptions)
 }
