@@ -7,13 +7,13 @@ import org.openqa.selenium.chrome.ChromeOptions
  * @author kazurayam
  *
  */
-class ChromeOptionsDefaultResolver implements ChromeOptionsResolver {
-	
+class ChromeOptionsDefaultBuilder implements ChromeOptionsBuilder {
+
 	/**
 	 *
 	 */
 	@Override
-	ChromeOptions resolveChromeOptions(Map<String, Object> chromePreferences) {
+	ChromeOptions build(Map<String, Object> chromePreferences) {
 		ChromeOptions options = new ChromeOptions()
 		// set location of the Chrome Browser's binary
 		options.setBinary(ChromeDriverUtils.getChromeBinaryPath().toString());

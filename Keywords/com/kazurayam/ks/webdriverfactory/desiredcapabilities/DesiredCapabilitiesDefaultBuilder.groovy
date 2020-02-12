@@ -4,13 +4,13 @@ import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
 
-public class DesiredCapabilitiesDefaultResolver implements DesiredCapabilitiesResolver {
-	
+public class DesiredCapabilitiesDefaultBuilder implements DesiredCapabilitiesBuilder {
+
 	/**
 	 *
 	 */
 	@Override
-	DesiredCapabilities resolveDesiredCapabilities(ChromeOptions chromeOptions) {
+	DesiredCapabilities build(ChromeOptions chromeOptions) {
 		DesiredCapabilities cap = DesiredCapabilities.chrome()
 		cap.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true)
 		cap.setCapability(ChromeOptions.CAPABILITY, chromeOptions)

@@ -7,14 +7,14 @@ import java.nio.file.Paths
  *
  * @author kazurayam
  */
-class ChromePreferencesDefaultResolver implements ChromePreferencesResolver {
-	
+class ChromePreferencesDefaultBuilder implements ChromePreferencesBuilder {
+
 	/**
 	 *
 	 * @return
 	 */
 	@Override
-	Map<String, Object> resolveChromePreferences() {
+	Map<String, Object> build() {
 		Map<String, Object> chromePreferences = new HashMap<>()
 		return chromePreferences
 	}

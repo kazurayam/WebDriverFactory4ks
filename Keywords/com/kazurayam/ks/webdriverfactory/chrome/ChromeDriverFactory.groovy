@@ -18,14 +18,6 @@ abstract class ChromeDriverFactory {
 		return new ChromeDriverFactoryImpl()
 	}
 
-	abstract ChromeOptions getChromeOptions()
-
-	abstract void setChromeOptions(ChromeOptions chromeOptions)
-
-	abstract DesiredCapabilities getDesiredCapabilities()
-
-	abstract void setDesiredCapabilities(DesiredCapabilities desiredCapabilities)
-
 	abstract WebDriver openChromeDriver()
 
 	abstract WebDriver openChromeDriver(FailureHandling flowControl)

@@ -11,7 +11,7 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesDefaultResolver
+import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesDefaultBuilder
 import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesModifier
 import com.kazurayam.ks.webdriverfactory.utils.Assert
 import com.kms.katalon.core.configuration.RunConfiguration
@@ -43,26 +43,6 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 
 
 	@Override
-	ChromeOptions getChromeOptions() {
-		return this.chromeOptions_
-	}
-
-	@Override
-	void setChromeOptions(ChromeOptions co) {
-		this.chromeOptions_ = co
-	}
-
-	@Override
-	DesiredCapabilities getDesiredCapabilities() {
-		return this.desiredCapabilities
-	}
-
-	@Override
-	void setDesiredCapabilities(DesiredCapabilities dc) {
-		this.desiredCapabilities_ = dc
-	}
-
-	@Override
 	WebDriver openChromeDriver() {
 		return openChromeDriver(RunConfiguration.getDefaultFailureHandling())
 	}
@@ -78,15 +58,15 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	WebDriver openChromeDriver(FailureHandling flowControl) {
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		//
-		enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
+		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
 		//
-		Path chromeDriverPath = ChromeDriverFactoryImpl.getChromeDriverPath()
+		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 		//
-		Map<String, Object> chromePreferences = new ChromePreferencesDefaultResolver().resolveChromePreferences()
-		ChromeOptions chromeOptions = new ChromeOptionsDefaultResolver().resolveChromeOptions(chromePreferences)
+		Map<String, Object> chromePreferences = new ChromePreferencesDefaultBuilder().build()
+		ChromeOptions chromeOptions = new ChromeOptionsDefaultBuilder().build(chromePreferences)
 		//
-		DesiredCapabilities cap = new DesiredCapabilitiesDefaultResolver().resolveDesiredCapabilities(chromeOptions)
+		DesiredCapabilities cap = new DesiredCapabilitiesDefaultBuilder().build(chromeOptions)
 		WebDriver driver = new ChromeDriver(cap)
 		return driver
 	}
@@ -111,25 +91,25 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Objects.requireNonNull(userName, "userName must not be null")
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		//
-		enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
+		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
 		//
-		Path chromeDriverPath = ChromeDriverFactoryImpl.getChromeDriverPath()
+		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 		//
-		Path profileDirectory = ChromeDriverFactoryImpl.getChromeProfileDirectory(userName)
+		Path profileDirectory = ChromeDriverUtils.getChromeProfileDirectory(userName)
 		//
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
-				Map<String, Object> chromePreferences = new ChromePreferencesDefaultResolver().resolveChromePreferences()
-				ChromeOptions chromeOptions = new ChromeOptionsDefaultResolver().resolveChromeOptions(chromePreferences)
+				Map<String, Object> chromePreferences = new ChromePreferencesDefaultBuilder().build()
+				ChromeOptions chromeOptions = new ChromeOptionsDefaultBuilder().build(chromePreferences)
 
 				// use the Profile as specified
-				Path userDataDirectory = ChromeDriverFactoryImpl.getChromeUserDataDirectory()
+				Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
 				chromeOptions.addArguments("user-data-dir=" + userDataDirectory.toString())
 				chromeOptions.addArguments("profile-directory=${profileDirectory.getFileName().toString()}")
 				KeywordUtil.logInfo("#openChromeDriver chromeOptions=" + chromeOptions.toString())
 
-				DesiredCapabilities cap = new DesiredCapabilitiesDefaultResolver().resolveDesiredCapabilities(chromeOptions)
+				DesiredCapabilities cap = new DesiredCapabilitiesDefaultBuilder().build(chromeOptions)
 				WebDriver driver = new ChromeDriver(cap)
 				return driver
 			} else {
@@ -168,7 +148,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	@Override
 	WebDriver openChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl) {
 		Objects.requireNonNull(directoryName, "directoryName must not be null")
-		Path userDataDir = ChromeDriverFactoryImpl.getChromeUserDataDirectory()
+		Path userDataDir = ChromeDriverUtils.getChromeUserDataDirectory()
 		if (userDataDir != null) {
 			if (Files.exists(userDataDir)) {
 				Path profileDirectory = userDataDir.resolve(directoryName)

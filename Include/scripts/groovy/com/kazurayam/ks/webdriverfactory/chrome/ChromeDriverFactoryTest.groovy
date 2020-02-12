@@ -31,19 +31,6 @@ public class ChromeDriverFactoryTest {
 	@Before
 	void setup() {}
 
-	
-	@Test
-	void test_myChromeOptions() {
-		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
-		ChromePreferencesResolver cPreferencesResolver = cdFactory.getChromePreferencesResolver()
-		Map<String, Object> chromePreferences = cPreferencesResolver.resolveChromePreferences()
-		ChromeOptionsResolver cOptionsResolver = cdFactory.getChromeOptionsResolver()
-		ChromeOptions cOptions = cOptionsResolver.resolveChromeOptions(chromePreferences)
-		String cpJson = cOptions.toString()
-		//println "#test_defaultChromeOpitons cp=${cpJson}"
-		assertTrue(cpJson.length() > 0)
-	}
-
 	@Test
 	void test_openChromeDriverWithProfile() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()

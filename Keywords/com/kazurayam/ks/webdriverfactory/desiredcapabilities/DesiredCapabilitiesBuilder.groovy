@@ -3,7 +3,7 @@ package com.kazurayam.ks.webdriverfactory.desiredcapabilities
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.remote.DesiredCapabilities
 
-interface DesiredCapabilitiesResolver {
+interface DesiredCapabilitiesBuilder {
 
-	DesiredCapabilities resolveDesiredCapabilities(ChromeOptions chromeOptions)
+	DesiredCapabilities build(ChromeOptions chromeOptions)
 }
