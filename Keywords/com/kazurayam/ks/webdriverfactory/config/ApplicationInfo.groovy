@@ -1,6 +1,9 @@
-package com.kazurayam.ks.webdriverfactory
+package com.kazurayam.ks.webdriverfactory.config
 
 import java.util.regex.Pattern
+
+import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
+
 import java.util.regex.Matcher
 
 

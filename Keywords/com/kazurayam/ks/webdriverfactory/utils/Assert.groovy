@@ -1,4 +1,4 @@
-package com.kazurayam.ks.webdriverfactory
+package com.kazurayam.ks.webdriverfactory.utils
 
 import static com.kms.katalon.core.model.FailureHandling.CONTINUE_ON_FAILURE
 

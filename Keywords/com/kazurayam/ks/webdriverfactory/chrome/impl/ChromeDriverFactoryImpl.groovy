@@ -11,10 +11,14 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-import com.kazurayam.ks.webdriverfactory.Assert
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactory
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
+import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesModifier
+import com.kazurayam.ks.webdriverfactory.desiredcapabilities.impl.DefaultDesiredCapabilitiesResolver
+import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsModifier
+import com.kazurayam.ks.webdriverfactory.chrome.ChromePreferencesModifier
+import com.kazurayam.ks.webdriverfactory.utils.Assert
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.util.KeywordUtil
@@ -32,14 +36,14 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 	}
 
-	private List<Map<String, Object>> chromePreferencesList_
-	private List<ChromeOptions> chromeOptionsList_
-	private List<DesiredCapabilities> desiredCapabilitiesList_
+	private List<ChromePreferencesModifier> chromePreferencesFilters_
+	private List<ChromeOptionsModifier> chromeOptionsFilters_
+	private List<DesiredCapabilitiesModifier> desiredCapabilitiesFilters_
 
 	ChromeDriverFactoryImpl() {
-		chromePreferences_   = new DefaultChromePreferencesResolver().resolveChromePreferences()
-		chromeOptions_       = null
-		desiredCapabilities_ = null
+		chromePreferencesFilters_   = new ArrayList<ChromePreferencesModifier>()
+		chromeOptionsFilters_       = new ArrayList<ChromeOptionsModifier>()
+		desiredCapabilitiesFilters_ = new ArrayList<DesiredCapabilitiesModifier>()
 	}
 
 
@@ -84,8 +88,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Path chromeDriverPath = ChromeDriverFactoryImpl.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 		//
-		Map<String, Object> chromePreferences = new DefaultChromePreferencesResolver().resolveChromePreferences()
-		ChromeOptions chromeOptions = new DefaultChromeOptionsResolver().resolveChromeOptions(chromePreferences)
+		Map<String, Object> chromePreferences = new ChromePreferencesDefaultResolver().resolveChromePreferences()
+		ChromeOptions chromeOptions = new ChromeOptionsDefaultResolver().resolveChromeOptions(chromePreferences)
 		//
 		DesiredCapabilities cap = new DefaultDesiredCapabilitiesResolver().resolveDesiredCapabilities(chromeOptions)
 		WebDriver driver = new ChromeDriver(cap)
@@ -121,8 +125,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		//
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
-				Map<String, Object> chromePreferences = new DefaultChromePreferencesResolver().resolveChromePreferences()
-				ChromeOptions chromeOptions = new DefaultChromeOptionsResolver().resolveChromeOptions(chromePreferences)
+				Map<String, Object> chromePreferences = new ChromePreferencesDefaultResolver().resolveChromePreferences()
+				ChromeOptions chromeOptions = new ChromeOptionsDefaultResolver().resolveChromeOptions(chromePreferences)
 
 				// use the Profile as specified
 				Path userDataDirectory = ChromeDriverFactoryImpl.getChromeUserDataDirectory()

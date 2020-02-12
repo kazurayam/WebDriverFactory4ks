@@ -1,4 +1,4 @@
-package com.kazurayam.ks.webdriverfactory
+package com.kazurayam.ks.webdriverfactory.utils
 
 /**
  * This tells you your current OS is Windows, Mac, Unix or Solaris

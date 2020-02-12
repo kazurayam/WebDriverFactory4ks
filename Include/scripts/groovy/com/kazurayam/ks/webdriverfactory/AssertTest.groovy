@@ -2,12 +2,13 @@ package com.kazurayam.ks.webdriverfactory
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
-import com.kazurayam.ks.webdriverfactory.Assert as MyAssert
+
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kazurayam.ks.webdriverfactory.utils.Assert
 import com.kms.katalon.core.exception.StepFailedException
 
 @RunWith(JUnit4.class)

@@ -1,4 +1,4 @@
-package com.kazurayam.ks.webdriverfactory.chrome.impl
+package com.kazurayam.ks.webdriverfactory.desiredcapabilities
 
 import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
 import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
@@ -17,15 +17,8 @@ import com.kms.katalon.core.testobject.TestObject
 import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsFilter
-import org.openqa.selenium.chrome.ChromeOptions
+
 import internal.GlobalVariable
 
-class HeadlessChromeOptionsFilterImpl implements ChromeOptionsFilter {
-
-	ChromeOptions filter(ChromeOptions chromeOptions) {
-		Objects.requireNonNull(chromeOptions, "chromeOptions must not be null")
-		chromeOptions.addArguments("--headless")
-		return chromeOptions
-	}
+public class moveDesiredCapabilityFilterHier {
 }

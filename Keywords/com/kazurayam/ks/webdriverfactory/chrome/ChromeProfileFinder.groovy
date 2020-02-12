@@ -5,9 +5,9 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.stream.Collectors
 
-import com.kazurayam.ks.webdriverfactory.OSIdentifier
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
-import com.kazurayam.ks.webdriverfactory.chrome.impl.ChromeDriverFactoryImpl
+import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverUtils
+import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
 
 
 final class ChromeProfileFinder {
@@ -19,7 +19,7 @@ final class ChromeProfileFinder {
 	 */
 	static List<ChromeProfile> getChromeProfiles() {
 		List<ChromeProfile> chromeProfiles = new ArrayList<ChromeProfile>()
-		Path userDataDirectory = ChromeDriverFactoryImpl.getChromeUserDataDirectory()
+		Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
 		List<Path> dirStream = Files.list(userDataDirectory).collect(Collectors.toList());
 		for (Path dir : dirStream) {
 			if (Files.exists(dir.resolve('Preferences'))) {

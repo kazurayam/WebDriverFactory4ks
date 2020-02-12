@@ -1,9 +1,9 @@
-package com.kazurayam.ks.webdriverfactory.chrome
+package com.kazurayam.ks.webdriverfactory.desiredcapabilities
 
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.remote.DesiredCapabilities
 
-public interface DesiredCapabilitiesResolver {
+interface DesiredCapabilitiesResolver {
 
 	DesiredCapabilities resolveDesiredCapabilities(ChromeOptions chromeOptions)
 }
