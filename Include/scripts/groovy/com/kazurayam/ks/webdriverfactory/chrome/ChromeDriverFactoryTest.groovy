@@ -31,28 +31,11 @@ public class ChromeDriverFactoryTest {
 	@Before
 	void setup() {}
 
-	@Test
-	void test_openChromeDriverWithProfile() {
-		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
-		WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
-		assertThat(driver, is(notNullValue()))
-		DriverFactory.changeWebDriver(driver)
-		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(3)
-		WebUI.closeBrowser()
-	}
 
-	@Test
-	void test_openChromeDriverWithProfileDirectory() {
-		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
-		WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
-		assertThat(driver, is(notNullValue()))
-		DriverFactory.changeWebDriver(driver)
-		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(3)
-		WebUI.closeBrowser()
-	}
-
+	/**
+	 * Basic case.
+	 * Open a Chrome browser with the default profile
+	 */
 	@Test
 	//@IgnoreRest
 	void test_openChromeDriver() {
@@ -64,4 +47,33 @@ public class ChromeDriverFactoryTest {
 		WebUI.delay(3)
 		WebUI.closeBrowser()
 	}
+	
+	/**
+	 * Open a Chrome browser specifying a user profile "Katalon"
+	 */
+	@Test
+	void test_openChromeDriverWithProfile() {
+		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
+		WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
+		assertThat(driver, is(notNullValue()))
+		DriverFactory.changeWebDriver(driver)
+		WebUI.navigateToUrl('http://demoaut.katalon.com/')
+		WebUI.delay(3)
+		WebUI.closeBrowser()
+	}
+	
+	/**
+	 * Open a Chrome browser specifying a profile directory "Default"
+	 */
+	@Test
+	void test_openChromeDriverWithProfileDirectory() {
+		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
+		WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
+		assertThat(driver, is(notNullValue()))
+		DriverFactory.changeWebDriver(driver)
+		WebUI.navigateToUrl('http://demoaut.katalon.com/')
+		WebUI.delay(3)
+		WebUI.closeBrowser()
+	}
+
 }

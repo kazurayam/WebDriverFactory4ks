@@ -16,6 +16,7 @@ import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilities
 import com.kazurayam.ks.webdriverfactory.utils.Assert
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.model.FailureHandling
+import com.kms.katalon.core.util.KeywordUtil
 
 import groovy.json.JsonOutput
 
@@ -157,12 +158,29 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
 
 				// use the Profile as specified
-				Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
-				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(userDataDirectory, profileDirectory)
+				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(profileDirectory)
 				this.addChromeOptionsModifier(com)
 
 				//
-				return this.execute()
+				WebDriver driver = null
+				try {
+					driver = this.execute()
+					return driver
+				} catch (org.openqa.selenium.InvalidArgumentException iae) {
+					StringBuilder sb = new StringBuilder()
+					sb.append("userName=\"${userName}\"\n")
+					sb.append("profileDirectory=\"${profileDirectory}\"\n")
+					sb.append("org.openqa.selenium.InvalidArgumentException was thrown.\n")
+					sb.append("Exceptio message: ")
+					sb.append(iae.getMessage())
+					//
+					Assert.stepFailed(sb.toString(), flowControl)
+				} finally {
+					if (driver != null) {
+						driver.quit()
+					}
+					KeywordUtil.logInfo("forcibly closed the browser")
+				}
 			} else {
 				Assert.stepFailed("Profile directory \"${profileDirectory.toString()}\" is not present", flowControl)
 			}
