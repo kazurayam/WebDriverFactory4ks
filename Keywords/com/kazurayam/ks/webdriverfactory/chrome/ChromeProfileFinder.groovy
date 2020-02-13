@@ -1,29 +1,14 @@
-<<<<<<< HEAD:Keywords/com/kazurayam/ks/thoughtful/ChromeProfileFinder.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.chrome
->>>>>>> develop:Keywords/com/kazurayam/ks/webdriverfactory/chrome/ChromeProfileFinder.groovy
 
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.stream.Collectors
 
-<<<<<<< HEAD:Keywords/com/kazurayam/ks/thoughtful/ChromeProfileFinder.groovy
-/**
- * ChromeProfileFinder class provides a set of utility methods to look into the Profiles
- * defined in the Chrome Browser on the current platform.
- * 
- * @author kazurayam
- *
- */
-=======
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverUtils
 import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
 
-
->>>>>>> develop:Keywords/com/kazurayam/ks/webdriverfactory/chrome/ChromeProfileFinder.groovy
 final class ChromeProfileFinder {
 
 	private ChromeProfileFinder() {}
@@ -52,9 +37,9 @@ final class ChromeProfileFinder {
 	static ChromeProfile getChromeProfile(String name) {
 		List<ChromeProfile> chromeProfiles = this.getChromeProfiles()
 		for (ChromeProfile cProfile: chromeProfiles) {
-			
+
 			System.out.println("cProfile.getName()==${cProfile.getName()}, cProfile.getDirectoryName()=${cProfile.getDirectoryName()}")
-			
+
 			if (cProfile.getName().equals(name)) {
 				return cProfile
 			}
@@ -117,15 +102,15 @@ final class ChromeProfileFinder {
 			// It is important that this chromeProfilesPath ends with User Data and not with the profile folder
 			// %HOME%\AppData\Local\Google\Chrome\User Data
 			return Paths.get('C:', 'Users', System.getProperty('user.name'),
-					'AppData', 'Local', 'Google', 'Chrome', 'User Data')
+			'AppData', 'Local', 'Google', 'Chrome', 'User Data')
 		} else if (OSIdentifier.isMac()) {
 			// ~/Library/Application Support/Google/Chrome
 			return Paths.get(System.getProperty('user.home')).resolve('Library').
-					resolve('Application Support').resolve('Google').resolve('Chrome')
+			resolve('Application Support').resolve('Google').resolve('Chrome')
 		} else if (OSIdentifier.isUnix()) {
 			// ~/.config/google-chrome
 			return Paths.get(System.getProperty('user.home')).resolve('.config').
-					resolve('google-chrome')
+			resolve('google-chrome')
 		} else {
 			throw new IllegalStateException(
 			"Windows, Mac, Linux are supported. Other platforms are not supported.")

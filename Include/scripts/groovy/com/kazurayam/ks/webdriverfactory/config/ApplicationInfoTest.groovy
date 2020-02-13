@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ApplicationInfoTest.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.config
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/config/ApplicationInfoTest.groovy
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*

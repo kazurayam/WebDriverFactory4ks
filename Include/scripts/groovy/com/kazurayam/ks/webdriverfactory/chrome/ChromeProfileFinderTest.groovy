@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeProfileFinderTest.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.chrome
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeProfileFinderTest.groovy
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
@@ -18,11 +14,8 @@ import org.junit.runners.JUnit4
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeProfileFinderTest.groovy
-=======
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeProfileFinderTest.groovy
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 

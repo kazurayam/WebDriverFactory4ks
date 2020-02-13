@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeProfileTest.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.chrome
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeProfileTest.groovy
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*

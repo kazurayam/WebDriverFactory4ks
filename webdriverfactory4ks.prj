@@ -3,12 +3,12 @@
    <description>How to open Chrome browser with client-side storage such as Cookie taken over from previous session?
 This project provides a solution for it.
 </description>
-   <name>ThoughtfulChromeDriverFactory</name>
+   <name>WebDriverFactory4ks</name>
    <tag></tag>
    <UUID>154565e4-04bd-43b1-a8f2-10f33335f023</UUID>
    <migratedVersion>5.9.0</migratedVersion>
    <pageLoadTimeout>0</pageLoadTimeout>
-   <projectFileLocation>/Users/kazuakiurayama/katalon-workspace/OpeningChromeWithClientSideStorageTakenOverFromPreviousSession/webdriverfactory4ks.prj</projectFileLocation>
+   <projectFileLocation>C:\Users\qcq0264\katalon-workspace\WebDriverFactory4ks\webdriverfactory4ks.prj</projectFileLocation>
    <sourceContent>
       <sourceFolderList>
          <sourceFolderConfiguration>

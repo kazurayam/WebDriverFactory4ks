@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeDriverFactoryTest.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.chrome
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeDriverFactoryTest.groovy
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
@@ -19,12 +15,9 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
 
 import com.kazurayam.junit4ks.IgnoreRest
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeDriverFactoryTest.groovy
-=======
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverUtils
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeDriverFactoryTest.groovy
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -38,39 +31,6 @@ public class ChromeDriverFactoryTest {
 	@Before
 	void setup() {}
 
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeDriverFactoryTest.groovy
-
-	@Test
-	void test_getUserDataDirectory() {
-		Path userDataDirectory = ChromeDriverFactory.getChromeUserDataDirectory()
-		assertThat(Files.exists(userDataDirectory), is(true))
-	}
-
-
-	@Test
-	void test_getChromeDriverPath() {
-		Path chromeDriverPath = ChromeDriverFactory.getChromeDriverPath()
-		assertThat(chromeDriverPath, is(notNullValue()))
-		println "chromeDriverPath=\"${chromeDriverPath.toString()}\""
-		assertTrue(Files.exists(chromeDriverPath))
-	}
-
-
-	@Test
-	void test_myChromeOptions() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-		Map<String, Object> chromePreferences = cdFactory.getChromePreferencesResolver().resolveChromePreferences()
-		ChromeOptions cp = cdFactory.getChromeOptionsResolver().resolveChromeOptions(chromePreferences)
-		String cpJson = cp.toJsonText()
-		//println "#test_defaultChromeOpitons cp=${cpJson}"
-		assertTrue(cpJson.length() > 0)
-	}
-
-
-	@Test
-	void test_openChromeDriver() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-=======
 
 	/**
 	 * Basic case.
@@ -80,7 +40,6 @@ public class ChromeDriverFactoryTest {
 	//@IgnoreRest
 	void test_openChromeDriver() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeDriverFactoryTest.groovy
 		WebDriver driver = cdFactory.openChromeDriver()
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)
@@ -88,21 +47,13 @@ public class ChromeDriverFactoryTest {
 		WebUI.delay(3)
 		WebUI.closeBrowser()
 	}
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeDriverFactoryTest.groovy
 
-
-	@Test
-	void test_openChromeDriverWithProfile() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-=======
-	
 	/**
 	 * Open a Chrome browser specifying a user profile "Katalon"
 	 */
 	@Test
 	void test_openChromeDriverWithProfile() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeDriverFactoryTest.groovy
 		WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)
@@ -110,21 +61,13 @@ public class ChromeDriverFactoryTest {
 		WebUI.delay(3)
 		WebUI.closeBrowser()
 	}
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/ChromeDriverFactoryTest.groovy
 
-
-	@Test
-	void test_openChromeDriverWithProfileDirectory() {
-		ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-=======
-	
 	/**
 	 * Open a Chrome browser specifying a profile directory "Default"
 	 */
 	@Test
 	void test_openChromeDriverWithProfileDirectory() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/chrome/ChromeDriverFactoryTest.groovy
 		WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
 		assertThat(driver, is(notNullValue()))
 		DriverFactory.changeWebDriver(driver)

@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Keywords/com/kazurayam/ks/thoughtful/Assert.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.utils
->>>>>>> develop:Keywords/com/kazurayam/ks/webdriverfactory/utils/Assert.groovy
 
 import static com.kms.katalon.core.model.FailureHandling.CONTINUE_ON_FAILURE
 

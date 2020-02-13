@@ -4,6 +4,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
+import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
 import com.kazurayam.ks.webdriverfactory.config.ApplicationInfo
 import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
 

@@ -1,16 +1,9 @@
-<<<<<<< HEAD:Keywords/com/kazurayam/ks/thoughtful/ApplicationInfo.groovy
-package com.kazurayam.ks.thoughtful
-
-=======
 package com.kazurayam.ks.webdriverfactory.config
 
+import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
-
->>>>>>> develop:Keywords/com/kazurayam/ks/webdriverfactory/config/ApplicationInfo.groovy
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 
 public class ApplicationInfo {

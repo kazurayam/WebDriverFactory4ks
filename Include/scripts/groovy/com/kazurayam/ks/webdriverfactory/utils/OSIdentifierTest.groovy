@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/OSIdentifierTest.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.utils
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/utils/OSIdentifierTest.groovy
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*

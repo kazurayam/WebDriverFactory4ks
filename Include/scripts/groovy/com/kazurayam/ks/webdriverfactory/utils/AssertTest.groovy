@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Include/scripts/groovy/com/kazurayam/ks/thoughtful/AssertTest.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.utils
->>>>>>> develop:Include/scripts/groovy/com/kazurayam/ks/webdriverfactory/utils/AssertTest.groovy
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
@@ -11,10 +7,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
-import com.kazurayam.ks.thoughtful.Assert as MyAssert
+import com.kazurayam.ks.webdriverfactory.utils.Assert as MyAssert
 
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kazurayam.ks.webdriverfactory.utils.Assert as MyAssert
 import com.kms.katalon.core.exception.StepFailedException
 
 @RunWith(JUnit4.class)

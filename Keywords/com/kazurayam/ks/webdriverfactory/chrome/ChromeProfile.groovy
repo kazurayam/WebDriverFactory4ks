@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Keywords/com/kazurayam/ks/thoughtful/ChromeProfile.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.chrome
->>>>>>> develop:Keywords/com/kazurayam/ks/webdriverfactory/chrome/ChromeProfile.groovy
 
 import java.nio.file.Files
 import java.nio.file.Path
@@ -34,7 +30,7 @@ class ChromeProfile implements Comparable<ChromeProfile> {
 		JsonSlurper slurper = new JsonSlurper()
 		this.preferences_ = slurper.parse(preferences.toFile())
 		this.name_ = this.preferences_['profile']['name']
-		
+
 		if (this.directoryName_ == 'Profile 2') {
 			File out = new File('./out.json')
 			out.text = JsonOutput.prettyPrint(JsonOutput.toJson(this.preferences_))

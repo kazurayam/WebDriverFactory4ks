@@ -174,12 +174,14 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 					sb.append("Exceptio message: ")
 					sb.append(iae.getMessage())
 					//
-					Assert.stepFailed(sb.toString(), flowControl)
-				} finally {
+					//
 					if (driver != null) {
 						driver.quit()
 					}
 					KeywordUtil.logInfo("forcibly closed the browser")
+					
+					Assert.stepFailed(sb.toString(), flowControl)
+					
 				}
 			} else {
 				Assert.stepFailed("Profile directory \"${profileDirectory.toString()}\" is not present", flowControl)

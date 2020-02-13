@@ -14,7 +14,6 @@ runWithJUnitRunner(WebDriverFactoryTest.class)
 
 runWithJUnitRunner(ChromeDriverFactoryTest.class)
 runWithJUnitRunner(ChromeDriverUtilsTest.class)
-
 runWithJUnitRunner(ChromeProfileFinderTest.class)
 runWithJUnitRunner(ChromeProfileTest.class)
 

@@ -1,8 +1,4 @@
-<<<<<<< HEAD:Keywords/com/kazurayam/ks/thoughtful/OSIdentifier.groovy
-package com.kazurayam.ks.thoughtful
-=======
 package com.kazurayam.ks.webdriverfactory.utils
->>>>>>> develop:Keywords/com/kazurayam/ks/webdriverfactory/utils/OSIdentifier.groovy
 
 /**
  * This tells you your current OS is Windows, Mac, Unix or Solaris
