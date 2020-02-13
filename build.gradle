@@ -48,7 +48,7 @@ task groovydoc(type: Groovydoc, overwrite:true) {
     source = sourceSets.main.groovy
     classpath = configurations.compile
     groovyClasspath = project.configurations.generateDocs
-    include 'com/kazurayam/webdriverfactory4ks/*'
+    include 'com/kazurayam/thoughtfulwebdriverfactory/*'
     exclude '**/*Test.groovy'
 }
 task publishGroovydoc(type: Copy) {
