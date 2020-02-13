@@ -1,12 +1,7 @@
 import org.openqa.selenium.WebDriver
 
-<<<<<<< HEAD:Scripts/main/example_startGmailWithoutLoginOperation/Script1552363984695.groovy
-import com.kazurayam.ks.thoughtful.ChromeDriverFactory
-import com.kazurayam.ks.thoughtful.ChromeProfileFinder
-=======
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactory
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
->>>>>>> develop:Scripts/main/example/usingChromeDriverFactory/how_to_start_Gmail_without_Login_interaction/Script1581285713268.groovy
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 

@@ -179,9 +179,9 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 						driver.quit()
 					}
 					KeywordUtil.logInfo("forcibly closed the browser")
-					
+
 					Assert.stepFailed(sb.toString(), flowControl)
-					
+
 				}
 			} else {
 				Assert.stepFailed("Profile directory \"${profileDirectory.toString()}\" is not present", flowControl)

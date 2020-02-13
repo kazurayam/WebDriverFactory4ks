@@ -1,10 +1,6 @@
 import org.openqa.selenium.WebDriver
 
-<<<<<<< HEAD:Scripts/main/example_openChromeDriverWithProfile/Script1552363369432.groovy
-import com.kazurayam.ks.thoughtful.ChromeDriverFactory
-=======
 import com.kazurayam.ks.webdriverfactory.WebDriverFactory
->>>>>>> develop:Scripts/main/example/WebDriverFactory/how_to_newWebDriverForChromeWithCustomProfile/Script1581383208888.groovy
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 

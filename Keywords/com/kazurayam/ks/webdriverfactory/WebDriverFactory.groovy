@@ -14,9 +14,9 @@ class WebDriverFactory {
 
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType) {
-		return newWebDriver(driverType, RunConfiguration.getDefaultFailureHandling())	
+		return newWebDriver(driverType, RunConfiguration.getDefaultFailureHandling())
 	}
-	
+
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, FailureHandling flowControl) {
 		switch (driverType.getName()) {
@@ -30,10 +30,10 @@ class WebDriverFactory {
 				return cdf.openChromeDriver(flowControl)
 				break
 			default:
-				throw new RuntimeException("${driverType.getName()} is not supported")
+				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
 		}
 	}
-	
+
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, String profileName) {
 		return newWebDriver(driverType, profileName, RunConfiguration.getDefaultFailureHandling())
@@ -52,7 +52,7 @@ class WebDriverFactory {
 				return cdf.openChromeDriverWithProfile(profileName, flowControl)
 				break
 			default:
-				throw new RuntimeException("${driverType.getName()} is not supported")
+				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
 		}
 	}
 }
