@@ -53,14 +53,18 @@ final class ChromeProfileFinder {
 	 * @param name
 	 * @return
 	 */
-	static boolean hasChromeProfile(String name) {
-		return getChromeProfile(name) != null
+	static boolean hasChromeProfile(String profileName) {
+		return getChromeProfile(profileName) != null
 	}
 
 	static ChromeProfile getChromeProfileByDirectoryName(Path profileDirectory) {
 		return getChromeProfileByDirectoryName(profileDirectory.getFileName().toString())
 	}
 
+	static ChromeProfile getDefaultChromeProfile() {
+		return getChromeProfileByDirectoryName("Default")	
+	}
+	
 	static ChromeProfile getChromeProfileByDirectoryName(String profileDirectoryName) {
 		List<ChromeProfile> chromeProfiles = getChromeProfiles()
 		for (ChromeProfile chromeProfile: chromeProfiles) {
@@ -102,15 +106,15 @@ final class ChromeProfileFinder {
 			// It is important that this chromeProfilesPath ends with User Data and not with the profile folder
 			// %HOME%\AppData\Local\Google\Chrome\User Data
 			return Paths.get('C:', 'Users', System.getProperty('user.name'),
-			'AppData', 'Local', 'Google', 'Chrome', 'User Data')
+					'AppData', 'Local', 'Google', 'Chrome', 'User Data')
 		} else if (OSIdentifier.isMac()) {
 			// ~/Library/Application Support/Google/Chrome
 			return Paths.get(System.getProperty('user.home')).resolve('Library').
-			resolve('Application Support').resolve('Google').resolve('Chrome')
+					resolve('Application Support').resolve('Google').resolve('Chrome')
 		} else if (OSIdentifier.isUnix()) {
 			// ~/.config/google-chrome
 			return Paths.get(System.getProperty('user.home')).resolve('.config').
-			resolve('google-chrome')
+					resolve('google-chrome')
 		} else {
 			throw new IllegalStateException(
 			"Windows, Mac, Linux are supported. Other platforms are not supported.")

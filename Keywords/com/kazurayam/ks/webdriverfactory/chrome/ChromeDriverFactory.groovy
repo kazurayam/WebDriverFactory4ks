@@ -17,15 +17,17 @@ abstract class ChromeDriverFactory {
 
 	abstract void addDesiredCapabilitiesModifier(DesiredCapabilitiesModifier desiredCapabilitiesModifier)
 
-	abstract WebDriver openChromeDriver()
+	abstract WebDriver newChromeDriver()
 
-	abstract WebDriver openChromeDriver(FailureHandling flowControl)
+	abstract WebDriver newChromeDriver(FailureHandling flowControl)
 
-	abstract WebDriver openChromeDriverWithProfile(String userName)
+	abstract WebDriver newChromeDriverWithProfile(String userName)
 
-	abstract WebDriver openChromeDriverWithProfile(String userName, FailureHandling flowControl)
+	abstract WebDriver newChromeDriverWithProfile(String userName, FailureHandling flowControl)
 
-	abstract WebDriver openChromeDriverWithProfileDirectory(String directoryName)
+	abstract WebDriver newChromeDriverWithProfileDirectory(String directoryName)
 
-	abstract WebDriver openChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl)
+	abstract WebDriver newChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl)
+
+	abstract ChromeProfile getChromeProfile()
 }

@@ -14,7 +14,7 @@
       <guid>c0631207-7516-429e-b5ec-499e3f89ba90</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/main/example/WebDriverFactory/how_to_newWebDriverForChromeWithCustomProfile</testCaseId>
+      <testCaseId>Test Cases/main/example/usingWebDriverFactory/how_to_newWebDriverWithCustomProfile</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>f5a8f383-f33b-4c20-af6f-be15e591cef3</guid>

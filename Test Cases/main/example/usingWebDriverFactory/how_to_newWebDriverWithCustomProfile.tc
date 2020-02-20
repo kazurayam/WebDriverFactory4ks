@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description></description>
-   <name>how_to_newWebDriverForChromeWithCustomProfile</name>
+   <name>how_to_newWebDriverWithCustomProfile</name>
    <tag></tag>
    <comment></comment>
    <testCaseGuid>3ed72d51-9e32-4cab-af20-204fc57c75f2</testCaseGuid>

@@ -7,7 +7,8 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 /**
  * This test case opens Chrome browser with a Profile which is associated with
- * the user data directory 'Default'.
+ * the user data directory named 'Default'.
+ * 
  * The user data directory 'Default' is created when the Chrome is installed,
  * so usually be there.
  * If the directory 'User Data\Default' is not found, an Exception will be thrown.
@@ -25,14 +26,12 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * You may want to use Windows' Task Manager to terminate all processes of Google Chrome.
  */
 ChromeDriverFactory cdFactory = ChromeDriverFactory.newInstance()
-WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
+WebDriver driver = cdFactory.newChromeDriverWithProfile('Kazuaki')
 assert driver != null
+assert cdFactory.getChromeProfile().getName() == 'Kazuaki'
+
 DriverFactory.changeWebDriver(driver)
 
 WebUI.navigateToUrl('https://mail.google.com/')   // possibly already logged-in, isn't it?
-
-String profileName = ChromeProfileFinder.getChromeProfileNameByDirectoryName('Default')
-WebUI.comment("Directory \'Default\' is associated with Chrome Profile \'${profileName}\'")
-
-WebUI.delay(5)
+WebUI.delay(3)
 WebUI.closeBrowser()

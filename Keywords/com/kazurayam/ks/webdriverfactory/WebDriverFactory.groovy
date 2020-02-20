@@ -20,14 +20,14 @@ class WebDriverFactory {
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, FailureHandling flowControl) {
 		switch (driverType.getName()) {
-			case 'CHROME_DRIVER' :
-				return ChromeDriverFactory.newInstance().openChromeDriver(flowControl)
+			case DriverTypeName.CHROME_DRIVER.toString() :
+				return ChromeDriverFactory.newInstance().newChromeDriver(flowControl)
 				break
-			case 'HEADLESS_DRIVER' :
+			case DriverTypeName.HEADLESS_DRIVER.toString() :	// Chrome Headless Browser
 				ChromeDriverFactory cdf = ChromeDriverFactory.newInstance()
 				ChromeOptionsModifier com = new ChromeOptionsModifierHeadless()
 				cdf.addChromeOptionsModifier(com)
-				return cdf.openChromeDriver(flowControl)
+				return cdf.newChromeDriver(flowControl)
 				break
 			default:
 				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
@@ -42,14 +42,14 @@ class WebDriverFactory {
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, String profileName, FailureHandling flowControl) {
 		switch (driverType.getName()) {
-			case 'CHROME_DRIVER' :
-				return ChromeDriverFactory.newInstance().openChromeDriverWithProfile(profileName, flowControl)
+			case DriverTypeName.CHROME_DRIVER.toString() :
+				return ChromeDriverFactory.newInstance().newChromeDriverWithProfile(profileName, flowControl)
 				break
-			case 'HEADLESS_DRIVER' :
+			case DriverTypeName.HEADLESS_DRIVER.toString() :	// Chrome Headless Browser
 				ChromeDriverFactory cdf = ChromeDriverFactory.newInstance()
 				ChromeOptionsModifier com = new ChromeOptionsModifierHeadless()
 				cdf.addChromeOptionsModifier(com)
-				return cdf.openChromeDriverWithProfile(profileName, flowControl)
+				return cdf.newChromeDriverWithProfile(profileName, flowControl)
 				break
 			default:
 				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")

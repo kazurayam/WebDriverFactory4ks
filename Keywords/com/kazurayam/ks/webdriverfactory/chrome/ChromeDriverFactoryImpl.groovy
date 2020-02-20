@@ -35,10 +35,13 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	private List<ChromeOptionsModifier> chromeOptionsModifiers_
 	private List<DesiredCapabilitiesModifier> desiredCapabilitiesModifiers_
 
+	private ChromeProfile chromeProfile_
+
 	ChromeDriverFactoryImpl() {
 		chromePreferencesModifiers_   = new ArrayList<ChromePreferencesModifier>()
 		chromeOptionsModifiers_       = new ArrayList<ChromeOptionsModifier>()
 		desiredCapabilitiesModifiers_ = new ArrayList<DesiredCapabilitiesModifier>()
+		chromeProfile_ = null
 	}
 
 	@Override
@@ -57,6 +60,15 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	}
 
 
+	/**
+	 * 1. enable logging by Chrome Driver into the tmp directory under the Katalon Studio Project directory
+	 * 2. ensure the path of Chrome Driver executable
+	 */
+	private void prepare() {
+		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
+		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
+		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
+	}
 
 
 	/**
@@ -100,21 +112,9 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	}
 
 
-
-
-	/**
-	 * 1. enable logging by Chrome Driver into the tmp directory under the Katalon Studio Project directory
-	 * 2. ensure the path of Chrome Driver executable
-	 */
-	private void prepare() {
-		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
-		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
-		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
-	}
-
 	@Override
-	WebDriver openChromeDriver() {
-		return openChromeDriver(RunConfiguration.getDefaultFailureHandling())
+	WebDriver newChromeDriver() {
+		return newChromeDriver(RunConfiguration.getDefaultFailureHandling())
 	}
 
 
@@ -125,15 +125,17 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	 * @return
 	 */
 	@Override
-	WebDriver openChromeDriver(FailureHandling flowControl) {
+	WebDriver newChromeDriver(FailureHandling flowControl) {
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		this.prepare()
-		return this.execute()
+		WebDriver driver = this.execute()
+		chromeProfile_ = ChromeProfileFinder.getDefaultChromeProfile()
+		return driver
 	}
 
 	@Override
-	WebDriver openChromeDriverWithProfile(String userName) {
-		return openChromeDriverWithProfile(userName, RunConfiguration.getDefaultFailureHandling())
+	WebDriver newChromeDriverWithProfile(String renameName) {
+		return newChromeDriverWithProfile(renameName, RunConfiguration.getDefaultFailureHandling())
 	}
 
 	/**
@@ -147,13 +149,13 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	 * @return
 	 */
 	@Override
-	WebDriver openChromeDriverWithProfile(String userName, FailureHandling flowControl) {
-		Objects.requireNonNull(userName, "userName must not be null")
+	WebDriver newChromeDriverWithProfile(String profileName, FailureHandling flowControl) {
+		Objects.requireNonNull(profileName, "profileName must not be null")
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		//
 		this.prepare()
 		//
-		Path profileDirectory = ChromeDriverUtils.getChromeProfileDirectory(userName)
+		Path profileDirectory = ChromeDriverUtils.getChromeProfileDirectory(profileName)
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
 
@@ -165,10 +167,11 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				WebDriver driver = null
 				try {
 					driver = this.execute()
+					chromeProfile_ = new ChromeProfile(profileDirectory)
 					return driver
 				} catch (org.openqa.selenium.InvalidArgumentException iae) {
 					StringBuilder sb = new StringBuilder()
-					sb.append("userName=\"${userName}\"\n")
+					sb.append("profileName=\"${profileName}\"\n")
 					sb.append("profileDirectory=\"${profileDirectory}\"\n")
 					sb.append("org.openqa.selenium.InvalidArgumentException was thrown.\n")
 					sb.append("Exceptio message: ")
@@ -187,7 +190,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				Assert.stepFailed("Profile directory \"${profileDirectory.toString()}\" is not present", flowControl)
 			}
 		} else {
-			Assert.stepFailed("Profile directory for userName \"${userName}\" is not found." +
+			Assert.stepFailed("Profile directory for userName \"${profileName}\" is not found." +
 					"\n" + ChromeProfileFinder.listChromeProfiles(),
 					flowControl)
 		}
@@ -212,12 +215,12 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	 * </PRE>
 	 */
 	@Override
-	WebDriver openChromeDriverWithProfileDirectory(String directoryName) {
-		return openChromeDriverWithProfileDirectory(directoryName, RunConfiguration.getDefaultFailureHandling())
+	WebDriver newChromeDriverWithProfileDirectory(String directoryName) {
+		return newChromeDriverWithProfileDirectory(directoryName, RunConfiguration.getDefaultFailureHandling())
 	}
 
 	@Override
-	WebDriver openChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl) {
+	WebDriver newChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl) {
 		Objects.requireNonNull(directoryName, "directoryName must not be null")
 		Path userDataDir = ChromeDriverUtils.getChromeUserDataDirectory()
 		if (userDataDir != null) {
@@ -225,7 +228,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				Path profileDirectory = userDataDir.resolve(directoryName)
 				if (Files.exists(profileDirectory)) {
 					ChromeProfile chromeProfile = ChromeProfileFinder.getChromeProfileByDirectoryName(profileDirectory)
-					return openChromeDriverWithProfile(chromeProfile.getName(), flowControl)
+					return newChromeDriverWithProfile(chromeProfile.getName(), flowControl)
 				}
 			} else {
 				Assert.stepFailed("${userDataDir} is not found", flowControl)
@@ -234,4 +237,14 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 			Assert.stepFailed("unable to identify the User Data Directory of Chrome browser", flowControl)
 		}
 	}
+
+	/**
+	 * returns ChromeProfile used to instantiate the ChromeDriver by calling execute().
+	 * If you call this before calling execute(), null will be returned.
+	 */
+	@Override
+	ChromeProfile getChromeProfile() {
+		return this.chromeProfile_
+	}
+
 }

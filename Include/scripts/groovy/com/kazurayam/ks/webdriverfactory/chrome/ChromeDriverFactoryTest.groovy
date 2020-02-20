@@ -31,48 +31,64 @@ public class ChromeDriverFactoryTest {
 	@Before
 	void setup() {}
 
-
 	/**
 	 * Basic case.
-	 * Open a Chrome browser with the default profile
+	 * Instantiate a ChromeDriver to open a Chrome browser with the default profile.
+	 * 
 	 */
 	@Test
 	//@IgnoreRest
-	void test_openChromeDriver() {
+	void test_newChromeDriver() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
-		WebDriver driver = cdFactory.openChromeDriver()
+		WebDriver driver = cdFactory.newChromeDriver()
 		assertThat(driver, is(notNullValue()))
+
+		assertNotNull(cdFactory.getChromeProfile())
+		//assertThat(cdFactory.getChromeProfile().getName(), is('kazurayam'))
+
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(3)
+		WebUI.delay(30)
 		WebUI.closeBrowser()
 	}
 
 	/**
-	 * Open a Chrome browser specifying a user profile "Katalon"
+	 * Instantiate a ChromeDriver to open a Chrome browser specifying a user profile "Katalon"
+	 * 
 	 */
 	@Test
-	void test_openChromeDriverWithProfile() {
+	void test_newChromeDriverWithProfile() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
-		WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')
+		WebDriver driver = cdFactory.newChromeDriverWithProfile('Katalon')
 		assertThat(driver, is(notNullValue()))
+
+		assertNotNull(cdFactory.getChromeProfile())
+		assertThat(cdFactory.getChromeProfile().getName(), is('Katalon'))
+
+		WebUI.comment("ChromeDriver has been instantiated with profile Katalon")
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(3)
+		WebUI.delay(30)
 		WebUI.closeBrowser()
 	}
 
 	/**
-	 * Open a Chrome browser specifying a profile directory "Default"
+	 * Instantiate a ChromeDriver to open Chrome browser specifying a profile directory "Default"
+	 * 
 	 */
 	@Test
-	void test_openChromeDriverWithProfileDirectory() {
+	void test_newChromeDriverWithProfileDirectory() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
-		WebDriver driver = cdFactory.openChromeDriverWithProfileDirectory('Default')
+		WebDriver driver = cdFactory.newChromeDriverWithProfileDirectory('Default')
 		assertThat(driver, is(notNullValue()))
+
+		assertNotNull(cdFactory.getChromeProfile())
+		//assertThat(cdFactory.getChromeProfile().getName(), is('kazurayam'))
+
+		WebUI.comment("ChromeDriver has been instantiated with profile directory Default")
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(3)
+		WebUI.delay(30)
 		WebUI.closeBrowser()
 	}
 
