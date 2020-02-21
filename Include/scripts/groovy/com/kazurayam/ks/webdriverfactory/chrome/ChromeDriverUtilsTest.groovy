@@ -32,7 +32,19 @@ public class ChromeDriverUtilsTest {
 	}
 
 	@Test
-	void test_ChromeProfile() {
+	void test_getChromeProfileDirectory() {
+		// when:
+		Path profileDirectory = ChromeDriverUtils.getChromeProfileDirectory('Katalon')
+		ChromeProfile katalonProfile = new ChromeProfile(profileDirectory)
+		// then:
+		assertThat(katalonProfile, is(notNullValue()))
+		assertThat(katalonProfile.getName(), is(notNullValue()))
+		//assertThat(katalonProfile.getDirectoryName(), is('Profile 22'))    // dependent on the runtime environment; undetermined 
+		assertThat(katalonProfile.getProfilePath(), is(profileDirectory))	
+	}
+	
+	@Test
+	void test_getChromeUserDataDirectory() {
 		// when:
 		Path profileDirectory = ChromeDriverUtils.getChromeUserDataDirectory().resolve('Default')
 		ChromeProfile defaultProfile = new ChromeProfile(profileDirectory)

@@ -3,27 +3,20 @@ package com.kazurayam.ks.webdriverfactory.chrome
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
 
-import java.nio.file.Files
-import java.nio.file.Path
-
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
+import org.junit.Ignore
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.openqa.selenium.WebDriver
-import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.remote.DesiredCapabilities
 
-import com.kazurayam.junit4ks.IgnoreRest
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverUtils
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfile
-import com.kazurayam.ks.webdriverfactory.chrome.ChromeProfileFinder
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import com.kazurayam.junit4ks.IgnoreRest
 
 /**
  * @author kazurayam
- *
  */
 @RunWith(JUnit4.class)
 public class ChromeDriverFactoryTest {
@@ -37,18 +30,19 @@ public class ChromeDriverFactoryTest {
 	 * 
 	 */
 	@Test
-	//@IgnoreRest
 	void test_newChromeDriver() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
 		WebDriver driver = cdFactory.newChromeDriver()
 		assertThat(driver, is(notNullValue()))
 
-		assertNotNull(cdFactory.getChromeProfile())
+		DesiredCapabilities dc = cdFactory.getEmployedDesiredCapabilities()
+		assertNotNull(dc)
+		WebUI.comment("DesiredCapabilities: ${dc.toString()}")
 		//assertThat(cdFactory.getChromeProfile().getName(), is('kazurayam'))
 
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(30)
+		WebUI.delay(3)
 		WebUI.closeBrowser()
 	}
 
@@ -62,13 +56,14 @@ public class ChromeDriverFactoryTest {
 		WebDriver driver = cdFactory.newChromeDriverWithProfile('Katalon')
 		assertThat(driver, is(notNullValue()))
 
-		assertNotNull(cdFactory.getChromeProfile())
-		assertThat(cdFactory.getChromeProfile().getName(), is('Katalon'))
+		DesiredCapabilities dc = cdFactory.getEmployedDesiredCapabilities()
+		assertNotNull(dc)
+		WebUI.comment("DesiredCapabilities: ${dc.toString()}")
 
 		WebUI.comment("ChromeDriver has been instantiated with profile Katalon")
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(30)
+		WebUI.delay(3)
 		WebUI.closeBrowser()
 	}
 
@@ -82,14 +77,14 @@ public class ChromeDriverFactoryTest {
 		WebDriver driver = cdFactory.newChromeDriverWithProfileDirectory('Default')
 		assertThat(driver, is(notNullValue()))
 
-		assertNotNull(cdFactory.getChromeProfile())
-		//assertThat(cdFactory.getChromeProfile().getName(), is('kazurayam'))
+		DesiredCapabilities dc = cdFactory.getEmployedDesiredCapabilities()
+		assertNotNull(dc)
+		WebUI.comment("DesiredCapabilities: ${dc.toString()}")
 
 		WebUI.comment("ChromeDriver has been instantiated with profile directory Default")
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl('http://demoaut.katalon.com/')
-		WebUI.delay(30)
+		WebUI.delay(3)
 		WebUI.closeBrowser()
 	}
-
 }

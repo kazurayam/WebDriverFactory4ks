@@ -1,6 +1,7 @@
 package com.kazurayam.ks.webdriverfactory.chrome
 
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.remote.DesiredCapabilities
 
 import com.kazurayam.ks.webdriverfactory.desiredcapabilities.DesiredCapabilitiesModifier
 import com.kms.katalon.core.model.FailureHandling
@@ -29,5 +30,5 @@ abstract class ChromeDriverFactory {
 
 	abstract WebDriver newChromeDriverWithProfileDirectory(String directoryName, FailureHandling flowControl)
 
-	abstract ChromeProfile getChromeProfile()
+	abstract DesiredCapabilities getEmployedDesiredCapabilities()
 }

@@ -25,8 +25,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	static Logger logger_ = LoggerFactory.getLogger(ChromeDriverFactoryImpl.class)
 
 	static {
-		// dynamically add toJsonText() method to ChromeOptions class
-		ChromeOptions.metaClass.toString = {
+		// dynamically add toJsonText() method to the built-in classes
+		DesiredCapabilities.metaClass.toString = {
 			return JsonOutput.prettyPrint(JsonOutput.toJson(delegate.asMap()))
 		}
 	}
@@ -35,13 +35,13 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	private List<ChromeOptionsModifier> chromeOptionsModifiers_
 	private List<DesiredCapabilitiesModifier> desiredCapabilitiesModifiers_
 
-	private ChromeProfile chromeProfile_
+	private DesiredCapabilities desiredCapabilities_
 
 	ChromeDriverFactoryImpl() {
 		chromePreferencesModifiers_   = new ArrayList<ChromePreferencesModifier>()
 		chromeOptionsModifiers_       = new ArrayList<ChromeOptionsModifier>()
 		desiredCapabilitiesModifiers_ = new ArrayList<DesiredCapabilitiesModifier>()
-		chromeProfile_ = null
+		desiredCapabilities_ = null
 	}
 
 	@Override
@@ -68,15 +68,17 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
 		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
+		
+		this.addChromeOptionsModifier(new ChromeOptionsModifierDefault())
 	}
 
 
 	/**
 	 * The core function of this class.
 	 * 
-	 * Create an instance of Chrome Driver with setup info through the chain of 
-	 * the chain of 
-	 * ChromePreferrences => ChromeOptions => DesiredCapabilities
+	 * Create an instance of Chrome Driver with configuration
+	 * setup through the chain of 
+	 *     ChromePreferrences => ChromeOptions => DesiredCapabilities
 	 * while modifying each containers with specified Modifiers
 	 * 
 	 * @return
@@ -98,14 +100,14 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 
 		// create Desired Capabilities taking over settings in the Chrome Options
-		DesiredCapabilities desiredCapabilities = new DesiredCapabilitiesBuilderImpl().build(chromeOptions)
+		desiredCapabilities_ = new DesiredCapabilitiesBuilderImpl().build(chromeOptions)
 		// modify the Desired Capabilities
 		for (DesiredCapabilitiesModifier dcm in desiredCapabilitiesModifiers_) {
-			desiredCapabilities = dcm.modify(desiredCapabilities)
+			desiredCapabilities_ = dcm.modify(desiredCapabilities_)
 		}
 
 		// now let's create Chrome Driver
-		WebDriver driver = new ChromeDriver(desiredCapabilities)
+		WebDriver driver = new ChromeDriver(desiredCapabilities_)
 
 		// well done
 		return driver
@@ -129,7 +131,6 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Objects.requireNonNull(flowControl, "flowControl must not be null")
 		this.prepare()
 		WebDriver driver = this.execute()
-		chromeProfile_ = ChromeProfileFinder.getDefaultChromeProfile()
 		return driver
 	}
 
@@ -160,14 +161,14 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
 
 				// use the Profile as specified
-				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(profileDirectory)
+				Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
+				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(userDataDirectory, profileDirectory)
 				this.addChromeOptionsModifier(com)
 
 				//
 				WebDriver driver = null
 				try {
 					driver = this.execute()
-					chromeProfile_ = new ChromeProfile(profileDirectory)
 					return driver
 				} catch (org.openqa.selenium.InvalidArgumentException iae) {
 					StringBuilder sb = new StringBuilder()
@@ -239,12 +240,12 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	}
 
 	/**
-	 * returns ChromeProfile used to instantiate the ChromeDriver by calling execute().
+	 * returns the DesiredCapabilitiy object employed when the factory instantiated ChromeDriver by calling execute().
 	 * If you call this before calling execute(), null will be returned.
 	 */
 	@Override
-	ChromeProfile getChromeProfile() {
-		return this.chromeProfile_
+	DesiredCapabilities getEmployedDesiredCapabilities() {
+		return this.desiredCapabilities_
 	}
 
 }
