@@ -20,6 +20,6 @@
       <guid>f5a8f383-f33b-4c20-af6f-be15e591cef3</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/main/example/usingChromeDriverFactory/how_to_start_Gmail_without_Login_interaction</testCaseId>
+      <testCaseId>Test Cases/main/example/usingChromeDriverFactory/how_to_newChromeDriverWithCustomProfile</testCaseId>
    </testCaseLink>
 </TestSuiteEntity>
