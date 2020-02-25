@@ -62,9 +62,9 @@ final class ChromeProfileFinder {
 	}
 
 	static ChromeProfile getDefaultChromeProfile() {
-		return getChromeProfileByDirectoryName("Default")	
+		return getChromeProfileByDirectoryName("Default")
 	}
-	
+
 	static ChromeProfile getChromeProfileByDirectoryName(String profileDirectoryName) {
 		List<ChromeProfile> chromeProfiles = getChromeProfiles()
 		for (ChromeProfile chromeProfile: chromeProfiles) {

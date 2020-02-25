@@ -3,6 +3,7 @@ package com.kazurayam.ks.webdriverfactory.chrome
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import org.apache.commons.io.FileUtils
 
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
@@ -68,7 +69,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		ChromeDriverUtils.enableChromeDriverLog(Paths.get(RunConfiguration.getProjectDir()).resolve('tmp'))
 		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
-		
+
 		this.addChromeOptionsModifier(new ChromeOptionsModifierDefault())
 	}
 
@@ -160,9 +161,15 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		if (profileDirectory != null) {
 			if (Files.exists(profileDirectory) && profileDirectory.toFile().canWrite()) {
 
-				// use the Profile as specified
+				// copy the Profile directory contents from the Chrome's internal "User Data" directory to temporary directory
+				// this is done in order to workaround "User Data is used" contention problem.
 				Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
-				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(userDataDirectory, profileDirectory)
+				Path tempUDataDirectory = Files.createTempDirectory("User Data")
+				Path tempProfileDirectory = tempUDataDirectory.resolve(profileName)
+				FileUtils.copyDirectory(profileDirectory.toFile(), tempProfileDirectory.toFile())
+				
+				// create the basic ChromeOptionsModifier with copied profile dir
+				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(tempUDataDirectory, tempProfileDirectory)
 				this.addChromeOptionsModifier(com)
 
 				//
@@ -197,7 +204,10 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 	}
 
-
+	private void copyChildDirectory(Path sourceDir, Path destDir, String dirName) {
+			
+	}
+	
 	/**
 	 * Usage:
 	 * <PRE>
