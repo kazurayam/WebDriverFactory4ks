@@ -166,7 +166,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				Path userDataDirectory = ChromeDriverUtils.getChromeUserDataDirectory()
 				Path tempUDataDirectory = Files.createTempDirectory("User Data")
 				Path tempProfileDirectory = tempUDataDirectory.resolve(profileName)
-				FileUtils.copyDirectory(profileDirectory.toFile(), tempProfileDirectory.toFile())
+				//
+				com.kazurayam.ks.webdriverfactory.utils.FileUtils.copyReadOnlyDirectory(profileDirectory.toFile(), tempProfileDirectory.toFile())
 
 				// create the basic ChromeOptionsModifier with copied profile dir
 				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(tempUDataDirectory, tempProfileDirectory)
@@ -204,9 +205,6 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 	}
 
-	private void copyChildDirectory(Path sourceDir, Path destDir, String dirName) {
-
-	}
 
 	/**
 	 * Usage:
