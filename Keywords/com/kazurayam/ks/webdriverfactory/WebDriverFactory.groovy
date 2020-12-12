@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactory
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsModifier
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsModifierHeadless
+import com.kazurayam.ks.webdriverfactory.firefox.FirefoxDriverFactoryImpl
 import com.kms.katalon.core.annotation.Keyword
 import com.kms.katalon.core.configuration.RunConfiguration
 import com.kms.katalon.core.driver.DriverType
@@ -20,7 +21,7 @@ class WebDriverFactory {
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, FailureHandling flowControl) {
 		switch (driverType.getName()) {
-			case DriverTypeName.CHROME_DRIVER.toString() :
+			case DriverTypeName.CHROME_DRIVER.toString() :		// Google Chrome Browser
 				return ChromeDriverFactory.newInstance().newChromeDriver(flowControl)
 				break
 			case DriverTypeName.HEADLESS_DRIVER.toString() :	// Chrome Headless Browser
@@ -29,6 +30,11 @@ class WebDriverFactory {
 				cdf.addChromeOptionsModifier(com)
 				return cdf.newChromeDriver(flowControl)
 				break
+			// I haven't worked out enough for Firefox yet 
+			case DriverTypeName.FIREFOX_DRIVER.toString():		// Firefox Browser
+				FirefoxDriverFactoryImpl fdf = FirefoxDriverFactoryImpl.newInstance()
+				// FirefoxOptionsModifier is not yet implemented 
+				return fdf.createFirefoxDriver()
 			default:
 				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
 		}

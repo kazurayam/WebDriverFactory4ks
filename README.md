@@ -137,3 +137,8 @@ in both cases, the Profile is identified by its Profile Name like 'Katalon', not
 1. Download the `webdriverfactory4ks-all.jar` from the GitHub project's [Releases](https://github.com/kazurayam/webdriverfactory4ks/releases/tag/0.0) page.
 2. Place the jar into the `Drivers` directory of you Katalon Studio project; just as documented in the doc [External libraries](https://docs.katalon.com/katalon-studio/docs/external-libraries.html)
 3. Write your test case script which calls the  `com.kazurayam.webdriverfactory4ks.ChromeDriverFactory` class.
+
+# What I found
+
+I was not successful for my issue. I have never succeeded to make Chrome Browser started retaining “already logged in status” of Web applications. I could not find out the detail but Chrome Browser is very well-engineered in terms of “Security”. I could not cheat Chrome at all.
+See https://forum.katalon.com/t/opening-chrome-browser-with-a-predefined-custom-chrome-profile-which-stores-session-info-such-as-credentials-and-cookies/20966/14
