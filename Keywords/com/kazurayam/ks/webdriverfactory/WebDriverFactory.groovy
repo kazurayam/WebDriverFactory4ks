@@ -30,10 +30,10 @@ class WebDriverFactory {
 				cdf.addChromeOptionsModifier(com)
 				return cdf.newChromeDriver(flowControl)
 				break
-			// I haven't worked out enough for Firefox yet 
+			// I haven't worked out enough for Firefox yet
 			case DriverTypeName.FIREFOX_DRIVER.toString():		// Firefox Browser
 				FirefoxDriverFactoryImpl fdf = FirefoxDriverFactoryImpl.newInstance()
-				// FirefoxOptionsModifier is not yet implemented 
+			// FirefoxOptionsModifier is not yet implemented
 				return fdf.createFirefoxDriver()
 			default:
 				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")

@@ -1,37 +1,47 @@
-import static com.kms.katalon.core.checkpoint.CheckpointFactory.findCheckpoint
-import static com.kms.katalon.core.testcase.TestCaseFactory.findTestCase
-import static com.kms.katalon.core.testdata.TestDataFactory.findTestData
-import static com.kms.katalon.core.testobject.ObjectRepository.findTestObject
-import static com.kms.katalon.core.testobject.ObjectRepository.findWindowsObject
-import com.kms.katalon.core.checkpoint.Checkpoint as Checkpoint
-import com.kms.katalon.core.cucumber.keyword.CucumberBuiltinKeywords as CucumberKW
-import com.kms.katalon.core.mobile.keyword.MobileBuiltInKeywords as Mobile
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
-import com.kms.katalon.core.testcase.TestCase as TestCase
-import com.kms.katalon.core.testdata.TestData as TestData
-import com.kms.katalon.core.testobject.TestObject as TestObject
-import com.kms.katalon.core.testobject.ConditionType
-import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
-import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
-import internal.GlobalVariable as GlobalVariable
-import com.kms.katalon.core.webui.driver.DriverFactory
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 
+import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.testobject.ConditionType
+import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
-DriverFactory.getChromeDriverPath()
+WebDriver incognitoDriver = openChromeBrowserInIncognitoMode()
 
-ChromeOptions options = new ChromeOptions()
-options.addArguments("–incognito")
-chromeDriverPath = DriverFactory.getChromeDriverPath()
-System.setProperty("webdriver.chrome.driver", chromeDriverPath)
-WebDriver driver = new ChromeDriver(options);
-
-DriverFactory.changeWebDriver(driver)
+DriverFactory.changeWebDriver(incognitoDriver)
 WebUI.navigateToUrl('http://demoaut.katalon.com/')
 TestObject tObj = new TestObject().addProperty('css', ConditionType.EQUALS, '#btn-make-appointment')
 WebUI.verifyElementPresent(tObj, 10, FailureHandling.STOP_ON_FAILURE)
 WebUI.delay(1)
 WebUI.closeBrowser()
+
+/**
+ * opens a Chrome browser with nothing special
+ * returns the ChromeDriver instance that is assocated with the window
+ * @return
+ */
+ChromeDriver openChromeBrowserPlain() {
+	return openChromeBrowser(new ChromeOptions())
+}
+/**
+ * opens a Chrome browser with -incoginito mode,
+ * returns the ChromeDriver instance that is associated with the window
+ */
+ChromeDriver openChromeBrowserInIncognitoMode() {
+	ChromeOptions options = new ChromeOptions()
+	options.addArguments("–incognito")
+	return openChromeBrowser(options);
+}
+
+/**
+ * opens a ChromeBrowser with the ChromeOptions given.
+ * returns the ChromeDriver instance that is associated with the window
+ * @param options
+ * @return
+ */
+ChromeDriver openChromeBrowser(ChromeOptions options) {
+	System.setProperty("webdriver.chrome.driver", DriverFactory.getChromeDriverPath())
+	return new ChromeDriver(options);
+}
