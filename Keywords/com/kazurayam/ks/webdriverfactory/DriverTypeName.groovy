@@ -13,9 +13,13 @@ enum DriverTypeName {
 	CHROME_DRIVER,
 	HEADLESS_DRIVER,	// I believe, this should have been named as CHROME_HEADLESS_DRIVER
 	FIREFOX_DRIVER,
-	FIREFOX_HEADLESS_DRIVER;
+	FIREFOX_HEADLESS_DRIVER,
+	NULL;
 
 	public DriverType getDriverType() {
+		if (this.toString() == "NULL") {
+			throw new UnsupportedOperationException("DriverTypeName.NULL.getDriverType() should not be used")
+		}
 		return new DriverTypeImpl(this.toString())
 	}
 

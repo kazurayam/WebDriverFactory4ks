@@ -38,5 +38,14 @@ public class DriverTypeNameTest {
 		DriverType ffhl = DriverTypeName.FIREFOX_HEADLESS_DRIVER.getDriverType()
 		assertEquals(DriverTypeName.FIREFOX_HEADLESS_DRIVER.toString(), ffhl.getName())
 	}
-
+	
+	@Test
+	public void test_getDriverType_NULL() {
+		try {
+			DriverType nullObjct = DriverTypeName.NULL.getDriverType()
+			fail("epected an Exceptioin to be thrown but not")
+		} catch (UnsupportedOperationException e) {
+			// as expected
+		}
+	}
 }
