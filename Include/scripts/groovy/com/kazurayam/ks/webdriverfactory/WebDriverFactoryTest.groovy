@@ -10,6 +10,7 @@ import org.junit.runners.JUnit4
 import org.openqa.selenium.WebDriver
 
 import com.kms.katalon.core.driver.DriverType
+import com.kazurayam.ks.webdriverfactory.DriverTypeName
 
 
 @RunWith(JUnit4.class)
@@ -43,6 +44,12 @@ public class WebDriverFactoryTest {
 	public void test_newWebDriver_ChromeDriver_withProfile() {
 		DriverType chrome = new DriverTypeImpl('CHROME_DRIVER')
 		driver = WebDriverFactory.newWebDriver(chrome, 'Katalon')
+		assertNotNull(driver)
+	}
+	
+	@Test
+	public void test_newWebDriver_ChromeDriver_withProfile_byDriverTypeName() {
+		driver = WebDriverFactory.newWebDriver(DriverTypeName.CHROME_DRIVER, 'Katalon')
 		assertNotNull(driver)
 	}
 

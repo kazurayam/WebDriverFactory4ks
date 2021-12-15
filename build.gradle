@@ -5,7 +5,7 @@ plugins {
 
 group = 'com.kazurayam'
 jar.archiveBaseName = "webdriverfactory4ks"
-version = '0.3.1'
+version = '0.3.2'
 
 ext {
     groovyVersion   = '2.4.7'

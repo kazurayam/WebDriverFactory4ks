@@ -1,7 +1,7 @@
 package com.kazurayam.ks.webdriverfactory
 
 import org.openqa.selenium.WebDriver
-
+import com.kazurayam.ks.webdriverfactory.DriverTypeName
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeDriverFactory
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsModifier
 import com.kazurayam.ks.webdriverfactory.chrome.ChromeOptionsModifierHeadless
@@ -12,10 +12,20 @@ import com.kms.katalon.core.driver.DriverType
 import com.kms.katalon.core.model.FailureHandling
 
 class WebDriverFactory {
+	
+	@Keyword
+	static WebDriver newWebDriver(DriverTypeName driverTypeName) {
+		return newWebDriver(driverTypeName.getDriverType())
+	}
 
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType) {
 		return newWebDriver(driverType, RunConfiguration.getDefaultFailureHandling())
+	}
+	
+	@Keyword
+	static WebDriver newWebDriver(DriverTypeName driverTypeName, FailureHandling flowControl) {
+		return newWebDriver(driverTypeName.getDriverType(), flowControl)
 	}
 
 	@Keyword
@@ -41,8 +51,18 @@ class WebDriverFactory {
 	}
 
 	@Keyword
+	static WebDriver newWebDriver(DriverTypeName driverTypeName, String profileName) {
+		return newWebDriver(driverTypeName.getDriverType(), profileName)	
+	}
+	
+	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, String profileName) {
 		return newWebDriver(driverType, profileName, RunConfiguration.getDefaultFailureHandling())
+	}
+	
+	@Keyword
+	static WebDriver newWebDriver(DriverTypeName driverTypeName, String profileName, FailureHandling flowControl) {
+		return newWebDriver(driverTypeName.getDriverType(), profileName, flowControl)
 	}
 
 	@Keyword
