@@ -136,14 +136,14 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	}
 
 	@Override
-	WebDriver newChromeDriverWithProfile(String renameName) {
-		return newChromeDriverWithProfile(renameName, RunConfiguration.getDefaultFailureHandling())
+	WebDriver newChromeDriverWithProfile(String profileName) {
+		return newChromeDriverWithProfile(profileName, RunConfiguration.getDefaultFailureHandling())
 	}
 
 	/**
 	 * Based on the post https://forum.katalon.com/t/open-browser-with-custom-profile/19268 by Thanh To
 	 *
-	 * Chrome's User Data directory is OS dependent. The User Data Diretory is described in the document
+	 * Chrome's User Data directory is OS dependent. The User Data Directory is described in the document
 	 * https://chromium.googlesource.com/chromium/src/+/HEAD/docs/user_data_dir.md#Current-Location
 	 *
 	 * @param userProfile
@@ -167,7 +167,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				Path tempUDataDirectory = Files.createTempDirectory("User Data")
 				Path tempProfileDirectory = tempUDataDirectory.resolve(profileName)
 				FileUtils.copyDirectory(profileDirectory.toFile(), tempProfileDirectory.toFile())
-				
+
 				// create the basic ChromeOptionsModifier with copied profile dir
 				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(tempUDataDirectory, tempProfileDirectory)
 				this.addChromeOptionsModifier(com)
@@ -205,9 +205,9 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 	}
 
 	private void copyChildDirectory(Path sourceDir, Path destDir, String dirName) {
-			
+
 	}
-	
+
 	/**
 	 * Usage:
 	 * <PRE>

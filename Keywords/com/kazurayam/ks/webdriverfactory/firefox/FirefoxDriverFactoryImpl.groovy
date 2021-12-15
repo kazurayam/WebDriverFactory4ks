@@ -25,8 +25,18 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 import internal.GlobalVariable
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.firefox.FirefoxDriver
+import org.openqa.selenium.firefox.FirefoxOptions
+import org.openqa.selenium.firefox.FirefoxProfile
+import org.openqa.selenium.firefox.internal.ProfilesIni
+import com.kms.katalon.core.webui.driver.DriverFactory
+import com.kms.katalon.core.webui.driver.WebUIDriverType
+import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import internal.GlobalVariable as GlobalVariable
 
 public class FirefoxDriverFactoryImpl {
+	
 
 	static FirefoxDriver createFirefoxDriver() {
 		/**
