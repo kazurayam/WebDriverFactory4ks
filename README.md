@@ -1,24 +1,10 @@
-Opening Chrome with client-side storage taken over from previous session
+WebDriver Factory for Katalon Studio
 ========================================================================
 
 - by kazurayam,
 - 1st edition published March,2019
 - 2nd edition published Jan, 2020
-
-## Summary
-
-Some web apps employ client-side storage in web browsers: Cookie, LocalStorage and SessionStorage. Usually we test them with clean Browser. I mean, we will lauch Browser with empty Cookies and LocalStorage emtpy in order to make tests run stable. However, in some situation, we want to launch Browser with client-side storage filled and prepared to meet testing criteria (login with username/password already done, personal preferences recognized). Setting up Cookies and LocalStorage can be a lengthy, cumbersome task. Therefore we want to reuse the prepared content of Cookies and LocalStorage.
-
-I have developed a set of custom Groovy classes.
-
-1. `com.kazurayam.thoughtful.ChromeDriverFactory` class
-2. `com.kazurayam.thoughtful.ChromeProfileBackupAndResutlre` class
-
-Using them, you can prepare (prior to running a test) a Chrome Profile filled with Cookie and LocalStorage and back it up. You can restore a Profile with the backup and run tests while launching Chrome browser specifying the Profile you prepared.
-
-## API doc
-
-The Groovydoc of webdriverfactory4ks is [here](https://kazurayam.github.io/webdriverfactory4ks/api/index.html)
+- v0.3.5 Dec 2021
 
 ## Problem to solve
 
@@ -97,48 +83,41 @@ I know I can view and find the folder name by checking the `chrome://version` pa
 
 ## Solution proposed
 
-### (1) ChromeDriverFactory
+I have developed a custom groovy class `com.kazurayam.webdriverfactory.chrome.ChromeDriverFactory`. This class is capable of launching a ChromeDriver while specifying a User Profile you prepared.
 
-I have developed a custom groovy class `com.kazurayam.webdriverfactory4ks.ChromeDriverFactory`. Let me show you a sample use case of it. The following script assumes you have Chrome browser installed in your PC, and in it you have pre-defined a Profile with name `Katalaon`. Before executing the script, you want open Chrome with `Katalon` profile and visit whatever URL. Then you want to execute this script. You will find the Chrome browser launched by the test script is using the `Katalon` profile.
+## Demo
 
-[Test Cases/main/example_openChromeDriverWithProfile](Scripts/main/example_openChromeDriverWithProfile/Script1552363369432.groovy)
-```
-import org.openqa.selenium.WebDriver
+### open Chrome with a custom User Profile
 
-import com.kazurayam.webdriverfactory4ks.ChromeDriverFactory
-import com.kms.katalon.core.webui.driver.DriverFactory
-import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+The following Test Case shows a simplest usecase. You want to create a Chrome User Profle named `Katalon`. You want to choose Chrome in Katalon Studio GUI as browser to activate. Then a Chrome will open using the `Katalon` profile.
 
-ChromeDriverFactory cdFactory = new ChromeDriverFactory()
-WebDriver driver = cdFactory.openChromeDriverWithProfile('Katalon')  // THIS IS THE MAGIC!
-assert driver != null
-DriverFactory.changeWebDriver(driver)
-WebUI.navigateToUrl('https://demoauto.katalon.com/')
-WebUI.delay(3)
-WebUI.closeBrowser()
-```
+[Test Cases/main/example/how_to_usingWebDriverFactory](Scripts/main/example/usingWebDriverFactory/how_to_newWebDriverWithCustomProfile/Script1582158787629.groovy)
 
-The following examples will show you how to utilize this.
+### open Chrome with a custom User Profile and try to navigate to Gmail.
 
-1. [Test Cases/main/example_openChromeDriverWithProfile](Scripts/main/example_openChromeDriverWithProfile/Script1552363369432.groovy) --- opening Chrome specifying a predefined Profile name
-2. [Test Cases/main/example_openChromeDriverWithProfileDirectory](Scripts/main/example_openChromeDriverWithProfileDirectory/Script1552363390928.groovy) --- opening Chrome specifying a name of Profile directory, for example `Default` directory.
-3. [Test Cases/main/example_startGmailWithoutLoginOperation](Scripts/main/example_startGmailWithoutLoginOperation/Script1552363984695.groovy) --- this demonstrates that I can navigate into Gmail without login operation if I open Chrome with the `Default` directory.
+The following Test Case uses a User Profile of my daily use, and tries to nagivate to Gmail.
+
+[Scripts/main/example/usingChromeDriverFactory/how_to_newChromeDriverWithCustomProfile](Scripts/main/example/usingChromeDriverFactory/how_to_newChromeDriverWithCustomProfile/Script1582262429415.groovy)
+
+I hoped that I can open Gmail withtout any login interaction. But in vain. Chrome browser seems recongize that it is controlled by some suspecious automation tool, not by a human, and forces a login interaction. How Chrome is secure!
 
 
-### (2) ChromeProfileUtils
+## How to use WebDriverFactory4ks in your Katalon project
 
-- take backup of the specified Profile setting to store into a specified location (directory)
-- restore a Profile setting from the specified location
-
-in both cases, the Profile is identified by its Profile Name like 'Katalon', not by the profile-directory like 'Profile 2'.
-
-## How to use webdriverfactory4ks.jar in your Katalon project
-
-1. Download the `webdriverfactory4ks-all.jar` from the GitHub project's [Releases](https://github.com/kazurayam/webdriverfactory4ks/releases/tag/0.0) page.
+1. Download the `webdriverfactory4ks-x.x.x.jar` from the GitHub project's [Releases](https://github.com/kazurayam/webdriverfactory4ks/releases/) page.
 2. Place the jar into the `Drivers` directory of you Katalon Studio project; just as documented in the doc [External libraries](https://docs.katalon.com/katalon-studio/docs/external-libraries.html)
-3. Write your test case script which calls the  `com.kazurayam.webdriverfactory4ks.ChromeDriverFactory` class.
+3. Write your test case script which calls the  `com.kazurayam.webdriverfactory4ks.WebDriverFactory` class.
 
-# What I found
+
+
+## API doc
+
+The Groovydoc of webdriverfactory4ks is [here](https://kazurayam.github.io/webdriverfactory4ks/api/index.html)
+
+## What I found 
 
 I was not successful for my issue. I have never succeeded to make Chrome Browser started retaining “already logged in status” of Web applications. I could not find out the detail but Chrome Browser is very well-engineered in terms of “Security”. I could not cheat Chrome at all.
 See https://forum.katalon.com/t/opening-chrome-browser-with-a-predefined-custom-chrome-profile-which-stores-session-info-such-as-credentials-and-cookies/20966/14
+
+
+I only targeted Chrome browser. I could not cover FireFox, Edge and other types of browsers. This issue is too difficult for me.

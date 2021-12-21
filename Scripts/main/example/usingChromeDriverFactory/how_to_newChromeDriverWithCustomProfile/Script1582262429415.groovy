@@ -6,8 +6,8 @@ import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
 /**
- * This test case opens Chrome browser with a Profile named 'Kazuaki', which is my day-to-day use.
- * If the profile 'Katalon' is not found, an Exception will be thrown.
+ * This test case opens Chrome browser with a Profile named 'Kazuaki'.
+ * If the profile 'Kazuaki' is not found, an Exception will be thrown.
  * Once opened Chrome, this test case navigates to Gmail at https://mail.google.com/.
  * 
  * Gmail requires login with gmail address and password.
@@ -15,7 +15,9 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * I wanted my Katalon test case to open Gmail without manual login.
  * I thought launching Chrome with my day-to-day profile may may cheat the Chrome browser and
  * let me open Gmail withoug login.
+ * 
  * I tried, but failed.
+ * 
  * The security design of Chrome browser was strict enough.
  * I launched the browser the 'Kazuaki' profile, but the browser detected that 
  * it was launched by a dirty tool and challenged credential.
