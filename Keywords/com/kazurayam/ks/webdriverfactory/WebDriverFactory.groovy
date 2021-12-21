@@ -15,7 +15,7 @@ class WebDriverFactory {
 
 	@Keyword
 	static WebDriver newWebDriver(DriverTypeName driverTypeName) {
-		return newWebDriver(driverTypeName.getDriverType())
+		return newWebDriver((DriverType)driverTypeName)
 	}
 
 	@Keyword
@@ -25,7 +25,7 @@ class WebDriverFactory {
 
 	@Keyword
 	static WebDriver newWebDriver(DriverTypeName driverTypeName, FailureHandling flowControl) {
-		return newWebDriver(driverTypeName.getDriverType(), flowControl)
+		return newWebDriver((DriverType)driverTypeName, flowControl)
 	}
 
 	@Keyword
@@ -49,12 +49,12 @@ class WebDriverFactory {
 				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
 		}
 	}
-
+	
 	@Keyword
 	static WebDriver newWebDriver(DriverTypeName driverTypeName, String profileName) {
-		return newWebDriver(driverTypeName.getDriverType(), profileName)
+		return newWebDriver((DriverType)driverTypeName, profileName)
 	}
-
+	
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, String profileName) {
 		return newWebDriver(driverType, profileName, RunConfiguration.getDefaultFailureHandling())
@@ -62,16 +62,16 @@ class WebDriverFactory {
 
 	@Keyword
 	static WebDriver newWebDriver(DriverTypeName driverTypeName, String profileName, FailureHandling flowControl) {
-		return newWebDriver(driverTypeName.getDriverType(), profileName, flowControl)
+		return newWebDriver((DriverType)driverTypeName, profileName, flowControl)
 	}
 
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, String profileName, FailureHandling flowControl) {
 		switch (driverType.getName()) {
-			case DriverTypeName.CHROME_DRIVER.toString() :
+			case DriverTypeName.CHROME_DRIVER.getName() :
 				return ChromeDriverFactory.newInstance().newChromeDriverWithProfile(profileName, flowControl)
 				break
-			case DriverTypeName.HEADLESS_DRIVER.toString() :	// Chrome Headless Browser
+			case DriverTypeName.HEADLESS_DRIVER.getName() :	// Chrome Headless Browser
 				ChromeDriverFactory cdf = ChromeDriverFactory.newInstance()
 				ChromeOptionsModifier com = new ChromeOptionsModifierHeadless()
 				cdf.addChromeOptionsModifier(com)

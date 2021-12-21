@@ -8,7 +8,7 @@ import com.kms.katalon.core.driver.DriverType
  * 
  * @author kazurayam
  */
-enum DriverTypeName {
+enum DriverTypeName implements DriverType {
 
 	CHROME_DRIVER,
 	HEADLESS_DRIVER,	// I believe, this should have been named as CHROME_HEADLESS_DRIVER
@@ -16,30 +16,13 @@ enum DriverTypeName {
 	FIREFOX_HEADLESS_DRIVER,
 	NULL;
 
-	public DriverType getDriverType() {
-		if (this.toString() == "NULL") {
-			throw new UnsupportedOperationException("DriverTypeName.NULL.getDriverType() should not be used")
-		}
-		return new DriverTypeImpl(this.toString())
+	String getName() {
+		return this.name()
 	}
-
-	/**
-	 * Surprising enough, com.kms.katalon.core.driver.DriverType is not an "enum",
-	 * is an "interface". Therefore I need to write a skeltal class that implements it.
-	 */
-	class DriverTypeImpl implements DriverType {
-		private String name
-		DriverTypeImpl(String name) {
-			this.name = name
-		}
-		String getName() {
-			return this.name
-		}
-		String getPropertyKey() {
-			throw new RuntimeException("TODO")
-		}
-		String getPropertyValue() {
-			throw new RuntimeException("TODO")
-		}
+	String getPropertyKey() {
+		throw new RuntimeException("TODO")
+	}
+	String getPropertyValue() {
+		throw new RuntimeException("TODO")
 	}
 }

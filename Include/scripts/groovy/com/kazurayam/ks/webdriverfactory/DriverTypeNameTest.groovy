@@ -17,35 +17,31 @@ public class DriverTypeNameTest {
 
 	@Test
 	public void test_getDriverType_CHROME_DRIVER() {
-		DriverType chrome = DriverTypeName.CHROME_DRIVER.getDriverType()
+		DriverType chrome = (DriverType)DriverTypeName.CHROME_DRIVER
 		assertEquals(DriverTypeName.CHROME_DRIVER.toString(), chrome.getName())
 	}
 
 	@Test
 	public void test_getDriverType_HEADLESS_DRIVER() {
-		DriverType headless = DriverTypeName.HEADLESS_DRIVER.getDriverType()
+		DriverType headless = (DriverType)DriverTypeName.HEADLESS_DRIVER
 		assertEquals(DriverTypeName.HEADLESS_DRIVER.toString(), headless.getName())
 	}
 
 	@Test
 	public void test_getDriverType_FIREFOX_DRIVER() {
-		DriverType ff = DriverTypeName.FIREFOX_DRIVER.getDriverType()
+		DriverType ff = (DriverType)DriverTypeName.FIREFOX_DRIVER
 		assertEquals(DriverTypeName.FIREFOX_DRIVER.toString(), ff.getName())
 	}
 
 	@Test
 	public void test_getDriverType_FIREFOX_HEADLESS_DRIVER() {
-		DriverType ffhl = DriverTypeName.FIREFOX_HEADLESS_DRIVER.getDriverType()
+		DriverType ffhl = (DriverType)DriverTypeName.FIREFOX_HEADLESS_DRIVER
 		assertEquals(DriverTypeName.FIREFOX_HEADLESS_DRIVER.toString(), ffhl.getName())
 	}
-	
+
 	@Test
 	public void test_getDriverType_NULL() {
-		try {
-			DriverType nullObjct = DriverTypeName.NULL.getDriverType()
-			fail("epected an Exceptioin to be thrown but not")
-		} catch (UnsupportedOperationException e) {
-			// as expected
-		}
+		DriverType nullObject = (DriverType)DriverTypeName.NULL
+		assertNotNull(nullObject);
 	}
 }

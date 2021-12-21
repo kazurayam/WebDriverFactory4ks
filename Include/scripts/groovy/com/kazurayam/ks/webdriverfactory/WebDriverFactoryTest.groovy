@@ -28,25 +28,25 @@ public class WebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver() {
-		DriverType chrome = new DriverTypeImpl('CHROME_DRIVER')
+		DriverType chrome = DriverTypeName.CHROME_DRIVER
 		driver = WebDriverFactory.newWebDriver(chrome)
 		assertNotNull(driver)
 	}
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_Headless() {
-		DriverType chromeHeadless = new DriverTypeImpl('HEADLESS_DRIVER')
+		DriverType chromeHeadless = DriverTypeName.HEADLESS_DRIVER
 		driver = WebDriverFactory.newWebDriver(chromeHeadless)
 		assertNotNull(driver)
 	}
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile() {
-		DriverType chrome = new DriverTypeImpl('CHROME_DRIVER')
+		DriverType chrome = DriverTypeName.CHROME_DRIVER
 		driver = WebDriverFactory.newWebDriver(chrome, 'Katalon')
 		assertNotNull(driver)
 	}
-	
+
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile_byDriverTypeName() {
 		driver = WebDriverFactory.newWebDriver(DriverTypeName.CHROME_DRIVER, 'Katalon')
@@ -55,24 +55,8 @@ public class WebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_Headless_withProfile() {
-		DriverType chromeHeadless = new DriverTypeImpl('HEADLESS_DRIVER')
+		DriverType chromeHeadless = DriverTypeName.HEADLESS_DRIVER
 		driver = WebDriverFactory.newWebDriver(chromeHeadless, 'Katalon')
 		assertNotNull(driver)
-	}
-
-	class DriverTypeImpl implements DriverType {
-		private String name
-		DriverTypeImpl(String name) {
-			this.name = name
-		}
-		String getName() {
-			return this.name
-		}
-		String getPropertyKey() {
-			throw new RuntimeException("TODO")
-		}
-		String getPropertyValue() {
-			throw new RuntimeException("TODO")
-		}
 	}
 }

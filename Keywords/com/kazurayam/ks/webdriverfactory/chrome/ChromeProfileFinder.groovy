@@ -38,7 +38,7 @@ final class ChromeProfileFinder {
 		List<ChromeProfile> chromeProfiles = this.getChromeProfiles()
 		for (ChromeProfile cProfile: chromeProfiles) {
 
-			System.out.println("[ChromeProfileFinder#getChromeProfile] cProfile.getName()==${cProfile.getName()}, cProfile.getDirectoryName()=${cProfile.getDirectoryName()}")
+			//System.out.println("[ChromeProfileFinder#getChromeProfile] cProfile.getName()==${cProfile.getName()}, cProfile.getDirectoryName()=${cProfile.getDirectoryName()}")
 
 			if (cProfile.getName().equals(name)) {
 				return cProfile
