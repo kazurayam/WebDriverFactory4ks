@@ -19,7 +19,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * I tried, but failed.
  * 
  * The security design of Chrome browser was strict enough.
- * I launched the browser the 'Kazuaki' profile, but the browser detected that 
+ * I launched the browser the 'kazurayam' profile, but the browser detected that 
  * it was launched by a dirty tool and challenged credential.
  * Wow, I gave up. 
  * 
@@ -30,7 +30,7 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * You may want to use Windows' Task Manager to terminate all processes of Google Chrome.
  */
 ChromeDriverFactory cdFactory = ChromeDriverFactory.newInstance()
-WebDriver driver = cdFactory.newChromeDriverWithProfile('Kazuaki')
+WebDriver driver = cdFactory.newChromeDriverWithProfile('kazurayam')
 assert driver != null
 //assert cdFactory.getChromeProfile().getName() == 'Kazuaki'
 
