@@ -8,6 +8,7 @@ import java.net.URLEncoder
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.time.ZonedDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 def cli = new CliBuilder(usage: 'http <option>')
@@ -78,11 +79,12 @@ class Handler implements HttpHandler {
             if (! foundTimestamp) {
               this.debugLog {"no timestamp cookie was found in the request"}
               ZonedDateTime now = ZonedDateTime.now();
-              ZonedDateTime expiresAt = now.plusSeconds(300L);
-              String timestampString = "timestamp=" + 
-                DateTimeFormatter.RFC_1123_DATE_TIME.withLocale(Locale.US).format(now) + 
-                "; expires=" + 
-                DateTimeFormatter.RFC_1123_DATE_TIME.withLocale(Locale.US).format(expiresAt);
+              ZonedDateTime expiresAt = now.plusSeconds(60L);
+              DateTimeFormatter rfc7231 = DateTimeFormatter
+                .ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+                .withZone(ZoneId.of("GMT"))
+              String timestampString = "timestamp=" + rfc7231.format(now) + 
+                "; expires=" + rfc7231.format(expiresAt);
               values.add(timestampString);
               this.debugLog {"response: cookie ${timestampString}"}
             }
