@@ -49,12 +49,12 @@ class WebDriverFactory {
 				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
 		}
 	}
-	
+
 	@Keyword
 	static WebDriver newWebDriver(DriverTypeName driverTypeName, String profileName) {
 		return newWebDriver((DriverType)driverTypeName, profileName)
 	}
-	
+
 	@Keyword
 	static WebDriver newWebDriver(DriverType driverType, String profileName) {
 		return newWebDriver(driverType, profileName, RunConfiguration.getDefaultFailureHandling())

@@ -16,7 +16,6 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
  * If you do not have the profile named 'Katalon' for the browser chosen, an Exception will be thrown.
  * 
  */
-
 WebDriver driver = WebDriverFactory.newWebDriver(DriverFactory.getExecutedBrowser(), 'Katalon')  // THIS IS THE MAGIC
 assert driver != null
 DriverFactory.changeWebDriver(driver)	// Do not forget this
