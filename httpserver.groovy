@@ -79,7 +79,7 @@ class Handler implements HttpHandler {
             if (! foundTimestamp) {
               this.debugLog {"no timestamp cookie was found in the request"}
               ZonedDateTime now = ZonedDateTime.now();
-              ZonedDateTime expiresAt = now.plusSeconds(60L);
+              ZonedDateTime expiresAt = now.plusMinutes(45L);
               DateTimeFormatter rfc7231 = DateTimeFormatter
                 .ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
                 .withZone(ZoneId.of("GMT"))

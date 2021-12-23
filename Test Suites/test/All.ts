@@ -54,6 +54,12 @@
       <testCaseId>Test Cases/test/com.kazurayam.ks.webdriverfactory.config/ApplicationInfoTestRunner</testCaseId>
    </testCaseLink>
    <testCaseLink>
+      <guid>494e5d8b-5266-42e2-9153-eb86039eec3c</guid>
+      <isReuseDriver>false</isReuseDriver>
+      <isRun>true</isRun>
+      <testCaseId>Test Cases/test/com.kazurayam.ks.webdriverfactory.firefox/FirefoxDriverFactoryTestRunner</testCaseId>
+   </testCaseLink>
+   <testCaseLink>
       <guid>1610e1e9-611a-4a17-9442-648d42cf5238</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>

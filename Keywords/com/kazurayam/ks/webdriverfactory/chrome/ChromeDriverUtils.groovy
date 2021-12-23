@@ -54,7 +54,7 @@ public class ChromeDriverUtils {
 					resolve('chromedriver_win32').resolve('chromedriver.exe')
 		} else if (OSIdentifier.isMac()) {
 			return Paths.get(katalonHome).resolve('Contents').
-					resolve('Eclipse').resolve('Configuration').
+					resolve('Eclipse').resolve('configuration').
 					resolve('resources').resolve('drivers').
 					resolve('chromedriver_mac').resolve('chromedriver')
 		} else if (OSIdentifier.isUnix()) {

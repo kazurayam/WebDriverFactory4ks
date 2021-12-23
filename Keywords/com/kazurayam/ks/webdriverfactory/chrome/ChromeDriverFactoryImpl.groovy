@@ -3,8 +3,8 @@ package com.kazurayam.ks.webdriverfactory.chrome
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import org.apache.commons.io.FileUtils
 
+import org.apache.commons.io.FileUtils
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -32,16 +32,16 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		}
 	}
 
-	private List<ChromePreferencesModifier> chromePreferencesModifiers_
-	private List<ChromeOptionsModifier> chromeOptionsModifiers_
-	private List<DesiredCapabilitiesModifier> desiredCapabilitiesModifiers_
+	private final List<ChromePreferencesModifier> chromePreferencesModifiers_
+	private final List<ChromeOptionsModifier> chromeOptionsModifiers_
+	private final List<DesiredCapabilitiesModifier> desiredCapabilitiesModifiers_
 
 	private DesiredCapabilities desiredCapabilities_
 
 	ChromeDriverFactoryImpl() {
-		chromePreferencesModifiers_   = new ArrayList<ChromePreferencesModifier>()
-		chromeOptionsModifiers_       = new ArrayList<ChromeOptionsModifier>()
-		desiredCapabilitiesModifiers_ = new ArrayList<DesiredCapabilitiesModifier>()
+		chromePreferencesModifiers_   = new ArrayList<>()
+		chromeOptionsModifiers_       = new ArrayList<>()
+		desiredCapabilitiesModifiers_ = new ArrayList<>()
 		desiredCapabilities_ = null
 	}
 
@@ -70,30 +70,29 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 		Path chromeDriverPath = ChromeDriverUtils.getChromeDriverPath()
 		System.setProperty('webdriver.chrome.driver', chromeDriverPath.toString())
 
+		this.addChromePreferencesModifier(new ChromePreferencesModifierDefault())
 		this.addChromeOptionsModifier(new ChromeOptionsModifierDefault())
 	}
 
 
 	/**
-	 * The core function of this class.
-	 * 
 	 * Create an instance of Chrome Driver with configuration
 	 * setup through the chain of 
-	 *     ChromePreferrences => ChromeOptions => DesiredCapabilities
+	 *     Chrome Preferences => Chrome Options => Desired Capabilities
 	 * while modifying each containers with specified Modifiers
 	 * 
-	 * @return
 	 */
 	private WebDriver execute() {
 
-		// create Chrome Preferences as the seed
+		// create a Chrome Preferences object as the seed
 		Map<String, Object> chromePreferences = new ChromePreferencesBuilderImpl().build()
+
 		// modify the instance of Chrome Preferences
 		for (ChromePreferencesModifier cpm in chromePreferencesModifiers_) {
 			chromePreferences = cpm.modify(chromePreferences)
 		}
 
-		// create Chrome Options taking over setting in the Chrome Preferences
+		// create Chrome Options taking over the Chrome Preferences
 		ChromeOptions chromeOptions = new ChromeOptionsBuilderImpl().build(chromePreferences)
 		// modify the Chrome Options
 		for (ChromeOptionsModifier com in chromeOptionsModifiers_) {
@@ -107,7 +106,7 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 			desiredCapabilities_ = dcm.modify(desiredCapabilities_)
 		}
 
-		// now let's create Chrome Driver
+		// now launch the browser
 		WebDriver driver = new ChromeDriver(desiredCapabilities_)
 
 		// well done
@@ -137,7 +136,8 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 
 	@Override
 	WebDriver newChromeDriverWithProfile(String profileName) {
-		return newChromeDriverWithProfile(profileName, RunConfiguration.getDefaultFailureHandling())
+		return newChromeDriverWithProfile(profileName,
+				RunConfiguration.getDefaultFailureHandling())
 	}
 
 	/**

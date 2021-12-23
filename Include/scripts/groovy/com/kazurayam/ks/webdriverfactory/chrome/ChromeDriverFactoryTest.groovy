@@ -32,7 +32,6 @@ public class ChromeDriverFactoryTest {
 	 * Instantiate a ChromeDriver to open a Chrome browser with the default profile.
 	 * 
 	 */
-	@Ignore
 	@Test
 	void test_newChromeDriver() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
@@ -54,7 +53,6 @@ public class ChromeDriverFactoryTest {
 	 * Instantiate a ChromeDriver to open a Chrome browser specifying a user profile "Katalon"
 	 * 
 	 */
-	@Ignore
 	@Test
 	void test_newChromeDriverWithProfile() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
@@ -76,7 +74,6 @@ public class ChromeDriverFactoryTest {
 	 * Instantiate a ChromeDriver to open Chrome browser specifying a profile directory "Default"
 	 * 
 	 */
-	@Ignore
 	@Test
 	void test_newChromeDriverWithProfileDirectory() {
 		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
@@ -95,12 +92,13 @@ public class ChromeDriverFactoryTest {
 	}
 
 	/**
-	 * open a session using a user profile Katalon and navigate too http://demoaut.katalon.com, then close the session.
-	 * the session will create a cookie "PHPSESSID".
+	 * open a session using a user profile Katalon and navigate too http://localhost, then close the session.
+	 * the session will create a cookie "timestamp".
 	 * open a second session using Katalon Profile again.
-	 * I expect the second session will use the same value of PHPSESSID cookie. So I test it.
+	 * I expect the second session will use the same value of timestamp cookie. So I test it.
 	 * 
 	 */
+	@Ignore
 	@Test
 	public void test_if_cookie_is_retained_in_profile_accross_2_sessions() {
 		// we want Headless
@@ -108,13 +106,13 @@ public class ChromeDriverFactoryTest {
 		//ChromeOptionsModifier com = new ChromeOptionsModifierHeadless()
 		//cdFactory.addChromeOptionsModifier(com)
 		//
-		String url = 'http://127.0.0.1/'
+		String url = 'http://localhost/'
 		// 1st session
 		WebDriver driver = cdFactory.newChromeDriverWithProfile('Katalon')
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
 		Set<Cookie> cookies = driver.manage().getCookies()
-		println "1st session given: " + cookies
+		println "1st session: " + cookies
 		String phpsessid1st = driver.manage().getCookieNamed('timestamp')
 		WebUI.closeBrowser()
 
@@ -123,7 +121,7 @@ public class ChromeDriverFactoryTest {
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
 		cookies = driver.manage().getCookies()
-		println "2nd session given: " + cookies
+		println "2nd session: " + cookies
 		String phpsessid2nd = driver.manage().getCookieNamed('timestamp')
 		WebUI.closeBrowser()
 		//
