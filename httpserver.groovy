@@ -60,36 +60,7 @@ class Handler implements HttpHandler {
             def decodedUri = URLDecoder.decode(uri, URL_ENCODING)
             this.debugLog {"uri=${uri}, decodedUri=${decodedUri}"}
 
-
-
-            // simply echo the cookies in the request into the response
-            // learned https://www.programcreek.com/java-api-examples/?class=com.sun.net.httpserver.Headers&method=get
-            Headers reqHeaders = exchange.getRequestHeaders()
-            List<String> cookies = reqHeaders.get("Cookie")
-            this.debugLog {"request: cookies=${cookies}"}
-            List<String> values = new ArrayList<>()
-            long maxAgeSeconds = 600L;
-            boolean foundTimestamp = false
-            for (String cookie in cookies) {
-              values.add(cookie + "; Max-Age=" + maxAgeSeconds);
-              if (cookie.startsWith("timestamp")) {
-                foundTimestamp = true
-              }
-            }
-            // if there is no "timestamp" cookie, create it
-            if (! foundTimestamp) {
-              this.debugLog {"no timestamp cookie was found in the request"}
-              ZonedDateTime now = ZonedDateTime.now();
-              DateTimeFormatter rfc7231 = DateTimeFormatter
-                .ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
-                .withZone(ZoneId.of("GMT"))
-              String timestampString = "timestamp=" + rfc7231.format(now) + "; " + 
-                "Max-Age=" + maxAgeSeconds + ";";
-              values.add(timestampString);
-            }
-            Headers respHeaders = exchange.getResponseHeaders()
-            respHeaders.put("Set-Cookie", values)
-            this.debugLog {"response: cookies=${values}"}
+            operateCookies(exchange)
 
             // now we build the response body and send responce back
             File file = new File(basePath.toFile(), decodedUri)
@@ -110,6 +81,38 @@ class Handler implements HttpHandler {
             this.response(exchange, 500, '<html><h1>Internal Server Error</h1></html>')
         }
     }
+
+    private operateCookies(exchange) {
+      // copy cookies from the request to the response
+      // if the request doesn't have "timestamp" cookie, add it
+      Headers reqHeaders = exchange.getRequestHeaders()
+      List<String> cookies = reqHeaders.get("Cookie")
+      this.debugLog {"request: cookies=${cookies}"}
+      List<String> values = new ArrayList<>()
+      long maxAgeSeconds = 600L;
+      boolean foundTimestamp = false
+      for (String cookie in cookies) {
+        values.add(cookie + "; Max-Age=" + maxAgeSeconds);
+        if (cookie.startsWith("timestamp")) {
+          foundTimestamp = true
+        }
+      }
+      // if there is no "timestamp" cookie, create it
+      if (! foundTimestamp) {
+        ZonedDateTime now = ZonedDateTime.now();
+        DateTimeFormatter rfc7231 = DateTimeFormatter
+            .ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+            .withZone(ZoneId.of("GMT"))
+        String timestampString = "timestamp=" + rfc7231.format(now) + "; " + 
+            "Max-Age=" + maxAgeSeconds + ";";
+        values.add(timestampString);
+      }
+      Headers respHeaders = exchange.getResponseHeaders()
+      respHeaders.put("Set-Cookie", values)
+      this.debugLog {"response: cookies=${values}"}
+    }
+
+
 
     private void printRequestInfo(exchange) {
         println """\
