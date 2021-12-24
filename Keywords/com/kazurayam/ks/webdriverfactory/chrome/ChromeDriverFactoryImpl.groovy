@@ -169,7 +169,10 @@ public class ChromeDriverFactoryImpl extends ChromeDriverFactory {
 				FileUtils.copyDirectory(profileDirectory.toFile(), tempProfileDirectory.toFile())
 
 				// create the basic ChromeOptionsModifier with copied profile dir
-				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(tempUDataDirectory, tempProfileDirectory)
+
+				//ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(tempUDataDirectory, tempProfileDirectory)
+				ChromeOptionsModifier com = new ChromeOptionsModifierWithProfile(userDataDirectory, profileDirectory)
+
 				this.addChromeOptionsModifier(com)
 
 				//

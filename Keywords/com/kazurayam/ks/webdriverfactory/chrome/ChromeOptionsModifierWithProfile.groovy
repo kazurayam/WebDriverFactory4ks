@@ -19,7 +19,7 @@ public class ChromeOptionsModifierWithProfile implements ChromeOptionsModifier {
 		if (!Files.exists(profileDirectory)) {
 			throw new IllegalArgumentException("${profileDirectory} does not exist")
 		}
-		this.userDataDirectory_ = userDataDirectory 
+		this.userDataDirectory_ = userDataDirectory
 		this.profileDirectory_ = profileDirectory
 	}
 

@@ -68,9 +68,10 @@ class Handler implements HttpHandler {
             List<String> cookies = reqHeaders.get("Cookie")
             this.debugLog {"request: cookies=${cookies}"}
             List<String> values = new ArrayList<>()
+            long maxAgeSeconds = 600L;
             boolean foundTimestamp = false
             for (String cookie in cookies) {
-              values.add(cookie);
+              values.add(cookie + "; Max-Age=" + maxAgeSeconds);
               if (cookie.startsWith("timestamp")) {
                 foundTimestamp = true
               }
@@ -79,19 +80,16 @@ class Handler implements HttpHandler {
             if (! foundTimestamp) {
               this.debugLog {"no timestamp cookie was found in the request"}
               ZonedDateTime now = ZonedDateTime.now();
-              ZonedDateTime expiresAt = now.plusMinutes(45L);
               DateTimeFormatter rfc7231 = DateTimeFormatter
                 .ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
                 .withZone(ZoneId.of("GMT"))
-              String timestampString = "timestamp=" + rfc7231.format(now) + 
-                "; expires=" + rfc7231.format(expiresAt);
+              String timestampString = "timestamp=" + rfc7231.format(now) + "; " + 
+                "Max-Age=" + maxAgeSeconds + ";";
               values.add(timestampString);
-              this.debugLog {"response: cookie ${timestampString}"}
             }
             Headers respHeaders = exchange.getResponseHeaders()
             respHeaders.put("Set-Cookie", values)
-
-
+            this.debugLog {"response: cookies=${values}"}
 
             // now we build the response body and send responce back
             File file = new File(basePath.toFile(), decodedUri)

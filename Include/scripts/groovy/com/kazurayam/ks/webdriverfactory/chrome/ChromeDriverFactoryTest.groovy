@@ -4,6 +4,8 @@ import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
 
 import java.time.LocalDateTime
+import java.time.ZonedDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 import org.junit.Before
@@ -18,6 +20,10 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import com.kazurayam.junit4ks.IgnoreRest
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
+import java.util.regex.Pattern
+import java.util.regex.Matcher
+
+
 /**
  * @author kazurayam
  */
@@ -32,9 +38,10 @@ public class ChromeDriverFactoryTest {
 	 * Instantiate a ChromeDriver to open a Chrome browser with the default profile.
 	 * 
 	 */
+	@Ignore
 	@Test
 	void test_newChromeDriver() {
-		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
+		ChromeDriverFactory cdFactory = ChromeDriverFactory.newInstance()
 		WebDriver driver = cdFactory.newChromeDriver()
 		assertThat(driver, is(notNullValue()))
 
@@ -53,9 +60,10 @@ public class ChromeDriverFactoryTest {
 	 * Instantiate a ChromeDriver to open a Chrome browser specifying a user profile "Katalon"
 	 * 
 	 */
+	@Ignore
 	@Test
 	void test_newChromeDriverWithProfile() {
-		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
+		ChromeDriverFactory cdFactory = ChromeDriverFactory.newInstance()
 		WebDriver driver = cdFactory.newChromeDriverWithProfile('Katalon')
 		assertThat(driver, is(notNullValue()))
 
@@ -74,9 +82,10 @@ public class ChromeDriverFactoryTest {
 	 * Instantiate a ChromeDriver to open Chrome browser specifying a profile directory "Default"
 	 * 
 	 */
+	@Ignore
 	@Test
 	void test_newChromeDriverWithProfileDirectory() {
-		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
+		ChromeDriverFactory cdFactory = ChromeDriverFactory.newInstance()
 		WebDriver driver = cdFactory.newChromeDriverWithProfileDirectory('Default')
 		assertThat(driver, is(notNullValue()))
 
@@ -98,11 +107,11 @@ public class ChromeDriverFactoryTest {
 	 * I expect the second session will use the same value of timestamp cookie. So I test it.
 	 * 
 	 */
-	@Ignore
+	
 	@Test
 	public void test_if_cookie_is_retained_in_profile_accross_2_sessions() {
 		// we want Headless
-		ChromeDriverFactoryImpl cdFactory = new ChromeDriverFactoryImpl()
+		ChromeDriverFactory cdFactory = ChromeDriverFactory.newInstance()
 		//ChromeOptionsModifier com = new ChromeOptionsModifierHeadless()
 		//cdFactory.addChromeOptionsModifier(com)
 		//
@@ -112,8 +121,8 @@ public class ChromeDriverFactoryTest {
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
 		Set<Cookie> cookies = driver.manage().getCookies()
-		println "1st session: " + cookies
-		String phpsessid1st = driver.manage().getCookieNamed('timestamp')
+		println "1st session: " + printCookies(cookies)
+		String timestamp1st = driver.manage().getCookieNamed('timestamp').getValue()
 		WebUI.closeBrowser()
 
 		// 2nd session
@@ -121,10 +130,46 @@ public class ChromeDriverFactoryTest {
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
 		cookies = driver.manage().getCookies()
-		println "2nd session: " + cookies
-		String phpsessid2nd = driver.manage().getCookieNamed('timestamp')
+		println "2nd session: " + printCookies(cookies)
+		String timestamp2nd = driver.manage().getCookieNamed('timestamp').getValue()
 		WebUI.closeBrowser()
 		//
-		assert phpsessid1st == phpsessid2nd;
+		assert timestamp1st == timestamp2nd;
+	}
+	
+	
+	String printCookies(Set<Cookie> cookies) {
+		StringBuilder sb = new StringBuilder()
+		sb.append("[")
+		for (Cookie ck in cookies) {
+			sb.append("\"")
+			sb.append(printCookie(ck))
+			sb.append("\"")
+		}
+		sb.append("] as Set")
+		sb.toString()
+	}
+	
+	private static DateTimeFormatter rfc7231 = 
+		DateTimeFormatter
+			.ofPattern("EEE, dd MMM yyyy HH:mm:ss z", Locale.ENGLISH)
+			.withZone(ZoneId.of("GMT"))
+  
+	String printCookie(Cookie cookie) {
+		StringBuilder sb = new StringBuilder()
+		sb.append(cookie.getName())
+		sb.append("=")
+		sb.append(cookie.getValue())
+		sb.append("; ")
+		sb.append("expires=")
+		ZonedDateTime zdt = cookie.getExpiry().toInstant().atZone(ZoneId.systemDefault())
+		sb.append(rfc7231.format(zdt))
+		sb.append("; ")
+		sb.append("path0")
+		sb.append(cookie.getPath())
+		sb.append("; ")
+		sb.append("domain=")
+		sb.append(cookie.domain)
+		return sb.toString()
 	}
 }
