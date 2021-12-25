@@ -60,6 +60,9 @@ class Handler implements HttpHandler {
             def decodedUri = URLDecoder.decode(uri, URL_ENCODING)
             this.debugLog {"uri=${uri}, decodedUri=${decodedUri}"}
 
+            // copy all cookies in the request into the response.
+            // add "timestamp" cookie if not there
+            // the cookies in the response will have Max-Age=600 (10minutes)
             operateCookies(exchange)
 
             // now we build the response body and send responce back
