@@ -37,26 +37,31 @@ public class KSWebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver() {
-		driver = KSWebDriverFactory.newWebDriver(DriverTypeName.CHROME_DRIVER)
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.CHROME_DRIVER)
+										.build()
+		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
 		//
-		String employedDesiredCapabilities = KSWebDriverFactory.getEmployedDesiredCapabilities()
+		String employedDesiredCapabilities = factory.getEmployedDesiredCapabilities()
 		println employedDesiredCapabilities
 	}
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_Headless() {
-		driver = KSWebDriverFactory.newWebDriver(DriverTypeName.HEADLESS_DRIVER)
-		assertNotNull(driver)
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.HEADLESS_DRIVER)
+										.build()
+		driver = factory.newWebDriver()
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
 	}
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile() {
-		driver = KSWebDriverFactory.newWebDriver(DriverTypeName.CHROME_DRIVER, 'Katalon')
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.CHROME_DRIVER)
+										.userProfile('Katalon').build()
+		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
@@ -64,7 +69,9 @@ public class KSWebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile_Headless() {
-		driver = KSWebDriverFactory.newWebDriver(DriverTypeName.HEADLESS_DRIVER, 'Katalon')
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.HEADLESS_DRIVER)
+										.userProfile('Katalon').build()
+		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
@@ -72,7 +79,10 @@ public class KSWebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile_FOR_HERE() {
-		driver = KSWebDriverFactory.newWebDriver(DriverTypeName.HEADLESS_DRIVER, 'Katalon', UserDataAccess.FOR_HERE)
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.HEADLESS_DRIVER)
+										.userDataAccess(UserDataAccess.FOR_HERE)
+										.userProfile('Katalon').build()
+		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)

@@ -9,7 +9,7 @@ version = '0.4.0-SNAPSHOT'
 
 ext {
     AUTO_IMPORTED_JAR_PREFIX = 'AUTOIMPORTED_'
-    webdriverfactoryVersion = '0.1.0-SNAPSHOT'
+    webdriverfactoryVersion = '0.1.1-SNAPSHOT'
     groovyVersion = '2.4.20'
     junit4ksVersion = '1.6.1'
 }

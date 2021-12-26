@@ -5,68 +5,103 @@ import java.nio.file.Paths
 
 import org.openqa.selenium.WebDriver
 
+import com.kazurayam.webdriverfactory.DriverTypeName
 import com.kazurayam.webdriverfactory.UserProfile
-import com.kazurayam.webdriverfactory.WebDriverFactory
 import com.kazurayam.webdriverfactory.chrome.ChromeDriverFactory
+import com.kazurayam.webdriverfactory.chrome.ChromeOptionsModifier
 import com.kazurayam.webdriverfactory.chrome.ChromeOptionsModifiers
+import com.kazurayam.webdriverfactory.chrome.ChromePreferencesModifier
 import com.kazurayam.webdriverfactory.chrome.ChromeDriverFactory.UserDataAccess
+import com.kazurayam.webdriverfactory.desiredcapabilities.DesiredCapabilitiesModifier
 import com.kazurayam.webdriverfactory.utils.OSIdentifier
-import com.kms.katalon.core.driver.DriverType
+
 
 class KSWebDriverFactory {
 
-	private static String employedDC = ""
+	private DriverTypeName driverTypeName
+	private UserProfile userProfile
+	private UserDataAccess userDataAccess
+	private List<ChromePreferencesModifier> chromePreferencesModifierList
+	private List<ChromeOptionsModifier> chromeOptionsModifierList
+	private List<DesiredCapabilitiesModifier> desiredCapabilitiesModifierList
+	private boolean requireDefaultSettings
 
-	static WebDriver newWebDriver(DriverTypeName driverTypeName) {
-		return newWebDriver((DriverType)driverTypeName)
+	private String employedDesiredCapabilities
+
+	private KSWebDriverFactory(Builder builder) {
+		this.driverTypeName = builder.driverTypeName
+		this.userProfile = builder.userProfile
+		this.userDataAccess = builder.userDataAccess
+		this.chromePreferencesModifierList = builder.chromePreferencesModifierList
+		this.chromeOptionsModifierList = builder.chromeOptionsModifierList
+		this.desiredCapabilitiesModifierList = builder.desiredCapabilitiesModifierList
+		this.requireDefaultSettings = builder.requireDefaultSettings
+		this.employedDesiredCapabilities = ''
 	}
 
-	static WebDriver newWebDriver(DriverType driverType) {
+	String getEmployedDesiredCapabilities() {
+		return this.employedDesiredCapabilities
+	}
+
+	WebDriver newWebDriver() {
+		//
 		setPathsToDriverExecutables()
-		switch (driverType.getName()) {
-			case DriverTypeName.CHROME_DRIVER.toString() :		// Google Chrome Browser
-				ChromeDriverFactory cdf = ChromeDriverFactory.newInstance()
-				employedDC = cdf.getEmployedDesiredCapabilitiesAsJSON()
-				return cdf.newChromeDriver()
-				break
-			case DriverTypeName.HEADLESS_DRIVER.toString() :	// Chrome Headless Browser
-				ChromeDriverFactory cdf = ChromeDriverFactory.newInstance()
-				cdf.addChromeOptionsModifier(ChromeOptionsModifiers.headless())
-				employedDC = cdf.getEmployedDesiredCapabilitiesAsJSON()
-				return cdf.newChromeDriver()
-				break
-			default:
-				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
+		//
+		if (this.userProfile == UserProfile.NULL) {
+			// when UserProfile is not specified
+			switch (driverTypeName) {
+				case DriverTypeName.CHROME_DRIVER :		// Google Chrome Browser
+					ChromeDriverFactory cdf = ChromeDriverFactory.newInstance(this.requireDefaultSettings)
+					cdf.addAllChromePreferencesModifiers(this.chromePreferencesModifierList)
+					cdf.addAllChromeOptionsModifiers(this.chromeOptionsModifierList)
+					cdf.addAllDesiredCapabilitiesModifiers(this.desiredCapabilitiesModifierList)
+					WebDriver driver = cdf.newChromeDriver()
+					this.employedDesiredCapabilities =  cdf.getEmployedDesiredCapabilitiesAsJSON()
+					return driver
+					break
+				case DriverTypeName.HEADLESS_DRIVER :	// Chrome Headless Browser
+					ChromeDriverFactory cdf = ChromeDriverFactory.newInstance(this.requireDefaultSettings)
+				//
+					cdf.addChromeOptionsModifier(ChromeOptionsModifiers.headless())  // make it headless
+					cdf.addAllChromePreferencesModifiers(this.chromePreferencesModifierList)
+					cdf.addAllChromeOptionsModifiers(this.chromeOptionsModifierList)
+					cdf.addAllDesiredCapabilitiesModifiers(this.desiredCapabilitiesModifierList)
+					WebDriver driver = cdf.newChromeDriver()
+					this.employedDesiredCapabilities =  cdf.getEmployedDesiredCapabilitiesAsJSON()
+					return driver
+					break
+				default:
+					throw new RuntimeException("DriverTypeName ${driverTypeName} is not supported")
+			}
+		} else {
+			// when some UserProfile is specified
+			switch (driverTypeName) {
+				case DriverTypeName.CHROME_DRIVER :
+					ChromeDriverFactory cdf = ChromeDriverFactory.newInstance(this.requireDefaultSettings)
+					cdf.addAllChromePreferencesModifiers(this.chromePreferencesModifierList)
+					cdf.addAllChromeOptionsModifiers(this.chromeOptionsModifierList)
+					cdf.addAllDesiredCapabilitiesModifiers(this.desiredCapabilitiesModifierList)
+					WebDriver driver = cdf.newChromeDriver(userProfile)
+					this.employedDesiredCapabilities =  cdf.getEmployedDesiredCapabilitiesAsJSON()
+					return driver
+					break
+				case DriverTypeName.HEADLESS_DRIVER :
+					ChromeDriverFactory cdf = ChromeDriverFactory.newInstance(this.requireDefaultSettings)
+				//
+					cdf.addChromeOptionsModifier(ChromeOptionsModifiers.headless())  // make it headless
+					cdf.addAllChromePreferencesModifiers(this.chromePreferencesModifierList)
+					cdf.addAllChromeOptionsModifiers(this.chromeOptionsModifierList)
+					cdf.addAllDesiredCapabilitiesModifiers(this.desiredCapabilitiesModifierList)
+					WebDriver driver = cdf.newChromeDriver(userProfile)
+					this.employedDesiredCapabilities =  cdf.getEmployedDesiredCapabilitiesAsJSON()
+					return driver
+					break
+				default:
+					throw new RuntimeException("DriverTypeName ${driverTypeName} is not supported")
+			}
 		}
 	}
 
-	static WebDriver newWebDriver(DriverTypeName driverTypeName, String userProfile) {
-		return newWebDriver((DriverType)driverTypeName, userProfile)
-	}
-
-
-	static WebDriver newWebDriver(DriverType driverType, String userProfile) {
-		return newWebDriver(driverType, userProfile, UserDataAccess.TO_GO)    // UserDataAccess.FOR_HERE or .TO_GO
-	}
-
-	static WebDriver newWebDriver(DriverType driverType, String userProfile, UserDataAccess instruction) {
-		setPathsToDriverExecutables()
-		switch (driverType.getName()) {
-			case DriverTypeName.CHROME_DRIVER.getName() :
-				ChromeDriverFactory cdf = ChromeDriverFactory.newInstance()
-				employedDC = cdf.getEmployedDesiredCapabilitiesAsJSON()
-				return cdf.newChromeDriver(new UserProfile(userProfile), instruction)
-				break
-			case DriverTypeName.HEADLESS_DRIVER.getName() :	// Chrome Headless Browser
-				ChromeDriverFactory cdf = ChromeDriverFactory.newInstance()
-				cdf.addChromeOptionsModifier(ChromeOptionsModifiers.headless())
-				employedDC = cdf.getEmployedDesiredCapabilitiesAsJSON()
-				return cdf.newChromeDriver(new UserProfile(userProfile), instruction)
-				break
-			default:
-				throw new RuntimeException("DriverType ${driverType.getName()} is not supported")
-		}
-	}
 
 
 	/**
@@ -76,12 +111,16 @@ class KSWebDriverFactory {
 		System.setProperty("webdriver.chrome.driver", getChromeDriverPath().toString())
 	}
 
+
 	/**
 	 * returns the path of the binary of Chrome Driver bundled in Katalon Studio
 	 */
 	static Path getChromeDriverPath() {
+		//
 		ApplicationInfo appInfo = new ApplicationInfo()
+		//
 		String katalonHome = appInfo.getKatalonHome()
+		//
 		if (OSIdentifier.isWindows()) {
 			return Paths.get(katalonHome).resolve('configuration').
 					resolve('resources').resolve('drivers').
@@ -98,4 +137,54 @@ class KSWebDriverFactory {
 			"Windows, Mac, Linux are supported. Other platforms are not supported.")
 		}
 	}
+
+
+	/**
+	 *
+	 */
+	static class Builder {
+		private DriverTypeName driverTypeName
+		private UserProfile userProfile = UserProfile.NULL
+		private UserDataAccess userDataAccess = UserDataAccess.TO_GO
+		private List<ChromePreferencesModifier> chromePreferencesModifierList = new ArrayList<>()
+		private List<ChromeOptionsModifier> chromeOptionsModifierList = new ArrayList<>()
+		private List<DesiredCapabilitiesModifier> desiredCapabilitiesModifierList = new ArrayList<>()
+		private Boolean requireDefaultSettings = true
+		
+		Builder(DriverTypeName driverTypeName) {
+			this.driverTypeName = driverTypeName
+		}
+		Builder userProfile(String userProfile) {
+			this.userProfile = new UserProfile(userProfile)
+			return this
+		}
+		Builder userProfile(UserProfile userProfile) {
+			this.userProfile = userProfile
+			return this
+		}
+		Builder userDataAccess(UserDataAccess instruction) {
+			this.userDataAccess = instruction
+			return this
+		}
+		Builder addChromePreferencesModifier(ChromePreferencesModifier modifier) {
+			this.chromePreferencesModifierList.add(modifier)
+			return this
+		}
+		Builder addChromeOptionsModifier(ChromeOptionsModifier modifier) {
+			this.chromeOptionsModifierList.add(modifier)
+			return this
+		}
+		Builder addDesiredCapabilitiesModifier(DesiredCapabilitiesModifier modifier) {
+			this.desiredCapabilitiesModifierList.add(modifier)
+			return this
+		}
+		Builder requireDefaultSettings(Boolean requireDefaultSettings) {
+			this.requireDefaultSettings = requireDefaultSettings
+			return this
+		}
+		KSWebDriverFactory build() {
+			return new KSWebDriverFactory(this)
+		}
+	}
+
 }
