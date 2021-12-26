@@ -31,7 +31,7 @@ ChromeDriver openChromeBrowserPlain() {
  */
 ChromeDriver openChromeBrowserInIncognitoMode() {
 	ChromeOptions options = new ChromeOptions()
-	options.addArguments("–incognito")
+	options.addArguments("-–incognito")
 	return openChromeBrowser(options);
 }
 

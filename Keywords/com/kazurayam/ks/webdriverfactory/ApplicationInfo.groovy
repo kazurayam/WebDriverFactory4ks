@@ -1,9 +1,9 @@
-package com.kazurayam.ks.webdriverfactory.config
+package com.kazurayam.ks.webdriverfactory
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
+import com.kazurayam.webdriverfactory.utils.OSIdentifier
 
 
 public class ApplicationInfo {

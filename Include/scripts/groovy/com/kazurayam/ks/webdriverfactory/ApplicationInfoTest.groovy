@@ -1,4 +1,4 @@
-package com.kazurayam.ks.webdriverfactory.config
+package com.kazurayam.ks.webdriverfactory
 
 import static org.hamcrest.CoreMatchers.*
 import static org.junit.Assert.*
@@ -15,8 +15,8 @@ import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.openqa.selenium.WebDriver
 
-import com.kazurayam.ks.webdriverfactory.config.ApplicationInfo
-import com.kazurayam.ks.webdriverfactory.utils.OSIdentifier
+import com.kazurayam.ks.webdriverfactory.ApplicationInfo
+import com.kazurayam.webdriverfactory.utils.OSIdentifier
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 

@@ -17,10 +17,4 @@
       <isRun>true</isRun>
       <testCaseId>Test Cases/main/example/usingWebDriverFactory/how_to_newWebDriverWithCustomProfile</testCaseId>
    </testCaseLink>
-   <testCaseLink>
-      <guid>f5a8f383-f33b-4c20-af6f-be15e591cef3</guid>
-      <isReuseDriver>false</isReuseDriver>
-      <isRun>true</isRun>
-      <testCaseId>Test Cases/main/example/usingChromeDriverFactory/how_to_newChromeDriverWithCustomProfile</testCaseId>
-   </testCaseLink>
 </TestSuiteEntity>

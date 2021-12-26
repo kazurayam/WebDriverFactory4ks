@@ -5,19 +5,53 @@ plugins {
 
 group = 'com.kazurayam'
 jar.archiveBaseName = "webdriverfactory4ks"
-version = '0.3.6-SNAPSHOT'
+version = '0.4.0-SNAPSHOT'
 
 ext {
-    groovyVersion   = '2.4.7'
-}
-
-configurations {
-    generateDocs
+    AUTO_IMPORTED_JAR_PREFIX = 'AUTOIMPORTED_'
+    webdriverfactoryVersion = '0.1.0-SNAPSHOT'
+    groovyVersion = '2.4.20'
+    junit4ksVersion = '1.6.1'
 }
 
 repositories {
-    jcenter()
     mavenCentral()
+    mavenLocal()
+}
+
+configurations {
+    myconf
+    generateDocs
+}
+
+dependencies {
+	myconf group: 'com.kazurayam', name: 'webdriverfactory',
+	        version: "${webdriverfactoryVersion}"
+	myconf group: 'com.kazurayam', name: 'junit4ks',
+	        version: "${junit4ksVersion}"
+	generateDocs "org.codehaus.groovy:groovy-all:${groovyVersion}"
+}
+
+task drivers {
+	doFirst {
+	    delete fileTree("Drivers") {
+	        include("**/" + AUTO_IMPORTED_JAR_PREFIX + "*")
+	    }
+	}
+	doLast {
+	    copy { copySpec ->
+	        copySpec
+	            .from(project.getConfigurations().getByName("myconf"))
+	            .into("Drivers")
+	            .include(
+	                "**/webdriverfactory*.jar",
+	                "**/junit4ks*.jar"
+	                )
+	            .rename({ s ->
+	                AUTO_IMPORTED_JAR_PREFIX + s
+	                })
+	    }
+	}
 }
 
 katalon {
@@ -32,10 +66,6 @@ shadowJar {
 
 // execute `gradle clean katalonPluginPackage`
 
-dependencies {
-    generateDocs "org.codehaus.groovy:groovy-all:${groovyVersion}"
-}
-
 sourceSets {
     main {
         groovy {
@@ -46,10 +76,11 @@ sourceSets {
 }
 
 task groovydoc(type: Groovydoc, overwrite:true) {
+    group = 'com.kazurayam'
     source = sourceSets.main.groovy
     classpath = configurations.compile
     groovyClasspath = project.configurations.generateDocs
-    include 'com/kazurayam/thoughtfulwebdriverfactory/*'
+    include 'com/kazurayam/ks/webdriverfactory4ks/*'
     exclude '**/*Test.groovy'
 }
 task publishGroovydoc(type: Copy) {
