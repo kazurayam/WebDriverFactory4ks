@@ -9,7 +9,7 @@ import org.junit.runners.JUnit4
 
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.driver.DriverType
-import com.kazurayam.ks.webdriverfactory.DriverTypeName
+import com.kazurayam.ks.webdriverfactory.KSDriverTypeName
 
 @RunWith(JUnit4.class)
 public class DriverTypeTest {
@@ -20,10 +20,10 @@ public class DriverTypeTest {
 		String name = driverType.getName()
 		println "name is $name"
 		assertTrue(
-				name.equals(DriverTypeName.CHROME_DRIVER.toString()) ||
-				name.equals(DriverTypeName.HEADLESS_DRIVER.toString()) ||   // should have been named as CHROME_HEADLESS_DRIVER
-				name.equals(DriverTypeName.FIREFOX_DRIVER.toString()) ||
-				name.equals(DriverTypeName.FIREFOX_HEADLESS_DRIVER.toString())
+				name.equals(KSDriverTypeName.CHROME_DRIVER.toString()) ||
+				name.equals(KSDriverTypeName.HEADLESS_DRIVER.toString()) ||   // should have been named as CHROME_HEADLESS_DRIVER
+				name.equals(KSDriverTypeName.FIREFOX_DRIVER.toString()) ||
+				name.equals(KSDriverTypeName.FIREFOX_HEADLESS_DRIVER.toString())
 				)
 	}
 }

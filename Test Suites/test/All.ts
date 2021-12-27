@@ -15,7 +15,7 @@
       <guid>4e70aeef-f41a-4601-882c-98a3da7fd818</guid>
       <isReuseDriver>false</isReuseDriver>
       <isRun>true</isRun>
-      <testCaseId>Test Cases/test/com.kazurayam.ks.webdriverfactory/DriverTypeNameTestRunner</testCaseId>
+      <testCaseId>Test Cases/test/com.kazurayam.ks.webdriverfactory/KSDriverTypeNameTestRunner</testCaseId>
    </testCaseLink>
    <testCaseLink>
       <guid>e3c8c53e-c0d1-46df-b6d4-115a045bc5f2</guid>

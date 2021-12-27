@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver
 
 import com.kms.katalon.core.driver.DriverType
 import com.kms.katalon.core.webui.driver.DriverFactory
-import com.kazurayam.ks.webdriverfactory.DriverTypeName
+import com.kazurayam.ks.webdriverfactory.KSDriverTypeName
 import com.kazurayam.webdriverfactory.chrome.ChromeDriverFactory.UserDataAccess
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
@@ -37,21 +37,26 @@ public class KSWebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver() {
-		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.CHROME_DRIVER)
-										.build()
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(KSDriverTypeName.CHROME_DRIVER).build()
 		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
 		//
+	}
+	
+	@Test
+	public void test_getEmployedDesiredCapabilities() {
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(KSDriverTypeName.CHROME_DRIVER).build()
+		driver = factory.newWebDriver()
 		String employedDesiredCapabilities = factory.getEmployedDesiredCapabilities()
+		assertNotNull(employedDesiredCapabilities)
 		println employedDesiredCapabilities
 	}
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_Headless() {
-		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.HEADLESS_DRIVER)
-										.build()
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(KSDriverTypeName.HEADLESS_DRIVER).build()
 		driver = factory.newWebDriver()
 		DriverFactory.changeWebDriver(driver)
 		WebUI.navigateToUrl(url)
@@ -59,8 +64,8 @@ public class KSWebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile() {
-		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.CHROME_DRIVER)
-										.userProfile('Katalon').build()
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(KSDriverTypeName.CHROME_DRIVER)
+				.userProfile('Katalon').build()
 		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)
@@ -69,8 +74,8 @@ public class KSWebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile_Headless() {
-		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.HEADLESS_DRIVER)
-										.userProfile('Katalon').build()
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(KSDriverTypeName.HEADLESS_DRIVER)
+				.userProfile('Katalon').build()
 		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)
@@ -79,9 +84,9 @@ public class KSWebDriverFactoryTest {
 
 	@Test
 	public void test_newWebDriver_ChromeDriver_withProfile_FOR_HERE() {
-		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(DriverTypeName.HEADLESS_DRIVER)
-										.userDataAccess(UserDataAccess.FOR_HERE)
-										.userProfile('Katalon').build()
+		KSWebDriverFactory factory = new KSWebDriverFactory.Builder(KSDriverTypeName.HEADLESS_DRIVER)
+				.userDataAccess(UserDataAccess.FOR_HERE)
+				.userProfile('Katalon').build()
 		driver = factory.newWebDriver()
 		assertNotNull(driver)
 		DriverFactory.changeWebDriver(driver)

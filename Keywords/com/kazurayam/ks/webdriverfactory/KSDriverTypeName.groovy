@@ -8,7 +8,7 @@ import com.kms.katalon.core.driver.DriverType
  * 
  * @author kazurayam
  */
-enum DriverTypeName implements DriverType {
+enum KSDriverTypeName implements DriverType {
 
 	CHROME_DRIVER,
 	HEADLESS_DRIVER,	// I believe, this should have been named as CHROME_HEADLESS_DRIVER
