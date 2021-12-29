@@ -1,6 +1,11 @@
 WebDriver Factory for Katalon Studio
 ========================================================================
 
+I have abandoned this project "WebDriverFactory4ks". The final version was v0.3.5. 
+I have started another project "WebDriverSupport4ks" at https://github.com/kazurayam/WebDriverSupport4ks which succeeds the artifact of the "WebDriverFactory4ks" in the new name.
+
+---
+
 - by kazurayam,
 - 1st edition published March,2019
 - 2nd edition published Jan, 2020
