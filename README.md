@@ -126,3 +126,11 @@ See https://forum.katalon.com/t/opening-chrome-browser-with-a-predefined-custom-
 
 
 I only targeted Chrome browser. I could not cover FireFox, Edge and other types of browsers. This issue is too difficult for me.
+
+# Abandoned
+
+I have created a new project which supercedes this.
+
+- https://github.com/kazurayam/chromedriverfactory
+
+
