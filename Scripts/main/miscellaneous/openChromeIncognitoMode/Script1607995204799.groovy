@@ -2,13 +2,19 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
 
-import com.kms.katalon.core.model.FailureHandling as FailureHandling
+import com.kms.katalon.core.model.FailureHandling
 import com.kms.katalon.core.testobject.ConditionType
-import com.kms.katalon.core.testobject.TestObject as TestObject
+import com.kms.katalon.core.testobject.TestObject
 import com.kms.katalon.core.webui.driver.DriverFactory
 import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 
-WebDriver incognitoDriver = openChromeBrowserInIncognitoMode()
+System.setProperty("webdriver.chrome.driver", DriverFactory.getChromeDriverPath())
+
+
+ChromeDriver incognitoDriver = openChromeBrowserInIncognitoMode()
+//ChromeOptions options = new ChromeOptions()
+//options.addArguments("--incognito")
+//ChromeDriver incognitoDriver = new ChromeDriver(options)
 
 DriverFactory.changeWebDriver(incognitoDriver)
 WebUI.navigateToUrl('http://demoaut.katalon.com/')
@@ -26,12 +32,12 @@ ChromeDriver openChromeBrowserPlain() {
 	return openChromeBrowser(new ChromeOptions())
 }
 /**
- * opens a Chrome browser with -incoginito mode,
+ * opens a Chrome browser with incoginito mode,
  * returns the ChromeDriver instance that is associated with the window
  */
 ChromeDriver openChromeBrowserInIncognitoMode() {
 	ChromeOptions options = new ChromeOptions()
-	options.addArguments("–incognito")
+	options.addArguments("--incognito")
 	return openChromeBrowser(options);
 }
 
@@ -42,6 +48,5 @@ ChromeDriver openChromeBrowserInIncognitoMode() {
  * @return
  */
 ChromeDriver openChromeBrowser(ChromeOptions options) {
-	System.setProperty("webdriver.chrome.driver", DriverFactory.getChromeDriverPath())
 	return new ChromeDriver(options);
 }

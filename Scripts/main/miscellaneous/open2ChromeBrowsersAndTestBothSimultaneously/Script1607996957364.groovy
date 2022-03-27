@@ -3,6 +3,8 @@ import org.openqa.selenium.Point
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.remote.DesiredCapabilities
+
 
 import com.kms.katalon.core.model.FailureHandling as FailureHandling
 import com.kms.katalon.core.testobject.ConditionType
@@ -42,10 +44,11 @@ WebUI.delay(1)
 
 // close 2 browser windows
 DriverFactory.changeWebDriver(normalChrome)
-WebUI.closeBrowser()
+//WebUI.closeBrowser()
+
 WebUI.delay(1)
 DriverFactory.changeWebDriver(incognitoChrome)
-WebUI.closeBrowser()
+//WebUI.closeBrowser()
 
 /**
  * opens a Chrome browser with nothing special
@@ -61,7 +64,7 @@ ChromeDriver openChromeBrowserPlain() {
  */
 ChromeDriver openChromeBrowserInIncognitoMode() {
 	ChromeOptions options = new ChromeOptions()
-	options.addArguments("–incognito")
+	options.addArguments("--incognito")
 	return openChromeBrowser(options);
 }
 
